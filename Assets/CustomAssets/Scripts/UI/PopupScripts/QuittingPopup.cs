@@ -8,6 +8,7 @@ public class QuittingPopup : PopupBase
 {
     [SerializeField] Button confirmBtn;
     [SerializeField] Button declineBtn;
+    [SerializeField] Button[] returnBtns;
 
     protected override int SortDelta => 0;
 
@@ -16,5 +17,6 @@ public class QuittingPopup : PopupBase
         base.OnInit();
         this.confirmBtn.onClick.AddListener(() => Application.Quit());
         this.declineBtn.onClick.AddListener(() => Hide(null));
+        foreach (var btn in returnBtns) btn.onClick.AddListener(() => Hide(null));
     }
 }

@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Collections.ObjectModel;
-using UnityEditor.Build.Reporting;
 #if UNITY_EDITOR
+using UnityEditor.Build.Reporting;
 using UnityEditor;
 using UnityEditor.Build;
 using System.Linq;

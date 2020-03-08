@@ -16,15 +16,15 @@ namespace SpaceTramp
         public event Action OnJoinPressed = delegate { };
         public event Action OnQuitPressed = delegate { };
 
-        [SerializeField] Button m_PlayBtn;
-        [SerializeField] Button m_JoinBtn;
-        [SerializeField] Button m_QuitBtn;
+        [SerializeField] Button playBtn;
+        [SerializeField] Button joinBtn;
+        [SerializeField] Button quitBtn;
 
         void Awake()
         {
-            m_PlayBtn.onClick.AddListener(() => OnPlayPressed());
-            m_JoinBtn.onClick.AddListener(() => OnJoinPressed());
-            m_QuitBtn.onClick.AddListener(() => OnQuitPressed());
+            playBtn.onClick.AddListener(() => OnPlayPressed());
+            joinBtn.onClick.AddListener(() => OnJoinPressed());
+            quitBtn.onClick.AddListener(() => OnQuitPressed());
         }
     }
 }

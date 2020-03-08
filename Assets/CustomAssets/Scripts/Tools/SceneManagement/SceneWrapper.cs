@@ -9,9 +9,9 @@ namespace MyTools.SceneManagement
 {
     public class SceneWrapper
     {
-        private static List<SceneWrapper> wrappers;
-        private static Dictionary<SceneKind, SceneWrapper> kindWrapperDict;
-        private static Dictionary<int, SceneWrapper> indexWrapperDict;
+        private static List<SceneWrapper> wrappers = null;
+        private static Dictionary<SceneKind, SceneWrapper> kindWrapperDict = null;
+        private static Dictionary<int, SceneWrapper> indexWrapperDict = null;
 
         static SceneWrapper()
         {
@@ -27,17 +27,14 @@ namespace MyTools.SceneManagement
                 kindWrapperDict.Add(kind, wrapper);
                 indexWrapperDict.Add(wrapper.BuildIndex, wrapper);
             }
-#if UNITY_EDITOR
-            if (!Application.isPlaying) return;
-#endif
             SceneManager.sceneLoaded += SceneLoaded;
             SceneManager.sceneUnloaded += SceneUnloaded;
             SceneManager.activeSceneChanged += ActiveSceneChanged;
         }
 
-        public static SceneWrapper GetWrapper(SceneKind kind) => kindWrapperDict[kind];
-        public static SceneWrapper GetWrapper(int buildIndex) => indexWrapperDict[buildIndex];
-        public static SceneWrapper GetWrapper(GameObject obj) => indexWrapperDict[obj.scene.buildIndex];
+        public static SceneWrapper GetWrapper(SceneKind kind) => kindWrapperDict?[kind];
+        public static SceneWrapper GetWrapper(int buildIndex) => indexWrapperDict?[buildIndex];
+        public static SceneWrapper GetWrapper(GameObject obj) => indexWrapperDict?[obj.scene.buildIndex];
         public static void GetLoaded(List<SceneWrapper> list)
         {
             if (list == null) throw new ArgumentNullException(nameof(list));
@@ -55,18 +52,33 @@ namespace MyTools.SceneManagement
 
         private static void SceneLoaded(Scene scene, LoadSceneMode mode)
         {
+#if UNITY_EDITOR
+            if (wrappers == null || wrappers.Count < 1) return;
+            if (kindWrapperDict == null || kindWrapperDict.Count < 1) return;
+            if (indexWrapperDict == null || indexWrapperDict.Count < 1) return;
+#endif
             var wrapper = GetWrapper(scene.buildIndex);
             wrapper.scene = scene;
             wrapper.OnLoad(wrapper);
         }
         private static void SceneUnloaded(Scene scene)
         {
+#if UNITY_EDITOR
+            if (wrappers == null || wrappers.Count < 1) return;
+            if (kindWrapperDict == null || kindWrapperDict.Count < 1) return;
+            if (indexWrapperDict == null || indexWrapperDict.Count < 1) return;
+#endif
             var wrapper = GetWrapper(scene.buildIndex);
             wrapper.scene = scene;
             wrapper.OnUnload(wrapper);
         }
         private static void ActiveSceneChanged(Scene current, Scene next)
         {
+#if UNITY_EDITOR
+            if (wrappers == null || wrappers.Count < 1) return;
+            if (kindWrapperDict == null || kindWrapperDict.Count < 1) return;
+            if (indexWrapperDict == null || indexWrapperDict.Count < 1) return;
+#endif
             var currentWrapper = GetWrapper(current.buildIndex);
             var nextWrapper = GetWrapper(next.buildIndex);
             currentWrapper.scene = current;

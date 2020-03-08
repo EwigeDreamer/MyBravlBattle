@@ -687,9 +687,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0768a865862f5c4a9c8e5b707d4cb46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PlayBtn: {fileID: 3609797878430065780}
-  m_JoinBtn: {fileID: 8897266093871849796}
-  m_QuitBtn: {fileID: 9039571655121663184}
+  playBtn: {fileID: 3609797878430065780}
+  joinBtn: {fileID: 8897266093871849796}
+  quitBtn: {fileID: 9039571655121663184}
 --- !u!1 &7413729162290626463
 GameObject:
   m_ObjectHideFlags: 0

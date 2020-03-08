@@ -4,12 +4,15 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class MessagePopup : PopupBase
+public class DialogPopup : PopupBase
 {
     public event System.Action OnConfirm = delegate { };
+    public event System.Action OnDecline = delegate { };
 
     [SerializeField] TMP_Text label;
     [SerializeField] Button confirmBtn;
+    [SerializeField] Button declineBtn;
+    [SerializeField] Button[] returnBtns;
 
     protected override int SortDelta => 0;
 
@@ -17,6 +20,8 @@ public class MessagePopup : PopupBase
     {
         base.OnInit();
         this.confirmBtn.onClick.AddListener(Confirm);
+        this.declineBtn.onClick.AddListener(Decline);
+        foreach (var btn in returnBtns) btn.onClick.AddListener(() => Hide(null));
     }
 
     public void SetText(string str)
@@ -27,6 +32,11 @@ public class MessagePopup : PopupBase
     void Confirm()
     {
         OnConfirm();
+        Hide(null);
+    }
+    void Decline()
+    {
+        OnDecline();
         Hide(null);
     }
 }
