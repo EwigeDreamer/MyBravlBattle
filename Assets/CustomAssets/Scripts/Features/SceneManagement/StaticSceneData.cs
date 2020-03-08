@@ -5,9 +5,8 @@ using UnityEngine;
 public enum SceneKind
 {
     ZeroScene,
-    MenuInterface,
-    MenuWorld,
-    GameInterface,
+    MainMenuUI,
+    MainMenuWorld,
+    GameUI,
     GameWorld,
-    Player,
 }

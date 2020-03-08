@@ -18,15 +18,13 @@ public static class SceneLoadingManager
 {
     public static ReadOnlyCollection<SceneKind> MainMenuScenes { get; } = new ReadOnlyCollection<SceneKind>(new[]
     {
-        SceneKind.MenuWorld,
-        SceneKind.Player,
-        SceneKind.MenuInterface,
+        SceneKind.MainMenuWorld,
+        SceneKind.MainMenuUI,
     });
     public static ReadOnlyCollection<SceneKind> GameScenes { get; } = new ReadOnlyCollection<SceneKind>(new[]
     {
         SceneKind.GameWorld,
-        SceneKind.Player,
-        SceneKind.GameInterface,
+        SceneKind.GameUI,
     });
 
     public static Coroutine LoadScenes(IList<SceneKind> kinds)

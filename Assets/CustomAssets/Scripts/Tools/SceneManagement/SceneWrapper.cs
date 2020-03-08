@@ -27,6 +27,9 @@ namespace MyTools.SceneManagement
                 kindWrapperDict.Add(kind, wrapper);
                 indexWrapperDict.Add(wrapper.BuildIndex, wrapper);
             }
+#if UNITY_EDITOR
+            if (!Application.isPlaying) return;
+#endif
             SceneManager.sceneLoaded += SceneLoaded;
             SceneManager.sceneUnloaded += SceneUnloaded;
             SceneManager.activeSceneChanged += ActiveSceneChanged;
