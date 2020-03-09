@@ -7,7 +7,7 @@ public class NetworkPlayer : NetworkBehaviour
 {
     public static NetworkPlayer Current { get; private set; } = null;
 
-    public override void OnStartClient()
+    private void Start()
     {
         transform.SetParent(CustomNetworkManager.I.Tr);
         transform.localPosition = Vector3.zero;
