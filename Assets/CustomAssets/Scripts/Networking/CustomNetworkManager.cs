@@ -10,54 +10,33 @@ public class CustomNetworkManager : NetworkManager
     //public bool IsClient => IsClientConnected();
     public ReadOnlyCollection<string> IpAddresses { get; private set; } = null;
 
+    public Transform Tr => transform;
+
     public static CustomNetworkManager I => (CustomNetworkManager)singleton;
 
     public override void OnStartHost()
     {
         InitIps();
-        Debug.LogWarning($"Start host!");
+        Debug.Log($"Start host!");
         SceneLoadingManager.LoadGame();
     }
 
     public override void OnStopHost()
     {
+        Debug.Log($"Stop host!");
         SceneLoadingManager.LoadMenu();
     }
 
     public override void OnStartClient(NetworkClient client)
     {
+        Debug.Log($"Start client!");
         SceneLoadingManager.LoadGame();
     }
 
     public override void OnStopClient()
     {
+        Debug.Log($"Stop client!");
         SceneLoadingManager.LoadMenu();
-    }
-
-    public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId)
-    {
-        Debug.LogWarning($"Connect player! (method 1) [{playerControllerId}] [{conn.address}]");
-        var player = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity, transform);
-        player.name = $"{typeof(NetworkPlayer).Name} [{playerControllerId}] [{conn.address}]";
-        NetworkServer.AddPlayerForConnection(conn, player, playerControllerId);
-    }
-    public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId, NetworkReader extraMessageReader)
-    {
-        Debug.LogWarning($"Connect player! (method 2) [{playerControllerId}] [{conn.address}]");
-        var player = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity, transform);
-        player.name = $"{typeof(NetworkPlayer).Name} [{playerControllerId}] [{conn.address}]";
-        NetworkServer.AddPlayerForConnection(conn, player, playerControllerId);
-    }
-
-    public override void OnServerConnect(NetworkConnection conn)
-    {
-        base.OnServerConnect(conn);
-        Debug.LogWarning($"Server Connect! [{conn.address}]");
-    }
-    public override void OnClientConnect(NetworkConnection conn)
-    {
-        base.OnClientConnect(conn);
-        Debug.LogWarning($"Client Connect! [{conn.address}]");
     }
 
     void InitIps()

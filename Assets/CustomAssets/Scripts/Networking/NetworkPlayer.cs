@@ -7,6 +7,12 @@ public class NetworkPlayer : NetworkBehaviour
 {
     public static NetworkPlayer Current { get; private set; } = null;
 
+    private void Start()
+    {
+        transform.SetParent(CustomNetworkManager.I.Tr);
+        name = $"{typeof(NetworkPlayer)} [{connectionToClient.address}] [{connectionToServer.address}]";
+    }
+
     public override void OnStartLocalPlayer()
     {
         base.OnStartLocalPlayer();
