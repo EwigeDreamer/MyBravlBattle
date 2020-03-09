@@ -7,7 +7,7 @@ public class NetworkPlayer : NetworkBehaviour
 {
     public static NetworkPlayer Current { get; private set; } = null;
 
-    private void Start()
+    private void Awake()
     {
         transform.SetParent(CustomNetworkManager.I.Tr);
         var connToClient = connectionToClient;
@@ -45,7 +45,7 @@ public class NetworkPlayer : NetworkBehaviour
         Debug.LogError($"CLIENT COMMAND! [{name}]");
     }
 
-    [ClientRpc]
+    [TargetRpc]
     void RpcDoInTargetClients()
     {
         Debug.LogError($"TARGET CLIENT COMMAND! [{name}]");
