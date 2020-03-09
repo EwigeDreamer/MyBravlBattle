@@ -36,7 +36,7 @@ public class NetworkPlayer : NetworkBehaviour
     {
         Debug.LogError($"SERVER COMMAND! [{name}]");
         RpcDoInAllClients();
-        RpcDoInTargetClients();
+        TargetDoInTargetClients(connectionToClient);
     }
 
     [ClientRpc]
@@ -46,7 +46,7 @@ public class NetworkPlayer : NetworkBehaviour
     }
 
     [TargetRpc]
-    void RpcDoInTargetClients()
+    void TargetDoInTargetClients(NetworkConnection target)
     {
         Debug.LogError($"TARGET CLIENT COMMAND! [{name}]");
     }
