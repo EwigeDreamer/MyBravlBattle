@@ -10,7 +10,11 @@ public class NetworkPlayer : NetworkBehaviour
     private void Start()
     {
         transform.SetParent(CustomNetworkManager.I.Tr);
-        name = $"{typeof(NetworkPlayer)} [{connectionToClient.address}] [{connectionToServer.address}]";
+        var connToClient = connectionToClient;
+        var connToServer = connectionToServer;
+        var clientAddress = connToClient != null ? $" [{connToClient.address}]" : "";
+        var serverAddress = connToServer != null ? $" [{connToServer.address}]" : "";
+        name = $"{typeof(NetworkPlayer)}{clientAddress}{serverAddress}";
     }
 
     public override void OnStartLocalPlayer()
