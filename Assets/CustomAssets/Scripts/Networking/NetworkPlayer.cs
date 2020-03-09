@@ -7,9 +7,10 @@ public class NetworkPlayer : NetworkBehaviour
 {
     public static NetworkPlayer Current { get; private set; } = null;
 
-    private void Awake()
+    public override void OnStartClient()
     {
         transform.SetParent(CustomNetworkManager.I.Tr);
+        transform.localPosition = Vector3.zero;
         var connToClient = connectionToClient;
         var connToServer = connectionToServer;
         var clientAddress = connToClient != null ? $" [{connToClient.address}]" : "";
