@@ -36,7 +36,14 @@ public class CustomNetworkManager : NetworkManager
 
     public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId)
     {
-        Debug.LogWarning($"Connect player! [{playerControllerId}] [{conn.address}]");
+        Debug.LogWarning($"Connect player! (method 1) [{playerControllerId}] [{conn.address}]");
+        var player = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity, transform);
+        player.name = $"{typeof(NetworkPlayer).Name} [{playerControllerId}] [{conn.address}]";
+        NetworkServer.AddPlayerForConnection(conn, player, playerControllerId);
+    }
+    public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId, NetworkReader extraMessageReader)
+    {
+        Debug.LogWarning($"Connect player! (method 2) [{playerControllerId}] [{conn.address}]");
         var player = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity, transform);
         player.name = $"{typeof(NetworkPlayer).Name} [{playerControllerId}] [{conn.address}]";
         NetworkServer.AddPlayerForConnection(conn, player, playerControllerId);
