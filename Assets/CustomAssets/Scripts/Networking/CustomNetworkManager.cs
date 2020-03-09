@@ -2,19 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using System.Collections.ObjectModel;
 
 public class CustomNetworkManager : NetworkManager
 {
     public bool IsServer => NetworkServer.active;
     //public bool IsClient => IsClientConnected();
-    public string IpAddress { get; private set; } = null;
+    public ReadOnlyCollection<string> IpAddresses { get; private set; } = null;
 
     public static CustomNetworkManager I => (CustomNetworkManager)singleton;
 
     public override void OnStartHost()
     {
-        IpAddress = IPManager.GetIP(IPManager.ADDRESSFAM.IPv4);
-        Debug.LogWarning($"Start host! [{IpAddress}]");
+        InitIps();
+        Debug.LogWarning($"Start host!");
         SceneLoadingManager.LoadGame();
     }
 
@@ -50,5 +51,12 @@ public class CustomNetworkManager : NetworkManager
     {
         base.OnClientConnect(conn);
         Debug.LogWarning($"Client Connect! [{conn.address}]");
+    }
+
+    void InitIps()
+    {
+        List<string> ips = new List<string>();
+        IPManager.GetAllIPs(ips, IPManager.ADDRESSFAM.IPv4, false);
+        IpAddresses = new ReadOnlyCollection<string>(ips);
     }
 }

@@ -5,23 +5,39 @@ using UnityEngine.Networking;
 
 public class NetworkPlayer : NetworkBehaviour
 {
-    private void Update()
+    public static NetworkPlayer Current { get; private set; } = null;
+
+    public override void OnStartLocalPlayer()
     {
-        if (isServer) CheckServerEvents();
-        if (isClient) CheckClientEvents();
-        if (isLocalPlayer) CheckLocalPlayerEvents();
+        base.OnStartLocalPlayer();
+        Debug.Log($"Init local player [{name}]");
+        Current = this;
     }
 
-    void CheckServerEvents()
+    public override void OnNetworkDestroy()
     {
-
+        base.OnNetworkDestroy();
+        Debug.Log($"Destroy local player [{name}]");
+        if (Current == this) Current = null;
     }
-    void CheckClientEvents()
-    {
 
+    [Command]
+    public void CmdDoInServer()
+    {
+        Debug.LogError($"SERVER COMMAND! [{name}]");
+        RpcDoInAllClients();
+        RpcDoInTargetClients();
     }
-    void CheckLocalPlayerEvents()
-    {
 
+    [ClientRpc]
+    void RpcDoInAllClients()
+    {
+        Debug.LogError($"CLIENT COMMAND! [{name}]");
+    }
+
+    [ClientRpc]
+    void RpcDoInTargetClients()
+    {
+        Debug.LogError($"TARGET CLIENT COMMAND! [{name}]");
     }
 }

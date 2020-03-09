@@ -12,30 +12,16 @@ public static class IPManager
         IPv4, IPv6
     }
 
-    public static string GetIP(ADDRESSFAM Addfam)
+    public static void GetAllIPs(List<string> list, ADDRESSFAM Addfam, bool includeDetails)
     {
-        string ret = "";
-        List<string> IPs = GetAllIPs(Addfam, false);
-        if (IPs.Count > 0)
-        {
-            ret = IPs[IPs.Count - 1];
-        }
-        return ret;
-    }
+        if (list == null) return;
+        list.Clear();
 
-    public static List<string> GetAllIPs(ADDRESSFAM Addfam, bool includeDetails)
-    {
         //Return null if ADDRESSFAM is Ipv6 but Os does not support it
-        if (Addfam == ADDRESSFAM.IPv6 && !Socket.OSSupportsIPv6)
+        if (Addfam == ADDRESSFAM.IPv6 && !Socket.OSSupportsIPv6) return;
+
+        foreach (var item in NetworkInterface.GetAllNetworkInterfaces())
         {
-            return null;
-        }
-
-        List<string> output = new List<string>();
-
-        foreach (NetworkInterface item in NetworkInterface.GetAllNetworkInterfaces())
-        {
-
 #if UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN || UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX || UNITY_IOS
             NetworkInterfaceType _type1 = NetworkInterfaceType.Wireless80211;
             NetworkInterfaceType _type2 = NetworkInterfaceType.Ethernet;
@@ -46,37 +32,35 @@ public static class IPManager
             // as of MacOS (10.13) and iOS (12.1), OperationalStatus seems to be always "Unknown".
             isCandidate = isCandidate && item.OperationalStatus == OperationalStatus.Up;
 #endif
-
             if (isCandidate)
 #endif 
             {
-                foreach (UnicastIPAddressInformation ip in item.GetIPProperties().UnicastAddresses)
+                foreach (var info in item.GetIPProperties().UnicastAddresses)
                 {
                     //IPv4
                     if (Addfam == ADDRESSFAM.IPv4)
                     {
-                        if (ip.Address.AddressFamily == AddressFamily.InterNetwork)
+                        if (info.Address.AddressFamily == AddressFamily.InterNetwork)
                         {
-                            string s = ip.Address.ToString();
+                            string s = info.Address.ToString();
                             if (includeDetails)
                             {
                                 s += "  " + item.Description.PadLeft(6) + item.NetworkInterfaceType.ToString().PadLeft(10);
                             }
-                            output.Add(s);
+                            list.Add(s);
                         }
                     }
 
                     //IPv6
                     else if (Addfam == ADDRESSFAM.IPv6)
                     {
-                        if (ip.Address.AddressFamily == AddressFamily.InterNetworkV6)
+                        if (info.Address.AddressFamily == AddressFamily.InterNetworkV6)
                         {
-                            output.Add(ip.Address.ToString());
+                            list.Add(info.Address.ToString());
                         }
                     }
                 }
             }
         }
-        return output;
     }
 }

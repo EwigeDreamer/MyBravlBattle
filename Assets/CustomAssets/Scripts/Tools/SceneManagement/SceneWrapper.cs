@@ -32,9 +32,9 @@ namespace MyTools.SceneManagement
             SceneManager.activeSceneChanged += ActiveSceneChanged;
         }
 
-        public static SceneWrapper GetWrapper(SceneKind kind) => kindWrapperDict?[kind];
-        public static SceneWrapper GetWrapper(int buildIndex) => indexWrapperDict?[buildIndex];
-        public static SceneWrapper GetWrapper(GameObject obj) => indexWrapperDict?[obj.scene.buildIndex];
+        public static SceneWrapper GetWrapper(SceneKind kind) => kindWrapperDict[kind];
+        public static SceneWrapper GetWrapper(int buildIndex) => indexWrapperDict[buildIndex];
+        public static SceneWrapper GetWrapper(GameObject obj) => indexWrapperDict[obj.scene.buildIndex];
         public static void GetLoaded(List<SceneWrapper> list)
         {
             if (list == null) throw new ArgumentNullException(nameof(list));
@@ -52,33 +52,21 @@ namespace MyTools.SceneManagement
 
         private static void SceneLoaded(Scene scene, LoadSceneMode mode)
         {
-#if UNITY_EDITOR
-            if (wrappers == null || wrappers.Count < 1) return;
-            if (kindWrapperDict == null || kindWrapperDict.Count < 1) return;
-            if (indexWrapperDict == null || indexWrapperDict.Count < 1) return;
-#endif
+            if (scene.buildIndex < 0) return;
             var wrapper = GetWrapper(scene.buildIndex);
             wrapper.scene = scene;
             wrapper.OnLoad(wrapper);
         }
         private static void SceneUnloaded(Scene scene)
         {
-#if UNITY_EDITOR
-            if (wrappers == null || wrappers.Count < 1) return;
-            if (kindWrapperDict == null || kindWrapperDict.Count < 1) return;
-            if (indexWrapperDict == null || indexWrapperDict.Count < 1) return;
-#endif
+            if (scene.buildIndex < 0) return;
             var wrapper = GetWrapper(scene.buildIndex);
             wrapper.scene = scene;
             wrapper.OnUnload(wrapper);
         }
         private static void ActiveSceneChanged(Scene current, Scene next)
         {
-#if UNITY_EDITOR
-            if (wrappers == null || wrappers.Count < 1) return;
-            if (kindWrapperDict == null || kindWrapperDict.Count < 1) return;
-            if (indexWrapperDict == null || indexWrapperDict.Count < 1) return;
-#endif
+            if (current.buildIndex < 0) return;
             var currentWrapper = GetWrapper(current.buildIndex);
             var nextWrapper = GetWrapper(next.buildIndex);
             currentWrapper.scene = current;

@@ -9,13 +9,12 @@ public class GameMenuPopup : PopupBase
 {
     [SerializeField] GameObject serverWindow;
     [SerializeField] GameObject clientWindow;
-    [SerializeField] TMP_Text ipLabel;
     [SerializeField] Button closeRoomBtn;
     [SerializeField] Button disconnectBtn;
-    [SerializeField] Button copyIpAddressBtn;
     [SerializeField] Button[] returnBtns;
     [SerializeField] RectTransform popoverTr;
     [SerializeField] CanvasGroup popoverCg;
+    [SerializeField] GameMenuPopupIpEntry ipEntryRef;
 
     TextEditor textEditor = null;
     Sequence sequence = null;
@@ -26,26 +25,39 @@ public class GameMenuPopup : PopupBase
         var isServer = CustomNetworkManager.I.IsServer;
         serverWindow.SetActive(isServer);
         clientWindow.SetActive(!isServer);
-        ipLabel.text = CustomNetworkManager.I.IpAddress;
+        //ipLabel.text = CustomNetworkManager.I.IpAddress;
         closeRoomBtn.onClick.AddListener(() => { CustomNetworkManager.I.StopHost(); Hide(null); });
         disconnectBtn.onClick.AddListener(() => { CustomNetworkManager.I.StopClient(); Hide(null); });
-        copyIpAddressBtn.onClick.AddListener(() => { CopyToClipboard(); AnimatePopover(); });
         foreach (var btn in returnBtns) btn.onClick.AddListener(() => Hide(null));
         popoverTr.gameObject.SetActive(false);
+        InitIpList();
+    }
+
+    void InitIpList()
+    {
+        textEditor = new TextEditor();
+        ipEntryRef.SetActive(false);
+        var ips = CustomNetworkManager.I.IpAddresses;
+        foreach (var ip in ips)
+        {
+            var entry = Instantiate(ipEntryRef, ipEntryRef.Parent);
+            entry.SetActive(true);
+            entry.IpLabel.text = ip;
+            entry.CopyBtn.onClick.AddListener(() =>
+            {
+                textEditor.text = ip;
+                textEditor.SelectAll();
+                textEditor.Copy();
+                AnimatePopover();
+            });
+        }
     }
 
     protected override void OnRemove()
     {
         base.OnRemove();
         textEditor = null;
-    }
-
-    void CopyToClipboard()
-    {
-        textEditor = new TextEditor();
-        textEditor.text = CustomNetworkManager.I.IpAddress;
-        textEditor.SelectAll();
-        textEditor.Copy();
+        sequence?.Kill();
     }
 
     void AnimatePopover()
