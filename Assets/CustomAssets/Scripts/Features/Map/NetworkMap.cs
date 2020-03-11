@@ -44,11 +44,13 @@ public class NetworkMap : NetworkBehaviour
 
     private void Start()
     {
+        if (!isServer) return;
         MapController.I.Register(this);
     }
 
     private void OnDestroy()
     {
+        if (!isServer) return;
         MapController.I.Unregister(this);
     }
 
