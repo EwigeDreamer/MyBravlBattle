@@ -32,7 +32,9 @@ public class NetworkMap : NetworkBehaviour
 
     private void Awake()
     {
-        DontDestroyOnLoad(gameObject);    
+        DontDestroyOnLoad(gameObject);
+        transform.position = Vector3.zero;
+        transform.rotation = Quaternion.identity;
     }
 
     private void Start()
@@ -45,7 +47,7 @@ public class NetworkMap : NetworkBehaviour
         MapController.I.Unregister(this);
     }
 
-    [ClientRpc] 
+    [ClientRpc]
     public void RpcBuild(MapPreset preset)
     {
 #if UNITY_EDITOR
@@ -53,24 +55,26 @@ public class NetworkMap : NetworkBehaviour
         for (int i = 0; i < preset.rows; ++i)
         {
             for (int j = 0; j < preset.columns; ++j)
-                sb.Append($" {preset[i,j]}");
+                sb.Append($" {preset[i, j]}");
             sb.AppendLine();
         }
         Debug.LogWarning($"BUILD MAP!!!\n{sb}");
 #endif
 
+        Debug.Break();
         var chunkData = MapController.I.ChunkData;
         var chunkSize = chunkData.ChunkSize;
         var mapOffset = new Vector2(preset.rows * chunkSize.x / -2f, preset.columns * chunkSize.y / -2f).ToV3_x0y();
         for (int i = 0; i < preset.rows; ++i)
             for (int j = 0; j < preset.columns; ++j)
             {
-                var pos = new Vector2(i * chunkSize.x, j * chunkSize.y).ToV3_x0y() + mapOffset;
+                var pos = new Vector2(j * chunkSize.x, (preset.rows - i) * chunkSize.y).ToV3_x0y() + mapOffset;
                 if (chunkData.Chunks.TryGetValue(preset[i, j], out var chunkPrefab))
                 {
                     var chunk = Instantiate(chunkData.Chunks[preset[i, j]], pos, Quaternion.identity, transform);
                     schunks.Add(chunk);
                     chunk.Init();
+                    Debug.LogWarning($"SPAWN ON [ {i} : {j} ] [{pos}]");
                 }
             }
     }
