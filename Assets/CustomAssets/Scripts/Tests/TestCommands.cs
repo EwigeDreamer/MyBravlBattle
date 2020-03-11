@@ -6,6 +6,7 @@ public class TestCommands : MonoBehaviour
 {
     public void DoNetworkMagic()
     {
-        NetworkPlayer.Current?.CmdDoInServer();
+        //NetworkPlayer.Current?.CmdDoInServer();
     }
 }
+

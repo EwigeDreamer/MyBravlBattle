@@ -5,52 +5,67 @@ using UnityEngine.Networking;
 
 public class NetworkPlayer : NetworkBehaviour
 {
-    public static NetworkPlayer Current { get; private set; } = null;
+    //[SerializeField] NetworkCharacter characterPrefab;
 
-    private void Start()
-    {
-        transform.SetParent(CustomNetworkManager.I.Tr);
-        transform.localPosition = Vector3.zero;
-        var connToClient = connectionToClient;
-        var connToServer = connectionToServer;
-        var clientAddress = connToClient != null ? $" [{connToClient.address}]" : "";
-        var serverAddress = connToServer != null ? $" [{connToServer.address}]" : "";
-        name = $"{typeof(NetworkPlayer)}{clientAddress}{serverAddress}";
-    }
+    //public static NetworkPlayer Current { get; private set; } = null;
 
-    public override void OnStartLocalPlayer()
-    {
-        base.OnStartLocalPlayer();
-        Debug.Log($"Init local player [{name}]");
-        Debug.LogError("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-        Current = this;
-    }
+    //private void Start()
+    //{
+    //    transform.SetParent(CustomNetworkManager.I.Tr);
+    //    transform.localPosition = Vector3.zero;
+    //    var connToClient = connectionToClient;
+    //    var connToServer = connectionToServer;
+    //    var clientAddress = connToClient != null ? $" [{connToClient.address}]" : "";
+    //    var serverAddress = connToServer != null ? $" [{connToServer.address}]" : "";
+    //    name = $"{typeof(NetworkPlayer)}{clientAddress}{serverAddress}";
+    //}
 
-    public override void OnNetworkDestroy()
-    {
-        base.OnNetworkDestroy();
-        Debug.Log($"Destroy local player [{name}]");
-        Debug.LogError("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
-        if (Current == this) Current = null;
-    }
+    //public override void OnStartLocalPlayer()
+    //{
+    //    base.OnStartLocalPlayer();
+    //    Debug.Log($"Init local player [{name}]");
+    //    Debug.LogError("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+    //    Current = this;
+    //}
 
-    [Command]
-    public void CmdDoInServer()
-    {
-        Debug.LogError($"SERVER COMMAND! [{name}]");
-        RpcDoInAllClients();
-        TargetDoInTargetClients(connectionToClient);
-    }
+    //public override void OnNetworkDestroy()
+    //{
+    //    base.OnNetworkDestroy();
+    //    Debug.Log($"Destroy local player [{name}]");
+    //    Debug.LogError("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
+    //    if (Current == this) Current = null;
+    //}
 
-    [ClientRpc]
-    void RpcDoInAllClients()
-    {
-        Debug.LogError($"CLIENT COMMAND! [{name}]");
-    }
+    //[Command]
+    //void CmdSpawnCharacter()
+    //{
+    //    var character = Instantiate(characterPrefab);
 
-    [TargetRpc]
-    void TargetDoInTargetClients(NetworkConnection target)
-    {
-        Debug.LogError($"TARGET CLIENT COMMAND! [{name}]");
-    }
+    //}
+
+    //[Command]
+    //void CmdDespawnCharacter()
+    //{
+
+    //}
+
+    //[Command]
+    //public void CmdDoInServer()
+    //{
+    //    Debug.LogError($"SERVER COMMAND! [{name}]");
+    //    RpcDoInAllClients();
+    //    TargetDoInTargetClients(connectionToClient);
+    //}
+
+    //[ClientRpc]
+    //void RpcDoInAllClients()
+    //{
+    //    Debug.LogError($"CLIENT COMMAND! [{name}]");
+    //}
+
+    //[TargetRpc]
+    //void TargetDoInTargetClients(NetworkConnection target)
+    //{
+    //    Debug.LogError($"TARGET CLIENT COMMAND! [{name}]");
+    //}
 }

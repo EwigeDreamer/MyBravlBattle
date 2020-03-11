@@ -29,9 +29,9 @@ public class MapController : MonoSingleton<MapController>
     protected override void Awake()
     {
         base.Awake();
-        manager.OnReadyHost += CreateMap;
-        manager.OnServerStopped += DestroyMap;
-        manager.OnReadyServer += RefreshMapOnNewClients;
+        //manager.OnReadyHost += CreateMap;
+        //manager.OnServerStopped += DestroyMap;
+        //manager.OnReadyServer += RefreshMapOnNewClients;
         ReadPresets();
     }
 

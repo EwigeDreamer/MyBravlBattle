@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
+using UnityEngine.Networking;
 
 public class GameMenuPopup : PopupBase
 {
@@ -22,22 +23,22 @@ public class GameMenuPopup : PopupBase
     protected override void OnInit()
     {
         base.OnInit();
-        var isServer = CustomNetworkManager.I.IsServer;
+        var isServer = NetworkServer.active;
         serverWindow.SetActive(isServer);
         clientWindow.SetActive(!isServer);
-        //ipLabel.text = CustomNetworkManager.I.IpAddress;
         closeRoomBtn.onClick.AddListener(() => { CustomNetworkManager.I.StopHost(); Hide(null); });
         disconnectBtn.onClick.AddListener(() => { CustomNetworkManager.I.StopClient(); Hide(null); });
         foreach (var btn in returnBtns) btn.onClick.AddListener(() => Hide(null));
         popoverTr.gameObject.SetActive(false);
-        InitIpList();
+        if (isServer) InitIpList();
     }
 
     void InitIpList()
     {
         textEditor = new TextEditor();
         ipEntryRef.SetActive(false);
-        var ips = CustomNetworkManager.I.IpAddresses;
+        List<string> ips = new List<string>();
+        IPManager.GetAllIPs(ips, IPManager.ADDRESSFAM.IPv4, false);
         foreach (var ip in ips)
         {
             var entry = Instantiate(ipEntryRef, ipEntryRef.Parent);
