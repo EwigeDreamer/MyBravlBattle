@@ -7,6 +7,8 @@ using LW = LumenWorks.Framework.IO.Csv;
 
 public class MapController : MonoSingleton<MapController>
 {
+    public event System.Action OnMapBuilded = delegate { };
+
     [SerializeField] CustomNetworkManager manager;
     [SerializeField] MapChunkData chunkData;
     [SerializeField] NetworkMap mapPrefab;
@@ -50,6 +52,8 @@ public class MapController : MonoSingleton<MapController>
         if (this.map == map) return;
         if (this.map != null) DestroyMap();
         this.map = map;
+        if (map.IsMapBuilded) OnMapBuilded();
+        else map.OnMapBuilded += () => OnMapBuilded();
     }
 
     public void Unregister(NetworkMap map)

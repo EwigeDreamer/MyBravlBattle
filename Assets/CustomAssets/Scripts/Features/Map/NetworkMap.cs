@@ -29,6 +29,11 @@ public class MapPreset
 public class NetworkMap : NetworkBehaviour
 {
     List<MapChunk> schunks = new List<MapChunk>();
+    List<MapChunk> spawners = new List<MapChunk>();
+
+    public bool IsMapBuilded => schunks.Count > 0;
+
+    public event System.Action OnMapBuilded = delegate { };
 
     private void Awake()
     {
@@ -75,7 +80,16 @@ public class NetworkMap : NetworkBehaviour
                     chunk.Init();
                 }
             }
-    }
 
+        foreach (var chunk in schunks)
+            if (chunk.IsSpawner) spawners.Add(chunk);
+
+        OnMapBuilded();
+    }
+    public Vector3 GetRandomSpawnPoint()
+    {
+        if (spawners.Count < 1) return Vector3.up * 2f;
+        return spawners[Random.Range(0, spawners.Count)].ChunkPoint;
+    }
 }
 

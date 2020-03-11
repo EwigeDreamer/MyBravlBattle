@@ -22,6 +22,7 @@ public class NetworkPlayer : NetworkBehaviour
     {
         base.OnStartLocalPlayer();
         Debug.Log($"Init local player [{name}]");
+        Debug.LogError("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         Current = this;
     }
 
@@ -29,6 +30,7 @@ public class NetworkPlayer : NetworkBehaviour
     {
         base.OnNetworkDestroy();
         Debug.Log($"Destroy local player [{name}]");
+        Debug.LogError("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
         if (Current == this) Current = null;
     }
 
