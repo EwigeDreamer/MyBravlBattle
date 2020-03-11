@@ -12,11 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 114ee260e4db78347ab823f8a761bb17, type: 3}
   m_Name: MapChunkData
   m_EditorClassIdentifier: 
+  chunkSize: {x: 2, y: 2}
+  border: {fileID: 0}
   chunks:
-  - {fileID: 8668257764836072326, guid: 89655711e27462b4d86a960849cfd67e, type: 3}
-  - {fileID: 8668257764836072326, guid: e30e952df187a8840a5b64aeea3defab, type: 3}
   - {fileID: 8668257764836072326, guid: 66dc22393e152ee4bb830e49e3117591, type: 3}
-  - {fileID: 8668257764836072326, guid: 6f6c46f0a1583c14cab693a48279a9ba, type: 3}
+  - {fileID: 8668257764836072326, guid: e30e952df187a8840a5b64aeea3defab, type: 3}
+  - {fileID: 8668257764836072326, guid: e09f7b4e6a0eec140b47622bc23b154c, type: 3}
+  - {fileID: 8668257764836072326, guid: 89655711e27462b4d86a960849cfd67e, type: 3}
   - {fileID: 8668257764836072326, guid: a12f85ac55e313347a28a857ce008eba, type: 3}
+  - {fileID: 8668257764836072326, guid: 6f6c46f0a1583c14cab693a48279a9ba, type: 3}
   csvPresets:
   - {fileID: 4900000, guid: a5070f1b77b713a46ad660d38440050e, type: 3}

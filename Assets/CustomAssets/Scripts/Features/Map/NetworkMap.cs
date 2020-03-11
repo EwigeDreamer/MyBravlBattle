@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using MyTools.Extensions.Vectors;
 
 [System.Serializable]
 public class MapPreset
@@ -27,6 +28,8 @@ public class MapPreset
 
 public class NetworkMap : NetworkBehaviour
 {
+    List<MapChunk> schunks = new List<MapChunk>();
+
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);    
@@ -45,6 +48,7 @@ public class NetworkMap : NetworkBehaviour
     [ClientRpc] 
     public void RpcBuild(MapPreset preset)
     {
+#if UNITY_EDITOR
         var sb = new System.Text.StringBuilder();
         for (int i = 0; i < preset.rows; ++i)
         {
@@ -52,9 +56,23 @@ public class NetworkMap : NetworkBehaviour
                 sb.Append($" {preset[i,j]}");
             sb.AppendLine();
         }
+        Debug.LogWarning($"BUILD MAP!!!\n{sb}");
+#endif
 
-        Debug.LogError($"BUILD MAP!!!\n{sb}");
-        //TODO генерация карты
+        var chunkData = MapController.I.ChunkData;
+        var chunkSize = chunkData.ChunkSize;
+        var mapOffset = new Vector2(preset.rows * chunkSize.x / -2f, preset.columns * chunkSize.y / -2f).ToV3_x0y();
+        for (int i = 0; i < preset.rows; ++i)
+            for (int j = 0; j < preset.columns; ++j)
+            {
+                var pos = new Vector2(i * chunkSize.x, j * chunkSize.y).ToV3_x0y() + mapOffset;
+                if (chunkData.Chunks.TryGetValue(preset[i, j], out var chunkPrefab))
+                {
+                    var chunk = Instantiate(chunkData.Chunks[preset[i, j]], pos, Quaternion.identity, transform);
+                    schunks.Add(chunk);
+                    chunk.Init();
+                }
+            }
     }
 
 }

@@ -58,7 +58,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1a848aedc7780574fbf79d59dd5d42b3, type: 2}
+  - {fileID: 2100000, guid: 4bb12e2031b9add4ab7d29bb4095eadd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -70,7 +70,7 @@ MeshRenderer:
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
   m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 2
+  m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
@@ -207,24 +207,24 @@ MonoBehaviour:
   m_Positions:
   - {x: -1, y: 0, z: 1}
   - {x: 1, y: 0, z: 1}
-  - {x: -1, y: 2, z: 1}
-  - {x: 1, y: 2, z: 1}
+  - {x: -1, y: 1, z: 1}
+  - {x: 1, y: 1, z: 1}
   - {x: 1, y: 0, z: 1}
   - {x: 1, y: 0, z: -1}
-  - {x: 1, y: 2, z: 1}
-  - {x: 1, y: 2, z: -1}
+  - {x: 1, y: 1, z: 1}
+  - {x: 1, y: 1, z: -1}
   - {x: 1, y: 0, z: -1}
   - {x: -1, y: 0, z: -1}
-  - {x: 1, y: 2, z: -1}
-  - {x: -1, y: 2, z: -1}
+  - {x: 1, y: 1, z: -1}
+  - {x: -1, y: 1, z: -1}
   - {x: -1, y: 0, z: -1}
   - {x: -1, y: 0, z: 1}
-  - {x: -1, y: 2, z: -1}
-  - {x: -1, y: 2, z: 1}
-  - {x: -1, y: 2, z: 1}
-  - {x: 1, y: 2, z: 1}
-  - {x: -1, y: 2, z: -1}
-  - {x: 1, y: 2, z: -1}
+  - {x: -1, y: 1, z: -1}
+  - {x: -1, y: 1, z: 1}
+  - {x: -1, y: 1, z: 1}
+  - {x: 1, y: 1, z: 1}
+  - {x: -1, y: 1, z: -1}
+  - {x: 1, y: 1, z: -1}
   - {x: -1, y: 0, z: -1}
   - {x: 1, y: 0, z: -1}
   - {x: -1, y: 0, z: 1}
@@ -232,20 +232,20 @@ MonoBehaviour:
   m_Textures0:
   - {x: 1, y: 0}
   - {x: -1, y: 0}
-  - {x: 1, y: 2}
-  - {x: -1, y: 2}
+  - {x: 1, y: 1}
+  - {x: -1, y: 1}
   - {x: 1, y: 0}
   - {x: -1, y: 0}
-  - {x: 1, y: 2}
-  - {x: -1, y: 2}
+  - {x: 1, y: 1}
+  - {x: -1, y: 1}
   - {x: 1, y: 0}
   - {x: -1, y: 0}
-  - {x: 1, y: 2}
-  - {x: -1, y: 2}
+  - {x: 1, y: 1}
+  - {x: -1, y: 1}
   - {x: 1, y: 0}
   - {x: -1, y: 0}
-  - {x: 1, y: 2}
-  - {x: -1, y: 2}
+  - {x: 1, y: 1}
+  - {x: -1, y: 1}
   - {x: -1, y: 1}
   - {x: 1, y: 1}
   - {x: -1, y: -1}
@@ -315,12 +315,12 @@ PrefabInstance:
     - target: {fileID: 1964646012579703261, guid: b158e8c38c6c99d4d97aaa82d5ad8d3c,
         type: 3}
       propertyPath: id
-      value: 4
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 3481846557032645501, guid: b158e8c38c6c99d4d97aaa82d5ad8d3c,
         type: 3}
       propertyPath: m_Name
-      value: Wall
+      value: MapBorder
       objectReference: {fileID: 0}
     - target: {fileID: 4540960393534009691, guid: b158e8c38c6c99d4d97aaa82d5ad8d3c,
         type: 3}
