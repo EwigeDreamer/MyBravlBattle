@@ -14,6 +14,16 @@ public class MapController : MonoSingleton<MapController>
     [SerializeField] NetworkMap mapPrefab;
 
     public MapChunkData ChunkData => chunkData;
+    public bool IsMapBuilded
+    {
+        get
+        {
+            Debug.LogWarning(this.map != null);
+            Debug.LogError(this.map != null && this.map.IsMapBuilded);
+            return this.map != null && this.map.IsMapBuilded;
+        }
+    }
+    public Vector3 GetRandomSpawnPoint() => this.map.GetRandomSpawnPoint();
 
     NetworkMap map = null;
     List<MapPreset> presets = null;
@@ -29,9 +39,9 @@ public class MapController : MonoSingleton<MapController>
     protected override void Awake()
     {
         base.Awake();
-        //manager.OnReadyHost += CreateMap;
-        //manager.OnServerStopped += DestroyMap;
-        //manager.OnReadyServer += RefreshMapOnNewClients;
+        manager.OnHostCientReady += CreateMap;
+        manager.OnNetworkStopped += DestroyMap;
+        manager.OnOtherCientReady += _ => RefreshMapOnNewClients();
         ReadPresets();
     }
 

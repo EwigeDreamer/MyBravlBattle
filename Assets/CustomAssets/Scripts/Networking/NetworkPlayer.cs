@@ -2,9 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using MyTools.Helpers;
 
 public class NetworkPlayer : NetworkBehaviour
 {
+    [SerializeField] NetworkCharacter characterPrefab;
+
+    NetworkCharacter character = null;
+
     private void Start()
     {
         transform.SetParent(CustomNetworkManager.I.transform);
@@ -16,8 +21,37 @@ public class NetworkPlayer : NetworkBehaviour
         name = $"{typeof(NetworkPlayer)}{clientAddress}{serverAddress}";
     }
 
+    public override void OnStartLocalPlayer()
+    {
+        base.OnStartLocalPlayer();
+        CmdSpawnCharacterView();
+    }
 
-    //[SerializeField] NetworkCharacter characterPrefab;
+    public override void OnNetworkDestroy()
+    {
+        base.OnNetworkDestroy();
+        CmdDestroyCharacterView();
+    }
+
+    [Command]
+    void CmdSpawnCharacterView()
+    {
+        CorouWaiter.WaitFor(() => MapController.I.IsMapBuilded, Spawn, () => this == null);
+        void Spawn()
+        {
+            var point = MapController.I.GetRandomSpawnPoint();
+            character = Instantiate(characterPrefab, point, Quaternion.identity, CharacterController.I.TR);
+            NetworkServer.Spawn(character.gameObject);
+        }
+    }
+
+    [Command]
+    void CmdDestroyCharacterView()
+    {
+        if (character == null) return;
+        NetworkServer.Destroy(character.gameObject);
+        character = null;
+    }
 
     //public static NetworkPlayer Current { get; private set; } = null;
 
@@ -32,21 +66,6 @@ public class NetworkPlayer : NetworkBehaviour
     //    name = $"{typeof(NetworkPlayer)}{clientAddress}{serverAddress}";
     //}
 
-    //public override void OnStartLocalPlayer()
-    //{
-    //    base.OnStartLocalPlayer();
-    //    Debug.Log($"Init local player [{name}]");
-    //    Debug.LogError("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-    //    Current = this;
-    //}
-
-    //public override void OnNetworkDestroy()
-    //{
-    //    base.OnNetworkDestroy();
-    //    Debug.Log($"Destroy local player [{name}]");
-    //    Debug.LogError("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
-    //    if (Current == this) Current = null;
-    //}
 
     //[Command]
     //void CmdSpawnCharacter()
