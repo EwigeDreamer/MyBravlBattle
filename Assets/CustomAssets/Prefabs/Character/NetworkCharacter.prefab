@@ -118,7 +118,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6443562044670979959}
-  m_LocalRotation: {x: 0.2815582, y: -0.00000019143106, z: 0.0000007019894, w: 0.9595442}
+  m_LocalRotation: {x: 0.2815582, y: -0.00000019084499, z: 0.0000007018175, w: 0.9595442}
   m_LocalPosition: {x: 0, y: 12, z: -16}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -172,7 +172,6 @@ GameObject:
   - component: {fileID: 4862723903791523650}
   - component: {fileID: 6760430650653435183}
   - component: {fileID: 6473703228106292166}
-  - component: {fileID: 4570905718831309143}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -239,19 +238,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &4570905718831309143
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7515237070709685611}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8995401848505088458
 GameObject:
   m_ObjectHideFlags: 0
@@ -265,6 +251,7 @@ GameObject:
   - component: {fileID: 54950809699394186}
   - component: {fileID: 114899945766123794}
   - component: {fileID: 5634915497333825691}
+  - component: {fileID: 6078438597983072605}
   m_Layer: 0
   m_Name: NetworkCharacter
   m_TagString: Untagged
@@ -349,9 +336,9 @@ MonoBehaviour:
   m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TransformSyncMode: 1
+  m_TransformSyncMode: 3
   m_SendInterval: 0.07692308
-  m_SyncRotationAxis: 7
+  m_SyncRotationAxis: 2
   m_RotationSyncCompression: 0
   m_SyncSpin: 0
   m_MovementTheshold: 0.001
@@ -371,3 +358,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b58c24e70d2cae4b8797c3d6613d812, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rb: {fileID: 54950809699394186}
+  speed: 5
+--- !u!136 &6078438597983072605
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8995401848505088458}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}

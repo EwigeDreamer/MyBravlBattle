@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using MyTools.Helpers;
+using MyTools.Extensions.Vectors;
 
 public class NetworkPlayer : NetworkBehaviour
 {
@@ -25,12 +26,14 @@ public class NetworkPlayer : NetworkBehaviour
     {
         base.OnStartLocalPlayer();
         CmdSpawnCharacterView();
+        CharacterController.I.Register(this);
     }
 
     public override void OnNetworkDestroy()
     {
         base.OnNetworkDestroy();
         CmdDestroyCharacterView();
+        CharacterController.I.Unregister(this);
     }
 
     [Command]
@@ -52,6 +55,13 @@ public class NetworkPlayer : NetworkBehaviour
         if (character == null) return;
         NetworkServer.Destroy(character.gameObject);
         character = null;
+    }
+
+    [Command]
+    public void CmdMove(Vector2 dir)
+    {
+        if (character == null) return;
+        character.Move(dir);
     }
 
     //public static NetworkPlayer Current { get; private set; } = null;

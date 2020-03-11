@@ -27,7 +27,7 @@ public class UserControlScript : MonoValidate
         gameUI.CombatSensor.OnRelease += () => OnDirectionalShoot(gameUI.CombatJoystick.Direction);
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         var move = gameUI.MovementJoystick;
         var aim = gameUI.CombatJoystick;

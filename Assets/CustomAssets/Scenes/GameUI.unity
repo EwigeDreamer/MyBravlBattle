@@ -225,6 +225,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1341850940}
   - component: {fileID: 1341850941}
+  - component: {fileID: 1341850942}
   m_Layer: 0
   m_Name: UserControlScript
   m_TagString: Untagged
@@ -259,6 +260,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameUI: {fileID: 2112349583}
+--- !u!114 &1341850942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1341850939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e92dde7929fb7fa4a9a97f3e7a6326b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  userControl: {fileID: 1341850941}
 --- !u!1 &1456939885
 GameObject:
   m_ObjectHideFlags: 0

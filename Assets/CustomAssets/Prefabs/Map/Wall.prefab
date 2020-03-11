@@ -293,6 +293,19 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
+--- !u!65 &7617188378478377375
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6006118962624540966}
+  m_Material: {fileID: 13400000, guid: 2f047636a0536fe47a2ada44b7b8bae4, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.9999999, y: 2, z: 2}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1001 &7135959799012799067
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -380,15 +393,21 @@ PrefabInstance:
     - target: {fileID: 8343675959210486882, guid: b158e8c38c6c99d4d97aaa82d5ad8d3c,
         type: 3}
       propertyPath: m_Size.y
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8343675959210486882, guid: b158e8c38c6c99d4d97aaa82d5ad8d3c,
         type: 3}
       propertyPath: m_Center.y
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b158e8c38c6c99d4d97aaa82d5ad8d3c, type: 3}
+--- !u!1 &6006118962624540966 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3481846557032645501, guid: b158e8c38c6c99d4d97aaa82d5ad8d3c,
+    type: 3}
+  m_PrefabInstance: {fileID: 7135959799012799067}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6632886126742225664 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4540960393534009691, guid: b158e8c38c6c99d4d97aaa82d5ad8d3c,
