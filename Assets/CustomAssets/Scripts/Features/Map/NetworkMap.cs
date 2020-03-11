@@ -61,7 +61,6 @@ public class NetworkMap : NetworkBehaviour
         Debug.LogWarning($"BUILD MAP!!!\n{sb}");
 #endif
 
-        Debug.Break();
         var chunkData = MapController.I.ChunkData;
         var chunkSize = chunkData.ChunkSize;
         var mapOffset = new Vector2(preset.rows * chunkSize.x / -2f, preset.columns * chunkSize.y / -2f).ToV3_x0y();
