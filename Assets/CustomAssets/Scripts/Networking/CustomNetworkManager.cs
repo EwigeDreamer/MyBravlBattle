@@ -10,23 +10,40 @@ public class CustomNetworkManager : NetworkManager
 {
     public static CustomNetworkManager I => (CustomNetworkManager)singleton;
 
-    public event Action OnClientStarted = delegate { };
-    public event Action OnClientStopped = delegate { };
-    
+    public event Action OnNetworkStarted = delegate { };
+    public event Action OnNetworkStopped = delegate { };
+
+    public event Action OnHostCientReady = delegate { };
+    public event Action<NetworkConnection> OnOtherCientReady = delegate { };
+
     public override void OnStartClient(NetworkClient client)
     {
         Debug.Log($"Start client!");
-        //OnClientStarted();
+        OnNetworkStarted();
         SceneLoadingManager.LoadGame();
     }
 
     public override void OnStopClient()
     {
         Debug.Log($"Stop client!");
-        //OnClientStopped();
+        OnNetworkStopped();
         SceneLoadingManager.LoadMenu();
     }
 
+    public override void OnServerReady(NetworkConnection conn)
+    {
+        base.OnServerReady(conn);
+        if (conn.connectionId == 0)
+        {
+            Debug.Log($"Host client ready!");
+            OnHostCientReady();
+        }
+        else
+        {
+            Debug.Log($"Other client ready!");
+            OnOtherCientReady(conn);
+        }
+    }
 
 
 

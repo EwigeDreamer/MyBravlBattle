@@ -5,6 +5,18 @@ using UnityEngine.Networking;
 
 public class NetworkPlayer : NetworkBehaviour
 {
+    private void Start()
+    {
+        transform.SetParent(CustomNetworkManager.I.transform);
+        transform.localPosition = Vector3.zero;
+        var connToClient = connectionToClient;
+        var connToServer = connectionToServer;
+        var clientAddress = connToClient != null ? $" [client: {connToClient.address}]" : "";
+        var serverAddress = connToServer != null ? $" [server: {connToServer.address}]" : "";
+        name = $"{typeof(NetworkPlayer)}{clientAddress}{serverAddress}";
+    }
+
+
     //[SerializeField] NetworkCharacter characterPrefab;
 
     //public static NetworkPlayer Current { get; private set; } = null;
