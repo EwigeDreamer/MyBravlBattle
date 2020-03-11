@@ -20,9 +20,13 @@ public class CustomNetworkManager : NetworkManager
     public bool IsServer => NetworkServer.active;
     public Transform Tr => transform;
 
-    public override void OnStartServer()
+    private void Start()
     {
         InitIps();
+    }
+
+    public override void OnStartServer()
+    {
         Debug.Log($"Start host!");
         OnServerStarted();
         SceneLoadingManager.LoadGame();
