@@ -46,6 +46,7 @@ public class NetworkPlayer : NetworkBehaviour
             character = Instantiate(characterPrefab);
             character.transform.position = point;
             NetworkServer.Spawn(character.gameObject);
+            character.RpcSetActiveCamera();
         }
     }
 

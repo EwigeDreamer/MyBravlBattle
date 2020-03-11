@@ -13,13 +13,7 @@ public class NetworkCharacter : NetworkBehaviour
     private void Awake()
     {
         transform.SetParent(CharacterController.I.TR);
-        SetActiveCamera(false);
-    }
-
-    public override void OnStartLocalPlayer()
-    {
-        base.OnStartLocalPlayer();
-        SetActiveCamera(true);
+        camera.enabled = false;
     }
 
     public void Move(Vector2 dir)
@@ -28,8 +22,9 @@ public class NetworkCharacter : NetworkBehaviour
         rb.velocity = dir3d * Mathf.Max(speed, rb.velocity.magnitude);
     }
 
-    void SetActiveCamera(bool state)
+    [ClientRpc]
+    public void RpcSetActiveCamera()
     {
-        camera.enabled = state;
+        camera.enabled = isLocalPlayer;
     }
 }
