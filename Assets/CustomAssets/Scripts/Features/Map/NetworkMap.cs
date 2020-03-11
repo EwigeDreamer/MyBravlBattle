@@ -57,6 +57,8 @@ public class NetworkMap : NetworkBehaviour
     [ClientRpc]
     public void RpcBuild(MapPreset preset)
     {
+        if (IsMapBuilded) return;
+
 #if UNITY_EDITOR
         var sb = new System.Text.StringBuilder();
         for (int i = 0; i < preset.rows; ++i)

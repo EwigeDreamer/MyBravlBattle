@@ -36,13 +36,13 @@ public class CustomNetworkManager : NetworkManager
     public override void OnServerReady(NetworkConnection conn)
     {
         base.OnServerReady(conn);
-        Debug.Log($"Server ready for new player!");
-        OnReadyServer();
         if (conn.connectionId == 0)
         {
             Debug.Log($"Host ready!");
             OnReadyHost();
         }
+        Debug.Log($"Server ready for new player!");
+        OnReadyServer();
     }
 
     public override void OnStopServer()

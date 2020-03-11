@@ -18,6 +18,8 @@ public class MapController : MonoSingleton<MapController>
     NetworkMap map = null;
     List<MapPreset> presets = null;
 
+    int presetIndex = -1;
+
     protected override void OnValidate()
     {
         base.OnValidate();
@@ -28,7 +30,8 @@ public class MapController : MonoSingleton<MapController>
     {
         base.Awake();
         manager.OnReadyHost += CreateMap;
-        manager.OnServerStopped += DestroyMap; 
+        manager.OnServerStopped += DestroyMap;
+        manager.OnReadyServer += RefreshMapOnNewClients;
         ReadPresets();
     }
 
@@ -37,7 +40,17 @@ public class MapController : MonoSingleton<MapController>
         Debug.LogWarning("SPAWN MAP!");
         var map = Instantiate(mapPrefab);
         NetworkServer.Spawn(map.gameObject);
-        map.RpcBuild(presets[Random.Range(0, presets.Count)]);
+        presetIndex = Random.Range(0, presets.Count);
+        map.RpcBuild(presets[presetIndex]);
+    }
+
+    void RefreshMapOnNewClients()
+    {
+        Debug.LogWarning("TRY TO REFRESH MAP!");
+        if (this.map == null) return;
+        if (presetIndex < 0) return;
+        Debug.LogWarning("REFRESH MAP!");
+        this.map.RpcBuild(presets[presetIndex]);
     }
 
     void DestroyMap()
