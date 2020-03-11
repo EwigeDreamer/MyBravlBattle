@@ -10,6 +10,7 @@ public class CustomNetworkManager : NetworkManager
 {
     public event Action OnServerStarted = delegate { };
     public event Action OnReadyServer = delegate { };
+    public event Action OnReadyHost = delegate { };
     public event Action OnServerStopped = delegate { };
     public event Action OnClientStarted = delegate { };
     public event Action OnClientStopped = delegate { };
@@ -35,8 +36,13 @@ public class CustomNetworkManager : NetworkManager
     public override void OnServerReady(NetworkConnection conn)
     {
         base.OnServerReady(conn);
-        Debug.Log($"Server ready!"); 
+        Debug.Log($"Server ready for new player!");
         OnReadyServer();
+        if (conn.connectionId == 0)
+        {
+            Debug.Log($"Host ready!");
+            OnReadyHost();
+        }
     }
 
     public override void OnStopServer()
