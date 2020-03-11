@@ -8,23 +8,20 @@ using UnityEngine.UI;
 using System;
 using MyTools.Helpers;
 
-namespace SpaceTramp
+public class MainMenuUI : UIBase
 {
-    public class MainMenuUI : UIBase
+    public event Action OnPlayPressed = delegate { };
+    public event Action OnJoinPressed = delegate { };
+    public event Action OnQuitPressed = delegate { };
+
+    [SerializeField] Button playBtn;
+    [SerializeField] Button joinBtn;
+    [SerializeField] Button quitBtn;
+
+    void Awake()
     {
-        public event Action OnPlayPressed = delegate { };
-        public event Action OnJoinPressed = delegate { };
-        public event Action OnQuitPressed = delegate { };
-
-        [SerializeField] Button playBtn;
-        [SerializeField] Button joinBtn;
-        [SerializeField] Button quitBtn;
-
-        void Awake()
-        {
-            playBtn.onClick.AddListener(() => OnPlayPressed());
-            joinBtn.onClick.AddListener(() => OnJoinPressed());
-            quitBtn.onClick.AddListener(() => OnQuitPressed());
-        }
+        playBtn.onClick.AddListener(() => OnPlayPressed());
+        joinBtn.onClick.AddListener(() => OnJoinPressed());
+        quitBtn.onClick.AddListener(() => OnQuitPressed());
     }
 }

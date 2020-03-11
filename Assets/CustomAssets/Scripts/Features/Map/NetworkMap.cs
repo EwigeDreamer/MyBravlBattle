@@ -63,7 +63,7 @@ public class NetworkMap : NetworkBehaviour
 
         var chunkData = MapController.I.ChunkData;
         var chunkSize = chunkData.ChunkSize;
-        var mapOffset = new Vector2(preset.rows * chunkSize.x / -2f, preset.columns * chunkSize.y / -2f).ToV3_x0y();
+        var mapOffset = new Vector2((preset.rows - 1) * chunkSize.x / -2f, (preset.columns - 1) * chunkSize.y / -2f).ToV3_x0y();
         for (int i = 0; i < preset.rows; ++i)
             for (int j = 0; j < preset.columns; ++j)
             {
@@ -73,7 +73,6 @@ public class NetworkMap : NetworkBehaviour
                     var chunk = Instantiate(chunkData.Chunks[preset[i, j]], pos, Quaternion.identity, transform);
                     schunks.Add(chunk);
                     chunk.Init();
-                    Debug.LogWarning($"SPAWN ON [ {i} : {j} ] [{pos}]");
                 }
             }
     }

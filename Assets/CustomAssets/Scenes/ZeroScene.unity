@@ -562,6 +562,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: MainCamera
       objectReference: {fileID: 0}
+    - target: {fileID: 772369911233625412, guid: 157dae2ec9facde43947d1273ccf94dd,
+        type: 3}
+      propertyPath: orthographic
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 772369911233625412, guid: 157dae2ec9facde43947d1273ccf94dd,
+        type: 3}
+      propertyPath: orthographic size
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 772369911233625414, guid: 157dae2ec9facde43947d1273ccf94dd,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -570,12 +580,12 @@ PrefabInstance:
     - target: {fileID: 772369911233625414, guid: 157dae2ec9facde43947d1273ccf94dd,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 41.9
       objectReference: {fileID: 0}
     - target: {fileID: 772369911233625414, guid: 157dae2ec9facde43947d1273ccf94dd,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -80
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 772369911233625414, guid: 157dae2ec9facde43947d1273ccf94dd,
         type: 3}
@@ -585,7 +595,7 @@ PrefabInstance:
     - target: {fileID: 772369911233625414, guid: 157dae2ec9facde43947d1273ccf94dd,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 772369911233625414, guid: 157dae2ec9facde43947d1273ccf94dd,
         type: 3}
@@ -595,7 +605,7 @@ PrefabInstance:
     - target: {fileID: 772369911233625414, guid: 157dae2ec9facde43947d1273ccf94dd,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: -0.00000004371139
       objectReference: {fileID: 0}
     - target: {fileID: 772369911233625414, guid: 157dae2ec9facde43947d1273ccf94dd,
         type: 3}

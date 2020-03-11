@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using MyTools.Singleton;
 using MyTools.SceneManagement;
-using SpaceTramp;
 using System;
 using MyTools.Extensions.Components;
 using MyTools.Extensions.Coroutines;

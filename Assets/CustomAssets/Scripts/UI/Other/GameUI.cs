@@ -8,17 +8,21 @@ using UnityEngine.UI;
 using System;
 using MyTools.Helpers;
 
-namespace SpaceTramp
+public class GameUI : UIBase
 {
-    public class GameUI : UIBase
+    public event Action OnMenuPressed = delegate { };
+
+    [SerializeField] Button menuBtn;
+    [SerializeField] Joystick movement;
+    [SerializeField] Joystick combat;
+    [SerializeField] CombatJoystickSensor combatSensor;
+
+    public Joystick MovementJoystick => movement;
+    public Joystick CombatJoystick => combat;
+    public CombatJoystickSensor CombatSensor => combatSensor;
+
+    void Awake()
     {
-        public event Action OnMenuPressed = delegate { };
-
-        [SerializeField] Button menuBtn;
-
-        void Awake()
-        {
-            menuBtn.onClick.AddListener(() => PopupManager.OpenPopup<GameMenuPopup>());
-        }
+        menuBtn.onClick.AddListener(() => OnMenuPressed());
     }
 }
