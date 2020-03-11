@@ -1,31 +1,5 @@
 {
     "enabled": true,
     "cancel": false,
-    "setups": [
-        {
-            "m_Path": "Assets/CustomAssets/Scenes/ZeroScene.unity",
-            "m_IsLoaded": true,
-            "m_IsActive": false
-        },
-        {
-            "m_Path": "Assets/CustomAssets/Scenes/MainMenuWorld.unity",
-            "m_IsLoaded": false,
-            "m_IsActive": false
-        },
-        {
-            "m_Path": "Assets/CustomAssets/Scenes/MainMenuUI.unity",
-            "m_IsLoaded": false,
-            "m_IsActive": false
-        },
-        {
-            "m_Path": "Assets/CustomAssets/Scenes/GameWorld.unity",
-            "m_IsLoaded": false,
-            "m_IsActive": false
-        },
-        {
-            "m_Path": "Assets/CustomAssets/Scenes/GameUI.unity",
-            "m_IsLoaded": true,
-            "m_IsActive": true
-        }
-    ]
+    "setups": []
 }
