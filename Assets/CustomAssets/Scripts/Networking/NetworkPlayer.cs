@@ -40,7 +40,8 @@ public class NetworkPlayer : NetworkBehaviour
         void Spawn()
         {
             var point = MapController.I.GetRandomSpawnPoint();
-            character = Instantiate(characterPrefab, point, Quaternion.identity, CharacterController.I.TR);
+            character = Instantiate(characterPrefab);
+            character.transform.position = point;
             NetworkServer.Spawn(character.gameObject);
         }
     }

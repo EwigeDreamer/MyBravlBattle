@@ -14,15 +14,7 @@ public class MapController : MonoSingleton<MapController>
     [SerializeField] NetworkMap mapPrefab;
 
     public MapChunkData ChunkData => chunkData;
-    public bool IsMapBuilded
-    {
-        get
-        {
-            Debug.LogWarning(this.map != null);
-            Debug.LogError(this.map != null && this.map.IsMapBuilded);
-            return this.map != null && this.map.IsMapBuilded;
-        }
-    }
+    public bool IsMapBuilded => this.map != null && this.map.IsMapBuilded;
     public Vector3 GetRandomSpawnPoint() => this.map.GetRandomSpawnPoint();
 
     NetworkMap map = null;

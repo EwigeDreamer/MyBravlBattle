@@ -5,4 +5,8 @@ using UnityEngine.Networking;
 
 public class NetworkCharacter : NetworkBehaviour
 {
+    private void Awake()
+    {
+        transform.SetParent(CharacterController.I.TR);
+    }
 }
