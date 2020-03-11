@@ -260,7 +260,7 @@ MonoBehaviour:
   m_MakeDontDestroy: 0
   manager: {fileID: 1867074863}
   chunkData: {fileID: 11400000, guid: c9424980d4cf13e428315ac14ddbe296, type: 2}
-  mapPrefab: {fileID: 8073426147806818235, guid: a04b4024f6a56fc45b7c2f3612249fad,
+  mapPrefab: {fileID: 8980129600281702379, guid: a04b4024f6a56fc45b7c2f3612249fad,
     type: 3}
 --- !u!1001 &2137718046
 PrefabInstance:

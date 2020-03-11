@@ -9,7 +9,7 @@ public class MapController : MonoSingleton<MapController>
 {
     [SerializeField] CustomNetworkManager manager;
     [SerializeField] MapChunkData chunkData;
-    [SerializeField] GameObject mapPrefab;
+    [SerializeField] NetworkMap mapPrefab;
 
     public MapChunkData ChunkData => chunkData;
 
@@ -25,8 +25,8 @@ public class MapController : MonoSingleton<MapController>
     protected override void Awake()
     {
         base.Awake();
-        manager.OnHostStarted += CreateMap;
-        manager.OnHostStopped += DestroyMap; 
+        manager.OnReadyServer += CreateMap;
+        manager.OnServerStopped += DestroyMap; 
         ReadPresets();
     }
 
@@ -34,7 +34,8 @@ public class MapController : MonoSingleton<MapController>
     {
         Debug.LogWarning("SPAWN MAP!");
         var map = Instantiate(mapPrefab);
-        NetworkServer.Spawn(map);
+        NetworkServer.Spawn(map.gameObject);
+        map.RpcBuild(presets[Random.Range(0, presets.Count)]);
     }
 
     void DestroyMap()

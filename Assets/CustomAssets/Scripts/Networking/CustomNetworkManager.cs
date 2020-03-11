@@ -4,11 +4,13 @@ using UnityEngine;
 using UnityEngine.Networking;
 using System.Collections.ObjectModel;
 using System;
+using MyTools.Helpers;
 
 public class CustomNetworkManager : NetworkManager
 {
-    public event Action OnHostStarted = delegate { };
-    public event Action OnHostStopped = delegate { };
+    public event Action OnServerStarted = delegate { };
+    public event Action OnReadyServer = delegate { };
+    public event Action OnServerStopped = delegate { };
     public event Action OnClientStarted = delegate { };
     public event Action OnClientStopped = delegate { };
     public static CustomNetworkManager I => (CustomNetworkManager)singleton;
@@ -18,18 +20,25 @@ public class CustomNetworkManager : NetworkManager
     public bool IsServer => NetworkServer.active;
     public Transform Tr => transform;
 
-    public override void OnStartHost()
+    public override void OnStartServer()
     {
         InitIps();
         Debug.Log($"Start host!");
-        OnHostStarted();
+        OnServerStarted();
         SceneLoadingManager.LoadGame();
     }
 
-    public override void OnStopHost()
+    public override void OnServerReady(NetworkConnection conn)
+    {
+        base.OnServerReady(conn);
+        Debug.Log($"Server ready!"); 
+        OnReadyServer();
+    }
+
+    public override void OnStopServer()
     {
         Debug.Log($"Stop host!");
-        OnHostStopped();
+        OnServerStopped();
         SceneLoadingManager.LoadMenu();
     }
 
