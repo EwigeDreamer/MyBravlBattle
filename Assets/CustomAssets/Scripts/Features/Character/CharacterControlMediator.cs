@@ -14,6 +14,6 @@ public class CharacterControlMediator : MonoValidate
 
     private void Awake()
     {
-        userControl.OnMove += CharacterController.I.Move;
+        userControl.OnMove += PlayerController.I.Move;
     }
 }

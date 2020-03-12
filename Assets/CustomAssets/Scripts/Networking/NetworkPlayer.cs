@@ -4,12 +4,24 @@ using UnityEngine;
 using UnityEngine.Networking;
 using MyTools.Helpers;
 using MyTools.Extensions.Vectors;
+using MyTools.Extensions.GameObjects;
 
 public class NetworkPlayer : NetworkBehaviour
 {
-    [SerializeField] NetworkCharacter characterPrefab;
+    [SerializeField] NetworkPlayerView view;
+    [SerializeField] NetworkPlayerMotor motor;
+    [SerializeField] NetworkPlayerCombat combat;
 
-    NetworkCharacter character = null;
+    public NetworkPlayerView View => this.view;
+    public NetworkPlayerMotor Motor => this.motor;
+    public NetworkPlayerCombat Combat => this.combat;
+
+    private void OnValidate()
+    {
+        gameObject.ValidateGetComponent(ref this.view);
+        gameObject.ValidateGetComponent(ref this.motor);
+        gameObject.ValidateGetComponent(ref this.combat);
+    }
 
     private void Start()
     {
@@ -25,44 +37,21 @@ public class NetworkPlayer : NetworkBehaviour
     public override void OnStartLocalPlayer()
     {
         base.OnStartLocalPlayer();
-        CmdSpawnCharacterView();
-        CharacterController.I.Register(this);
+        CmdTeleportToSpawnPoint();
+        PlayerController.I.Register(this);
     }
 
     public override void OnNetworkDestroy()
     {
         base.OnNetworkDestroy();
-        CmdDestroyCharacterView();
-        CharacterController.I.Unregister(this);
+        PlayerController.I.Unregister(this);
     }
 
     [Command]
-    void CmdSpawnCharacterView()
+    void CmdTeleportToSpawnPoint()
     {
-        CorouWaiter.WaitFor(() => MapController.I.IsMapBuilded, Spawn, () => this == null);
-        void Spawn()
-        {
-            var point = MapController.I.GetRandomSpawnPoint();
-            character = Instantiate(characterPrefab);
-            character.transform.position = point;
-            NetworkServer.Spawn(character.gameObject);
-            character.RpcSetActiveCamera();
-        }
-    }
-
-    [Command]
-    void CmdDestroyCharacterView()
-    {
-        if (character == null) return;
-        NetworkServer.Destroy(character.gameObject);
-        character = null;
-    }
-
-    [Command]
-    public void CmdMove(Vector2 dir)
-    {
-        if (character == null) return;
-        character.Move(dir);
+        var point = MapController.I.GetRandomSpawnPoint();
+        this.motor.CmdTeleport(point);
     }
 
     //public static NetworkPlayer Current { get; private set; } = null;

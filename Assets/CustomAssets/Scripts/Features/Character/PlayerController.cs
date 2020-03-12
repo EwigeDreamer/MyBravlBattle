@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using MyTools.Singleton;
 
-public class CharacterController : MonoSingleton<CharacterController>
+public class PlayerController : MonoSingleton<PlayerController>
 {
     NetworkPlayer localPlayer = null;
     public NetworkPlayer LocalPlayer => localPlayer;
@@ -25,6 +25,6 @@ public class CharacterController : MonoSingleton<CharacterController>
     public void Move(Vector2 dir)
     {
         if (localPlayer == null) return;
-        localPlayer.CmdMove(dir);
+        localPlayer.Motor.CmdMove(dir);
     }
 }
