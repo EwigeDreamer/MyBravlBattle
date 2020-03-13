@@ -20,11 +20,7 @@ public class NetworkPlayerMotor : NetworkBehaviour
         gameObject.ValidateGetComponent(ref this.rb);
     }
 
-    [Command]
-    public void CmdMove(Vector2 dir) => RpcMove(dir);
-
-    [ClientRpc]
-    void RpcMove(Vector2 dir)
+    public void Move(Vector2 dir)
     {
         var dir3d = dir.ToV3_x0y();
         this.rb.velocity = dir3d * Mathf.Max(speed, this.rb.velocity.magnitude);
