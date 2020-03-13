@@ -47,5 +47,6 @@ MonoBehaviour:
   m_MakeDontDestroy: 1
   manager: {fileID: 0}
   chunkData: {fileID: 11400000, guid: c9424980d4cf13e428315ac14ddbe296, type: 2}
-  mapPrefab: {fileID: 8980129600281702379, guid: a04b4024f6a56fc45b7c2f3612249fad,
-    type: 3}
+  playerMask:
+    serializedVersion: 2
+    m_Bits: 2147483648

@@ -36,6 +36,8 @@ public class MapController : MonoSingleton<MapController>
     [SerializeField] CustomNetworkManager manager;
     [SerializeField] MapChunkData chunkData;
 
+    [SerializeField] LayerMask playerMask;
+
     List<MapPreset> presets = new List<MapPreset>();
 
     List<MapChunk> mapCchunks = new List<MapChunk>();
@@ -160,8 +162,20 @@ public class MapController : MonoSingleton<MapController>
         }
     }
 
+    List<MapChunk> freeSpawnersTmp = new List<MapChunk>();
+    Collider[] intersectsTmp = new Collider[100];
+
     public Vector3 GetRandomSpawnPoint()
     {
-        return mapSpawners[Random.Range(0, mapSpawners.Count)].ChunkPoint;
+        freeSpawnersTmp.Clear();
+        foreach (var spawner in mapSpawners)
+        {
+            if (Physics.OverlapSphereNonAlloc(spawner.ChunkPoint + Vector3.up, 0.5f, intersectsTmp, playerMask) < 1)
+                freeSpawnersTmp.Add(spawner);
+        }
+        if (freeSpawnersTmp.Count < 1)
+            return mapSpawners[Random.Range(0, mapSpawners.Count)].ChunkPoint;
+        return freeSpawnersTmp[Random.Range(0, freeSpawnersTmp.Count)].ChunkPoint;
+
     }
 }
