@@ -18,16 +18,12 @@ public class NetworkPlayerMotor : NetworkBehaviour
     }
 
     [Command]
-    public void CmdMove(Vector2 dir)
+    public void CmdMove(Vector2 dir) => RpcMove(dir);
+
+    [ClientRpc]
+    void RpcMove(Vector2 dir)
     {
         var dir3d = dir.ToV3_x0y();
         this.rb.velocity = dir3d * Mathf.Max(speed, this.rb.velocity.magnitude);
-    }
-
-    [Command]
-    public void CmdTeleport(Vector3 point)
-    {
-        Debug.LogWarning($"TELEPORT 111! {point}", gameObject);
-        transform.position = point;
     }
 }
