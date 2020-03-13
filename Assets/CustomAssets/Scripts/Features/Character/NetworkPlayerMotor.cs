@@ -20,7 +20,7 @@ public class NetworkPlayerMotor : NetworkBehaviour
     [Command]
     public void CmdMove(Vector2 dir)
     {
-        Debug.LogError("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD");
+        Debug.LogError("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD", gameObject);
         var dir3d = dir.ToV3_x0y();
         this.rb.velocity = dir3d * Mathf.Max(speed, this.rb.velocity.magnitude);
     }
