@@ -4,6 +4,30 @@ using UnityEngine;
 using MyTools.Singleton;
 using UnityEngine.Networking;
 using LW = LumenWorks.Framework.IO.Csv;
+using MyTools.Extensions.Vectors;
+
+
+[System.Serializable]
+public class MapPreset : MessageBase
+{
+    public int[] ids;
+    public int rows;
+    public int columns;
+
+    public MapPreset() { }
+    public MapPreset(int rows, int columns)
+    {
+        ids = new int[rows * columns];
+        this.rows = rows;
+        this.columns = columns;
+    }
+
+    public int this[int i, int j]
+    {
+        get => ids[i * columns + j];
+        set => ids[i * columns + j] = value;
+    }
+}
 
 public class MapController : MonoSingleton<MapController>
 {
@@ -11,76 +35,106 @@ public class MapController : MonoSingleton<MapController>
 
     [SerializeField] CustomNetworkManager manager;
     [SerializeField] MapChunkData chunkData;
-    [SerializeField] NetworkMap mapPrefab;
+
+    List<MapPreset> presets = new List<MapPreset>();
+
+    List<MapChunk> mapCchunks = new List<MapChunk>();
+    List<MapChunk> mapSpawners = new List<MapChunk>();
 
     public MapChunkData ChunkData => chunkData;
-    public bool IsMapBuilded => this.map != null && this.map.IsMapBuilded;
-    public Vector3 GetRandomSpawnPoint() => this.map.GetRandomSpawnPoint();
+    public bool IsMapBuilded => mapCchunks.Count > 0;
 
-    NetworkMap map = null;
-    List<MapPreset> presets = null;
 
     int presetIndex = -1;
 
     protected override void OnValidate()
     {
         base.OnValidate();
-        ValidateFind(ref manager);
+        ValidateFind(ref this.manager);
     }
 
     protected override void Awake()
     {
         base.Awake();
-        manager.OnHostCientReady += CreateMap;
-        manager.OnNetworkStopped += DestroyMap;
-        manager.OnOtherCientReady += _ => RefreshMapOnNewClients();
+
+        manager.OnServerStarted += BuildMap;
+        manager.OnServerStopped += DestroyMap;
+
+        manager.OnClientStarted += client => client.RegisterHandler(MsgType.Highest + 1, ReceiveMapPreset);
+        manager.OnOtherCientReady += conn => SendMapPreset(conn, this.presets[this.presetIndex]);
+
         ReadPresets();
     }
 
-    void CreateMap()
-    {
-        Debug.LogWarning("SPAWN MAP!");
-        var map = Instantiate(mapPrefab);
-        NetworkServer.Spawn(map.gameObject);
-        presetIndex = Random.Range(0, presets.Count);
-        map.RpcBuild(presets[presetIndex]);
-    }
 
-    void RefreshMapOnNewClients()
+    void BuildMap()
     {
-        Debug.LogWarning("TRY TO REFRESH MAP!");
-        if (this.map == null) return;
-        if (presetIndex < 0) return;
-        Debug.LogWarning("REFRESH MAP!");
-        this.map.RpcBuild(presets[presetIndex]);
+        if (IsMapBuilded) return;
+        this.presetIndex = Random.Range(0, this.presets.Count);
+        BuildMap(this.presets[this.presetIndex]);
     }
-
     void DestroyMap()
     {
-        Debug.LogWarning("DESTROY MAP!");
-        if (this.map == null) return;
-        NetworkServer.Destroy(this.map.gameObject);
+        foreach (var chunck in this.mapCchunks) Destroy(chunck.GO);
+        this.mapCchunks.Clear();
+        this.mapSpawners.Clear();
     }
-
-    public void Register(NetworkMap map)
+    void RestoreMap(MapPreset preset)
     {
-        if (this.map == map) return;
-        if (this.map != null) DestroyMap();
-        this.map = map;
-        if (map.IsMapBuilded) OnMapBuilded();
-        else map.OnMapBuilded += () => OnMapBuilded();
+        BuildMap(preset);
     }
 
-    public void Unregister(NetworkMap map)
+    void BuildMap(MapPreset preset)
     {
-        if (this.map != map) return;
-        this.map = null;
+#if UNITY_EDITOR
+        var sb = new System.Text.StringBuilder();
+        for (int i = 0; i < preset.rows; ++i)
+        {
+            for (int j = 0; j < preset.columns; ++j)
+                sb.Append($" {preset[i, j]}");
+            sb.AppendLine();
+        }
+        Debug.LogWarning($"BUILD MAP!!!\n{sb}");
+#endif
+        DestroyMap();
+        var chunks = this.chunkData.Chunks;
+        var chunkSize = this.chunkData.ChunkSize;
+        var mapOffset = new Vector2((preset.rows - 1) * chunkSize.x / -2f, (preset.columns - 1) * chunkSize.y / -2f).ToV3_x0y();
+        for (int i = 0; i < preset.rows; ++i)
+            for (int j = 0; j < preset.columns; ++j)
+            {
+                var pos = new Vector2(j * chunkSize.x, (preset.rows - i) * chunkSize.y).ToV3_x0y() + mapOffset;
+                if (chunks.TryGetValue(preset[i, j], out var chunkPrefab))
+                {
+                    var chunk = Instantiate(chunks[preset[i, j]], pos, Quaternion.identity, transform);
+                    this.mapCchunks.Add(chunk);
+                    chunk.Init();
+                }
+            }
+
+        foreach (var chunk in this.mapCchunks)
+            if (chunk.IsSpawner) this.mapSpawners.Add(chunk);
+
+        OnMapBuilded();
     }
 
+
+    public void SendMapPreset(NetworkConnection conn, MapPreset preset)
+    {
+        if (!NetworkServer.active) return;
+        NetworkServer.SendToClient(conn.connectionId, MsgType.Highest + 1, preset);
+    }
+
+    public void ReceiveMapPreset(NetworkMessage netMsg)
+    {
+        var preset = netMsg.ReadMessage<MapPreset>();
+        if (preset == null) return;
+        RestoreMap(preset);
+    }
+    
     void ReadPresets()
     {
         var csv_presets = chunkData.CsvPresets;
-        this.presets = new List<MapPreset>(csv_presets.Count);
         List<int[]> rows = new List<int[]>();
         foreach (var csv_preset in csv_presets)
         {
@@ -106,4 +160,9 @@ public class MapController : MonoSingleton<MapController>
         }
     }
 
+    public Vector3 GetRandomSpawnPoint()
+    {
+        if (mapSpawners.Count < 1) return Vector3.up * 2f;
+        return mapSpawners[Random.Range(0, mapSpawners.Count)].ChunkPoint;
+    }
 }
