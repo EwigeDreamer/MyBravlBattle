@@ -10,6 +10,7 @@ public class NetworkPlayerView : NetworkBehaviour
 {
     [SerializeField] Renderer[] renderers;
     [SerializeField] Animator animator;
+    [SerializeField] NetworkPlayerMotor motor;
 
     Tween torsoTween = null;
 
@@ -20,6 +21,7 @@ public class NetworkPlayerView : NetworkBehaviour
     private void OnValidate()
     {
         gameObject.ValidateGetComponentInChildren(ref this.animator);
+        gameObject.ValidateGetComponent(ref this.motor);
     }
 
     private void Awake()
@@ -54,12 +56,17 @@ public class NetworkPlayerView : NetworkBehaviour
         }
     }
 
-    public void SetGlobalMove(Vector2 globalDir)
+    private void FixedUpdate()
+    {
+        SetGlobalMove(motor.NormalizedVelocity.ToV2_xz());
+    }
+
+    void SetGlobalMove(Vector2 globalDir)
     {
         var localDir = transform.InverseTransformDirection(globalDir.ToV3_x0y());
         SetLocalMove(localDir.ToV2_xz());
     }
-    public void SetLocalMove(Vector2 localDir)
+    void SetLocalMove(Vector2 localDir)
     {
         animator.SetFloat(rightHash, localDir.x);
         animator.SetFloat(forwardHash, localDir.y);

@@ -21,10 +21,4 @@ public class PlayerController : MonoSingleton<PlayerController>
         if (localPlayer != player) return;
         localPlayer = null;
     }
-
-    public void Move(Vector2 dir)
-    {
-        if (localPlayer == null) return;
-        localPlayer.Motor.CmdMove(dir);
-    }
 }

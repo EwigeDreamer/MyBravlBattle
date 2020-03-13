@@ -36,6 +36,7 @@ public class NetworkPlayer : NetworkBehaviour
 
     public override void OnStartLocalPlayer()
     {
+        Debug.LogError($"OnStartLocalPlayer {name}");
         base.OnStartLocalPlayer();
         CmdTeleportToSpawnPoint();
         PlayerController.I.Register(this);

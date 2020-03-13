@@ -14,6 +14,6 @@ public class CharacterControlMediator : MonoValidate
 
     private void Awake()
     {
-        userControl.OnMove += PlayerController.I.Move;
+        userControl.OnMove += dir => PlayerController.I.LocalPlayer.Motor.CmdMove(dir);
     }
 }

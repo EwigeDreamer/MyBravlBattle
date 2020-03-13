@@ -10,6 +10,8 @@ public class NetworkPlayerMotor : NetworkBehaviour
     [SerializeField] Rigidbody rb;
     [SerializeField] float speed = 10f;
 
+    public Vector3 NormalizedVelocity => rb.velocity / speed;
+
     private void OnValidate()
     {
         gameObject.ValidateGetComponent(ref this.rb);
@@ -26,13 +28,14 @@ public class NetworkPlayerMotor : NetworkBehaviour
     public void CmdTeleport(Vector3 point)
     {
         Debug.LogWarning($"TELEPORT 111! {name}");
+        transform.position = point;
         RpcTeleport(point);
     }
 
     [ClientRpc]
     void RpcTeleport(Vector3 point)
     {
-        Debug.LogWarning($"TELEPORT 222! {name}");
+        Debug.LogWarning($"TELEPORT 222! {name} {point}");
         transform.position = point;
     }
 }
