@@ -36,7 +36,7 @@ public class NetworkPlayer : NetworkBehaviour
 
     public override void OnStartLocalPlayer()
     {
-        Debug.LogError($"OnStartLocalPlayer {name}");
+        Debug.LogError($"OnStartLocalPlayer {name}", gameObject);
         base.OnStartLocalPlayer();
         CmdTeleportToSpawnPoint();
         PlayerController.I.Register(this);
@@ -55,51 +55,4 @@ public class NetworkPlayer : NetworkBehaviour
         var point = MapController.I.GetRandomSpawnPoint();
         this.motor.CmdTeleport(point);
     }
-
-    //public static NetworkPlayer Current { get; private set; } = null;
-
-    //private void Start()
-    //{
-    //    transform.SetParent(CustomNetworkManager.I.Tr);
-    //    transform.localPosition = Vector3.zero;
-    //    var connToClient = connectionToClient;
-    //    var connToServer = connectionToServer;
-    //    var clientAddress = connToClient != null ? $" [{connToClient.address}]" : "";
-    //    var serverAddress = connToServer != null ? $" [{connToServer.address}]" : "";
-    //    name = $"{typeof(NetworkPlayer)}{clientAddress}{serverAddress}";
-    //}
-
-
-    //[Command]
-    //void CmdSpawnCharacter()
-    //{
-    //    var character = Instantiate(characterPrefab);
-
-    //}
-
-    //[Command]
-    //void CmdDespawnCharacter()
-    //{
-
-    //}
-
-    //[Command]
-    //public void CmdDoInServer()
-    //{
-    //    Debug.LogError($"SERVER COMMAND! [{name}]");
-    //    RpcDoInAllClients();
-    //    TargetDoInTargetClients(connectionToClient);
-    //}
-
-    //[ClientRpc]
-    //void RpcDoInAllClients()
-    //{
-    //    Debug.LogError($"CLIENT COMMAND! [{name}]");
-    //}
-
-    //[TargetRpc]
-    //void TargetDoInTargetClients(NetworkConnection target)
-    //{
-    //    Debug.LogError($"TARGET CLIENT COMMAND! [{name}]");
-    //}
 }

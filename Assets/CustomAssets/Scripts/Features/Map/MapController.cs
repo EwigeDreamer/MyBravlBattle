@@ -58,7 +58,7 @@ public class MapController : MonoSingleton<MapController>
         base.Awake();
 
         manager.OnServerStarted += BuildMap;
-        manager.OnServerStopped += DestroyMap;
+        manager.OnClientStopped += DestroyMap;
 
         manager.OnClientStarted += client => client.RegisterHandler(MsgType.Highest + 1, ReceiveMapPreset);
         manager.OnOtherCientReady += conn => SendMapPreset(conn, this.presets[this.presetIndex]);
