@@ -27,7 +27,7 @@ public class NetworkPlayerMotor : NetworkBehaviour
     [Command]
     public void CmdTeleport(Vector3 point)
     {
-        Debug.LogWarning($"TELEPORT 111! {name}");
+        Debug.LogWarning($"TELEPORT 111! {point}", gameObject);
         transform.position = point;
     }
 }
