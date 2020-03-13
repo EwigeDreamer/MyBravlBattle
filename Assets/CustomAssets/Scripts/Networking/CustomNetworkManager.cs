@@ -61,8 +61,18 @@ public class CustomNetworkManager : NetworkManager
         }
     }
 
+    public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId)
+    { AddPlayer(conn, playerControllerId); }
+    public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId, NetworkReader extraMessageReader)
+    { AddPlayer(conn, playerControllerId); }
 
-
+    void AddPlayer(NetworkConnection conn, short playerControllerId)
+    {
+        var point = MapController.I.GetRandomSpawnPoint();
+        var player = Instantiate(playerPrefab, point, Quaternion.identity);
+        Debug.LogError($"Add player! {point}", player);
+        NetworkServer.AddPlayerForConnection(conn, player, playerControllerId);
+    }
 
 
 

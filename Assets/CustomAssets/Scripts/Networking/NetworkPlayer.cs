@@ -23,10 +23,13 @@ public class NetworkPlayer : NetworkBehaviour
         gameObject.ValidateGetComponent(ref this.combat);
     }
 
-    private void Start()
+    private void Awake()
     {
         transform.SetParent(CustomNetworkManager.I.transform);
-        transform.localPosition = Vector3.zero;
+    }
+
+    private void Start()
+    {
         var connToClient = connectionToClient;
         var connToServer = connectionToServer;
         var clientAddress = connToClient != null ? $" [client: {connToClient.address}]" : "";
@@ -36,7 +39,7 @@ public class NetworkPlayer : NetworkBehaviour
 
     public override void OnStartLocalPlayer()
     {
-        CmdTeleportToSpawnPoint();
+        base.OnStartLocalPlayer();
         PlayerController.I.Register(this);
     }
 
@@ -44,13 +47,5 @@ public class NetworkPlayer : NetworkBehaviour
     {
         base.OnNetworkDestroy();
         PlayerController.I.Unregister(this);
-    }
-
-    [Command]
-    void CmdTeleportToSpawnPoint()
-    {
-        var point = MapController.I.GetRandomSpawnPoint();
-        Debug.LogWarning($"TELEPORT 000! {point}", gameObject);
-        this.motor.CmdTeleport(point);
     }
 }

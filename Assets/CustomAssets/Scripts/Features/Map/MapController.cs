@@ -99,7 +99,7 @@ public class MapController : MonoSingleton<MapController>
         DestroyMap();
         var chunks = this.chunkData.Chunks;
         var chunkSize = this.chunkData.ChunkSize;
-        var mapOffset = new Vector2((preset.rows - 1) * chunkSize.x / -2f, (preset.columns - 1) * chunkSize.y / -2f).ToV3_x0y();
+        var mapOffset = new Vector2((preset.rows - 1) * chunkSize.y / -2f, (preset.columns - 1) * chunkSize.x / -2f).ToV3_x0y();
         for (int i = 0; i < preset.rows; ++i)
             for (int j = 0; j < preset.columns; ++j)
             {
@@ -162,7 +162,6 @@ public class MapController : MonoSingleton<MapController>
 
     public Vector3 GetRandomSpawnPoint()
     {
-        if (mapSpawners.Count < 1) return Vector3.up * 2f;
         return mapSpawners[Random.Range(0, mapSpawners.Count)].ChunkPoint;
     }
 }
