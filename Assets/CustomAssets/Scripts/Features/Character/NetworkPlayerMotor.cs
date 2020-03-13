@@ -20,7 +20,6 @@ public class NetworkPlayerMotor : NetworkBehaviour
     [Command]
     public void CmdMove(Vector2 dir)
     {
-        Debug.LogError("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD", gameObject);
         var dir3d = dir.ToV3_x0y();
         this.rb.velocity = dir3d * Mathf.Max(speed, this.rb.velocity.magnitude);
     }
@@ -29,14 +28,6 @@ public class NetworkPlayerMotor : NetworkBehaviour
     public void CmdTeleport(Vector3 point)
     {
         Debug.LogWarning($"TELEPORT 111! {name}");
-        transform.position = point;
-        RpcTeleport(point);
-    }
-
-    [ClientRpc]
-    void RpcTeleport(Vector3 point)
-    {
-        Debug.LogWarning($"TELEPORT 222! {name} {point}");
         transform.position = point;
     }
 }
