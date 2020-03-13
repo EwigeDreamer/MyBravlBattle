@@ -3,15 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using MyTools.Extensions.GameObjects;
+using DG.Tweening;
+using MyTools.Extensions.Vectors;
 
 public class NetworkPlayerView : NetworkBehaviour
 {
     [SerializeField] Renderer[] renderers;
     [SerializeField] Animator animator;
 
+    Tween torsoTween = null;
+
+    int forwardHash = Animator.StringToHash("forward");
+    int rightHash = Animator.StringToHash("right");
+    int torsoLayerIndex;
+
     private void OnValidate()
     {
         gameObject.ValidateGetComponentInChildren(ref this.animator);
+    }
+
+    private void Awake()
+    {
+        torsoLayerIndex = animator.GetLayerIndex("Torso");
     }
 
     [ContextMenu("Get renderers")]
@@ -24,5 +37,31 @@ public class NetworkPlayerView : NetworkBehaviour
     void RpcSetVisible(bool state)
     {
         foreach (var r in this.renderers) r.enabled = state;
+    }
+
+    public void SetAim(bool state, bool forced = false)
+    {
+        torsoTween?.Kill();
+        if (forced)
+            animator.SetLayerWeight(torsoLayerIndex, state ? 1f : 0f);
+        else
+        {
+            torsoTween = DOVirtual.Float(
+                animator.GetLayerWeight(torsoLayerIndex),
+                state ? 1f : 0f,
+                0.25f,
+                value => animator.SetLayerWeight(torsoLayerIndex, value));
+        }
+    }
+
+    public void SetGlobalMove(Vector2 globalDir)
+    {
+        var localDir = transform.InverseTransformDirection(globalDir.ToV3_x0y());
+        SetLocalMove(localDir.ToV2_xz());
+    }
+    public void SetLocalMove(Vector2 localDir)
+    {
+        animator.SetFloat(rightHash, localDir.x);
+        animator.SetFloat(forwardHash, localDir.y);
     }
 }

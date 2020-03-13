@@ -50,6 +50,7 @@ public class NetworkPlayer : NetworkBehaviour
     [Command]
     void CmdTeleportToSpawnPoint()
     {
+        Debug.LogWarning($"TELEPORT 000! {name}");
         var point = MapController.I.GetRandomSpawnPoint();
         this.motor.CmdTeleport(point);
     }

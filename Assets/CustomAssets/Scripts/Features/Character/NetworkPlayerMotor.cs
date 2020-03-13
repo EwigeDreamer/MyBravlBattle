@@ -23,11 +23,16 @@ public class NetworkPlayerMotor : NetworkBehaviour
     }
 
     [Command]
-    public void CmdTeleport(Vector3 point) => RpcTeleport(point);
+    public void CmdTeleport(Vector3 point)
+    {
+        Debug.LogWarning($"TELEPORT 111! {name}");
+        RpcTeleport(point);
+    }
 
     [ClientRpc]
     void RpcTeleport(Vector3 point)
     {
+        Debug.LogWarning($"TELEPORT 222! {name}");
         transform.position = point;
     }
 }

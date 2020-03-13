@@ -19,5 +19,9 @@
         public static Vector3 ToV3_yx0(this Vector2 v) { return new Vector3(v.y, v.x, 0f); }
 
         public static Vector3 Rotate(this Vector3 v, Quaternion rot) { return rot * v; }
+
+        public static Vector3 SetX(this Vector3 v, float x) { v.x = x; return v; }
+        public static Vector3 SetY(this Vector3 v, float y) { v.y = y; return v; }
+        public static Vector3 SetZ(this Vector3 v, float z) { v.z = z; return v; }
     }
 }
