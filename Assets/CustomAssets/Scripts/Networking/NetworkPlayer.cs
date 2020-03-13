@@ -32,14 +32,13 @@ public class NetworkPlayer : NetworkBehaviour
         var clientAddress = connToClient != null ? $" [client: {connToClient.address}]" : "";
         var serverAddress = connToServer != null ? $" [server: {connToServer.address}]" : "";
         name = $"{typeof(NetworkPlayer)}{clientAddress}{serverAddress}";
-    }
 
-    public override void OnStartLocalPlayer()
-    {
-        Debug.LogWarning($"OnStartLocalPlayer {name}", gameObject);
-        base.OnStartLocalPlayer();
-        CmdTeleportToSpawnPoint();
-        PlayerController.I.Register(this);
+        Debug.LogError($"AAAAAAAAAAAAAAAAAAAAAAAAAAA is localp layer: {isLocalPlayer}", gameObject);
+        if (isLocalPlayer)
+        {
+            CmdTeleportToSpawnPoint();
+            PlayerController.I.Register(this);
+        }
     }
 
     public override void OnNetworkDestroy()
