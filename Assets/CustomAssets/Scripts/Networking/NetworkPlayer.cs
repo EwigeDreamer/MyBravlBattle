@@ -11,21 +11,25 @@ public class NetworkPlayer : NetworkBehaviour
     [SerializeField] NetworkPlayerView view;
     [SerializeField] NetworkPlayerMotor motor;
     [SerializeField] NetworkPlayerCombat combat;
+    [SerializeField] NetworkPlayerCamera camera;
 
     public NetworkPlayerView View => this.view;
     public NetworkPlayerMotor Motor => this.motor;
     public NetworkPlayerCombat Combat => this.combat;
+    public NetworkPlayerCamera Camera => this.camera;
 
     private void OnValidate()
     {
         gameObject.ValidateGetComponent(ref this.view);
         gameObject.ValidateGetComponent(ref this.motor);
         gameObject.ValidateGetComponent(ref this.combat);
+        gameObject.ValidateGetComponent(ref this.camera);
     }
 
     private void Awake()
     {
         transform.SetParent(CustomNetworkManager.I.transform);
+        this.camera.SetActiveCamera(false);
     }
 
     private void Start()
@@ -40,6 +44,7 @@ public class NetworkPlayer : NetworkBehaviour
     public override void OnStartLocalPlayer()
     {
         base.OnStartLocalPlayer();
+        this.camera.SetActiveCamera(true);
         PlayerController.I.Register(this);
     }
 

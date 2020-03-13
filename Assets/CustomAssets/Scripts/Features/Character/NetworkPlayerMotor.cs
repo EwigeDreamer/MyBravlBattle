@@ -4,11 +4,14 @@ using UnityEngine;
 using UnityEngine.Networking;
 using MyTools.Extensions.GameObjects;
 using MyTools.Extensions.Vectors;
+using MyTools.Helpers;
 
 public class NetworkPlayerMotor : NetworkBehaviour
 {
     [SerializeField] Rigidbody rb;
     [SerializeField] float speed = 10f;
+
+    public bool WithAim { get; set; } = false;
 
     public Vector3 NormalizedVelocity => rb.velocity / speed;
 
@@ -25,5 +28,7 @@ public class NetworkPlayerMotor : NetworkBehaviour
     {
         var dir3d = dir.ToV3_x0y();
         this.rb.velocity = dir3d * Mathf.Max(speed, this.rb.velocity.magnitude);
+        if (!WithAim)
+            this.rb.rotation = Quaternion.Slerp(this.rb.rotation, Quaternion.LookRotation(dir3d, Vector3.up), TimeManager.DeltaTime * 10f);
     }
 }
