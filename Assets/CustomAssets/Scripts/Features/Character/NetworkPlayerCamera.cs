@@ -18,4 +18,9 @@ public class NetworkPlayerCamera : MonoValidate
     {
         this.camera.enabled = state;
     }
+
+    public void Refresh()
+    {
+
+    }
 }

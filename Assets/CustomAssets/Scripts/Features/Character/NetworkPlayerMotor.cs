@@ -27,4 +27,9 @@ public class NetworkPlayerMotor : NetworkBehaviour
         if (!WithAim)
             this.rb.rotation = Quaternion.Slerp(this.rb.rotation, Quaternion.LookRotation(dir3d, Vector3.up), TimeManager.DeltaTime * 10f);
     }
+
+    public void Refresh()
+    {
+
+    }
 }

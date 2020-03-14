@@ -11,7 +11,8 @@ public class NetworkPlayer : NetworkBehaviour
     [SerializeField] NetworkPlayerView view;
     [SerializeField] NetworkPlayerMotor motor;
     [SerializeField] NetworkPlayerCombat combat;
-    [SerializeField] NetworkPlayerCamera camera;
+    [SerializeField] new NetworkPlayerCamera camera;
+
 
     public NetworkPlayerView View => this.view;
     public NetworkPlayerMotor Motor => this.motor;
@@ -39,18 +40,32 @@ public class NetworkPlayer : NetworkBehaviour
         var clientAddress = connToClient != null ? $" [client: {connToClient.address}]" : "";
         var serverAddress = connToServer != null ? $" [server: {connToServer.address}]" : "";
         name = $"{typeof(NetworkPlayer)}{clientAddress}{serverAddress}";
+        PlayerController.I.Register(this);
     }
 
     public override void OnStartLocalPlayer()
     {
         base.OnStartLocalPlayer();
         this.camera.SetActiveCamera(true);
-        PlayerController.I.Register(this);
+        PlayerController.I.RegisterLocal(this);
     }
 
     public override void OnNetworkDestroy()
     {
         base.OnNetworkDestroy();
+        PlayerController.I.UnregisterLocal(this);
         PlayerController.I.Unregister(this);
+    }
+
+
+    [Command]
+    public void CmdRefresh() => RpcRefresh();
+    [ClientRpc]
+    void RpcRefresh()
+    {
+        view.Refresh();
+        motor.Refresh();
+        combat.Refresh();
+        camera.Refresh();
     }
 }

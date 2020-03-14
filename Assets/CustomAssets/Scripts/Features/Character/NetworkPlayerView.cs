@@ -71,4 +71,9 @@ public class NetworkPlayerView : NetworkBehaviour
         animator.SetFloat(rightHash, localDir.x);
         animator.SetFloat(forwardHash, localDir.y);
     }
+
+    public void Refresh()
+    {
+
+    }
 }
