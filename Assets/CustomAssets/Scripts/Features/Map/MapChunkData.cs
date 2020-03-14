@@ -7,12 +7,10 @@ using System.Collections.ObjectModel;
 public class MapChunkData : ScriptableObject
 {
     [SerializeField] Vector2 chunkSize = new Vector2(2f, 2f);
-    [SerializeField] MapChunk border;
     [SerializeField] List<MapChunk> chunks;
     [SerializeField] List<TextAsset> csvPresets;
 
     public Vector2 ChunkSize => chunkSize;
-    public MapChunk Border => border;
 
     ReadOnlyDictionary<int, MapChunk> ro_chunks = null;
     public ReadOnlyDictionary<int, MapChunk> Chunks => ro_chunks ?? (ro_chunks = CreateDict());

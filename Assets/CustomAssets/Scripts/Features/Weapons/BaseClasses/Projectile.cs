@@ -20,6 +20,7 @@ public abstract class Projectile : NetworkBehaviour
         info.weapon = weapon;
         transform.position = position;
         transform.rotation = Quaternion.LookRotation(direction);
+        RpcGo();
     }
 
     protected void Hit(Collider col, PointInfo hit)
@@ -37,5 +38,10 @@ public abstract class Projectile : NetworkBehaviour
     {
         OnFinish(this);
     }
+
+    [ClientRpc]
+    protected abstract void RpcGo();
+    [ClientRpc]
+    protected abstract void RpcStop();
 }
 

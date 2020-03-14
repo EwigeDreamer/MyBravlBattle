@@ -13,10 +13,13 @@ public class NetworkPlayerView : NetworkBehaviour
     [SerializeField] NetworkPlayerMotor motor;
 
     Tween torsoTween = null;
+    bool isVisible = true;
 
     int forwardHash = Animator.StringToHash("forward");
     int rightHash = Animator.StringToHash("right");
     int torsoLayerIndex;
+
+    public bool IsVisible => IsVisible;
 
     private void OnValidate()
     {
@@ -39,9 +42,13 @@ public class NetworkPlayerView : NetworkBehaviour
     void RpcSetVisible(bool state)
     {
         foreach (var r in this.renderers) r.enabled = state;
+        this.isVisible = state;
     }
 
-    public void SetAim(bool state, bool forced = false)
+    [Command]
+    public void CmdSetAim(bool state, bool forced) => RpcSetAim(state, forced);
+    [ClientRpc]
+    void RpcSetAim(bool state, bool forced)
     {
         torsoTween?.Kill();
         if (forced)

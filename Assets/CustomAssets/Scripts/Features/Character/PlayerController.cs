@@ -50,4 +50,21 @@ public class PlayerController : MonoSingleton<PlayerController>
             this.allPlayers[i].CmdRefresh();
         }
     }
+
+    public NetworkPlayer GetClosest(NetworkPlayer player)
+    {
+        if (this.allPlayers.Count < 1) return null;
+        var min = float.PositiveInfinity;
+        NetworkPlayer closest = null;
+        foreach (var pl in this.allPlayers)
+        {
+            if (pl == player) continue;
+            if (!pl.View.IsVisible) continue;
+            var dist = (pl.Motor.Position - player.Motor.Position).sqrMagnitude;
+            if (dist > min) continue;
+            min = dist;
+            closest = pl;
+        }
+        return closest;
+    }
 }

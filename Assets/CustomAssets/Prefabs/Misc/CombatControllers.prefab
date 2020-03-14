@@ -1,0 +1,126 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8031778585152591646
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5472529946392568850}
+  - component: {fileID: 1019850611329990279}
+  - component: {fileID: 7441459791383029817}
+  - component: {fileID: 1869995823986529459}
+  - component: {fileID: 1805131431279040937}
+  - component: {fileID: 2728255375253911922}
+  m_Layer: 0
+  m_Name: CombatControllers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5472529946392568850
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8031778585152591646}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1019850611329990279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8031778585152591646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53db465e136b5964e90a59d073febc4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideSingleton: 1
+  m_MakeDontDestroy: 1
+  models: {fileID: 11400000, guid: fb0d480910607c94e809d6d50d126ca3, type: 2}
+  hitMask:
+    serializedVersion: 2
+    m_Bits: 0
+--- !u!114 &7441459791383029817
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8031778585152591646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d67830ae4282df4b8b781a32b34f202, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideSingleton: 1
+  m_MakeDontDestroy: 0
+  weaponCtrl: {fileID: 1019850611329990279}
+  projectiles: {fileID: 11400000, guid: f232a52eb444736428ae92483a29d659, type: 2}
+--- !u!114 &1869995823986529459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8031778585152591646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36c517f80525de740a067c4eb7dcb33a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ProjectileCtrl: {fileID: 7441459791383029817}
+--- !u!114 &1805131431279040937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8031778585152591646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed9a5a6c6720fb848bfdaad0594b0559, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ProjectileCtrl: {fileID: 7441459791383029817}
+  m_ProjectileClips:
+  - kind: 0
+    clips:
+      shoot: {fileID: 0}
+      flight: {fileID: 0}
+      hit: {fileID: 0}
+  - kind: 1
+    clips:
+      shoot: {fileID: 0}
+      flight: {fileID: 0}
+      hit: {fileID: 0}
+  - kind: 2
+    clips:
+      shoot: {fileID: 0}
+      flight: {fileID: 0}
+      hit: {fileID: 0}
+--- !u!114 &2728255375253911922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8031778585152591646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1e01424431c8f04da4e77833fa253d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AudioEffectPointKey: audio_point

@@ -84,7 +84,7 @@ namespace MyTools.Pooling
             m_RList = new ReorderableList(serializedObject, serializedObject.FindProperty("m_Pools"), true, true, true, true);
             m_RList.drawHeaderCallback = (rect) =>
             {
-                EditorGUI.LabelField(rect, "Какое-то ГАВНО...");
+                EditorGUI.LabelField(rect, "Subpools");
             };
             m_RList.elementHeightCallback = (index) =>
             {

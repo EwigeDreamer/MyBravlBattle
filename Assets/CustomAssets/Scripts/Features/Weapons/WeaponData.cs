@@ -42,11 +42,11 @@ public static class WeaponStaticData
             }.AsReadOnly() },
 
             { PK.RifleBullet, new List<IE> {
-                new DamageImpactEffect(5),
+                new DamageImpactEffect(25),
             }.AsReadOnly() },
 
             { PK.ShotgunBullet, new List<IE> {
-                new DamageImpactEffect(25),
+                new DamageImpactEffect(20),
             }.AsReadOnly() },
         });
 }

@@ -6,60 +6,60 @@ namespace MyTools.ValueInfo
     [Serializable]
     public struct IntInfo
     {
-        [SerializeField] int m_Min;
-        [SerializeField] int m_Max;
-        [SerializeField] int m_Value;
+        public int min;
+        public int max;
+        public int value;
 
         public IntInfo(int value)
         {
             if (value != 0)
             {
                 bool positive = value > 0;
-                m_Min = positive ? 0 : value;
-                m_Max = positive ? value : 0;
+                min = positive ? 0 : value;
+                max = positive ? value : 0;
             }
             else
             {
-                m_Min = 0;
-                m_Max = 1;
+                min = 0;
+                max = 1;
             }
-            m_Value = value;
+            this.value = value;
         }
 
-        public int Min { get => m_Min; set => SetMin(value); }
-        public int Max { get => m_Max; set => SetMax(value); }
-        public int Value { get => m_Value; set => SetValue(value); }
+        public int Min { get => min; set => SetMin(value); }
+        public int Max { get => max; set => SetMax(value); }
+        public int Value { get => value; set => SetValue(value); }
 
-        public float ValueToMaxRatio => m_Max == 0 ? 0f : ((float)m_Value) / m_Max;
-        public float Normalize => (float)m_Value / (m_Max - m_Min);
+        public float ValueToMaxRatio => max == 0 ? 0f : ((float)value) / max;
+        public float Normalize => (float)value / (max - min);
 
-        public bool IsMax => m_Value == m_Max;
-        public bool IsMin => m_Value == m_Min;
-        public bool IsZero => m_Value == 0;
-        public void ToMin() => m_Value = m_Min;
-        public void ToMax() => m_Value = m_Max;
-        public void ToZero() => m_Value = m_Min = 0;
+        public bool IsMax => value == max;
+        public bool IsMin => value == min;
+        public bool IsZero => value == 0;
+        public void ToMin() => value = min;
+        public void ToMax() => value = max;
+        public void ToZero() => value = min = 0;
 
-        void SetMin(int min)
+        public void SetMin(int min)
         {
-            if (min > m_Max) min = m_Max;
-            m_Min = min;
-            if (m_Value < m_Min) m_Value = m_Min;
+            if (min > max) min = max;
+            this.min = min;
+            if (value < this.min) value = this.min;
         }
-        void SetMax(int max)
+        public void SetMax(int max)
         {
-            if (max < m_Min) max = m_Min;
-            m_Max = max;
-            if (m_Value > m_Max) m_Value = m_Max;
+            if (max < min) max = min;
+            this.max = max;
+            if (value > this.max) value = this.max;
         }
-        void SetValue(int value)
+        public void SetValue(int value)
         {
-            if (value < m_Min) value = m_Min;
-            else if (value > m_Max) value = m_Max;
-            m_Value = value;
+            if (value < min) value = min;
+            else if (value > max) value = max;
+            this.value = value;
         }
 
-        public static implicit operator int(IntInfo info) => info.m_Value;
+        public static implicit operator int(IntInfo info) => info.value;
         public static IntInfo operator +(IntInfo a, int b) { a.Value += b; return a; }
         public static IntInfo operator +(int a, IntInfo b) { b.Value += a; return b; }
         public static IntInfo operator -(IntInfo a, int b) { a.Value -= b; return a; }
@@ -70,52 +70,52 @@ namespace MyTools.ValueInfo
     [Serializable]
     public struct FloatInfo
     {
-        [SerializeField] float m_Min;
-        [SerializeField] float m_Max;
-        [SerializeField] float m_Value;
+        public float min;
+        public float max;
+        public float value;
 
         public FloatInfo(float value)
         {
             bool positive = value > 0;
-            m_Min = positive ? 0 : value;
-            m_Max = positive ? value : 0;
-            m_Value = value;
+            min = positive ? 0 : value;
+            max = positive ? value : 0;
+            this.value = value;
         }
 
-        public float Min { get => m_Min; set => SetMin(value); }
-        public float Max { get => m_Max; set => SetMax(value); }
-        public float Value { get => m_Value; set => SetValue(value); }
+        public float Min { get => min; set => SetMin(value); }
+        public float Max { get => max; set => SetMax(value); }
+        public float Value { get => value; set => SetValue(value); }
 
-        public float ValueToMaxRatio => m_Max.IsVerySmall() ? 0f : m_Value / m_Max;
-        public float Normalize => m_Value / (m_Max - m_Min);
+        public float ValueToMaxRatio => max.IsVerySmall() ? 0f : value / max;
+        public float Normalize => value / (max - min);
 
-        public bool IsMax => (m_Value - m_Max).IsVerySmall();
-        public bool IsMin => (m_Value - m_Min).IsVerySmall();
-        public bool IsZero => m_Value.IsVerySmall();
-        public void ToMin() => m_Value = m_Min;
-        public void ToMax() => m_Value = m_Max;
-        public void ToZero() => m_Value = m_Min = 0f;
+        public bool IsMax => (value - max).IsVerySmall();
+        public bool IsMin => (value - min).IsVerySmall();
+        public bool IsZero => value.IsVerySmall();
+        public void ToMin() => value = min;
+        public void ToMax() => value = max;
+        public void ToZero() => value = min = 0f;
 
-        void SetMin(float min)
+        public void SetMin(float min)
         {
-            if (min > m_Max) min = m_Max;
-            m_Min = min;
-            if (m_Value < m_Min) m_Value = m_Min;
+            if (min > max) min = max;
+            this.min = min;
+            if (value < this.min) value = this.min;
         }
-        void SetMax(float max)
+        public void SetMax(float max)
         {
-            if (max < m_Min) max = m_Min;
-            m_Max = max;
-            if (m_Value > m_Max) m_Value = m_Max;
+            if (max < min) max = min;
+            this.max = max;
+            if (value > this.max) value = this.max;
         }
-        void SetValue(float value)
+        public void SetValue(float value)
         {
-            if (value < m_Min) value = m_Min;
-            else if (value > m_Max) value = m_Max;
-            m_Value = value;
+            if (value < min) value = min;
+            else if (value > max) value = max;
+            this.value = value;
         }
 
-        public static implicit operator float(FloatInfo info) => info.m_Value;
+        public static implicit operator float(FloatInfo info) => info.value;
         public static FloatInfo operator +(FloatInfo a, float b) { a.Value += b; return a; }
         public static FloatInfo operator +(float a, FloatInfo b) { b.Value += a; return b; }
         public static FloatInfo operator -(FloatInfo a, float b) { a.Value -= b; return a; }
