@@ -14,7 +14,7 @@ public class NetworkPlayerCombat : NetworkBehaviour
     public event Action<WeaponKind> OnSetWeapon = delegate { };
 
     [SyncVar]
-    WeaponKind currentKind = WeaponKind.Pistol;
+    WeaponKind currentKind = WeaponKind.Unknown;
 
     Weapon weapon = null;
 

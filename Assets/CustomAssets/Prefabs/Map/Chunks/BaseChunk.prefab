@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1997625841}
   - component: {fileID: 1997625840}
   - component: {fileID: 1997625839}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -304,7 +304,7 @@ GameObject:
   - component: {fileID: 4540960393534009691}
   - component: {fileID: 1964646012579703261}
   - component: {fileID: 8343675959210486882}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: BaseChunk
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -338,6 +338,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe4a62923167950409c7fd0795d30207, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 0
+  isSpawner: 0
 --- !u!65 &8343675959210486882
 BoxCollider:
   m_ObjectHideFlags: 0
