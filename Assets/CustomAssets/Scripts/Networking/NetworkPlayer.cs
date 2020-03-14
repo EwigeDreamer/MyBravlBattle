@@ -51,7 +51,6 @@ public class NetworkPlayer : NetworkBehaviour
         this.camera.SetActiveCamera(true);
         PlayerController.I.RegisterLocal(this);
         this.combat.CmdSetWeapon(WeaponKind.Pistol);
-        this.grassHider.SetActive(true);
     }
 
     public override void OnNetworkDestroy()

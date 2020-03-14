@@ -16,7 +16,7 @@ public class NetworkPlayerXRayFinder : NetworkBehaviour
 
     private void Awake()
     {
-        SetActive(false);
+        this.playerTrigger.SetActive(false);
     }
 
     private void Start()
@@ -25,10 +25,9 @@ public class NetworkPlayerXRayFinder : NetworkBehaviour
         {
             this.playerTrigger.OnEnter += AddPlayer;
             this.playerTrigger.OnExit += RemovePlayer;
+            this.playerTrigger.SetActive(true);
         }
     }
-
-    public void SetActive(bool state) => this.playerTrigger.SetActive(state);
 
     private void OnDestroy()
     {

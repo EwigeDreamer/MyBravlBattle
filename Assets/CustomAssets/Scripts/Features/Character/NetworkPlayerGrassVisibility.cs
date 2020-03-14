@@ -18,7 +18,7 @@ public class NetworkPlayerGrassVisibility : NetworkBehaviour
 
     private void Awake()
     {
-        SetActive(false);
+        this.grassTrigger.SetActive(false);
     }
 
     private void Start()
@@ -27,10 +27,9 @@ public class NetworkPlayerGrassVisibility : NetworkBehaviour
         {
             this.grassTrigger.OnEnter += AddGrass;
             this.grassTrigger.OnExit += RemoveGrass;
+            this.grassTrigger.SetActive(true);
         }
     }
-
-    public void SetActive(bool state) => this.grassTrigger.SetActive(state);
 
     private void OnDestroy()
     {

@@ -67,6 +67,63 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 4973867047127037162}
+--- !u!1 &578511936899082203
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6274020409639192374}
+  - component: {fileID: 8386016306646000526}
+  - component: {fileID: 571542946085290356}
+  m_Layer: 31
+  m_Name: XRayFinderSensor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6274020409639192374
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 578511936899082203}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4591277754158408562}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8386016306646000526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 578511936899082203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70f34506fcbe6ca488914430c3a444c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!135 &571542946085290356
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 578511936899082203}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 4
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &1199575977798360374
 GameObject:
   m_ObjectHideFlags: 0
@@ -77,10 +134,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1949738795631195355}
   - component: {fileID: 216804656028313876}
-  - component: {fileID: 6510080599190548565}
   - component: {fileID: 7711305803614336690}
   m_Layer: 31
-  m_Name: XRaySensor
+  m_Name: GrassXRaySensor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -110,18 +166,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 783057428e96db24bba04cd4f7ff63ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &6510080599190548565
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1199575977798360374}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70f34506fcbe6ca488914430c3a444c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!135 &7711305803614336690
@@ -1925,7 +1969,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4591277754158408562}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5162613958549066611
 MonoBehaviour:
@@ -1997,6 +2041,7 @@ Transform:
   - {fileID: 5500086034089164978}
   - {fileID: 8205470023520037348}
   - {fileID: 1949738795631195355}
+  - {fileID: 6274020409639192374}
   - {fileID: 1530238237007000012}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -2184,7 +2229,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90ef094292991cf43a7a5bf1be77102b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerTrigger: {fileID: 6510080599190548565}
+  playerTrigger: {fileID: 8386016306646000526}
 --- !u!114 &7855376291427017831
 MonoBehaviour:
   m_ObjectHideFlags: 0

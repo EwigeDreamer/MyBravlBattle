@@ -16,7 +16,7 @@ public class NetworkPlayerGrassXRay : NetworkBehaviour
 
     private void Awake()
     {
-        SetActive(false);
+        this.grassTrigger.SetActive(false);
     }
 
     private void Start()
@@ -25,10 +25,9 @@ public class NetworkPlayerGrassXRay : NetworkBehaviour
         {
             this.grassTrigger.OnEnter += AddGrass;
             this.grassTrigger.OnExit += RemoveGrass;
+            this.grassTrigger.SetActive(true);
         }
     }
-
-    public void SetActive(bool state) => this.grassTrigger.SetActive(state);
 
     private void OnDestroy()
     {
