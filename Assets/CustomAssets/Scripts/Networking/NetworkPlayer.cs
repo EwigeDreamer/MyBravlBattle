@@ -12,7 +12,7 @@ public class NetworkPlayer : NetworkBehaviour
     [SerializeField] NetworkPlayerMotor motor;
     [SerializeField] NetworkPlayerCombat combat;
     [SerializeField] new NetworkPlayerCamera camera;
-    [SerializeField] NetworkPlayerGrassHider grassHider;
+    [SerializeField] NetworkPlayerGrassXRay grassHider;
 
 
     public NetworkPlayerView View => this.view;

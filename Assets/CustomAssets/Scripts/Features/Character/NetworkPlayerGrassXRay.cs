@@ -4,10 +4,10 @@ using UnityEngine;
 using UnityEngine.Networking;
 using MyTools.Extensions.GameObjects;
 
-public class NetworkPlayerGrassHider : NetworkBehaviour
+public class NetworkPlayerGrassXRay : NetworkBehaviour
 {
     [SerializeField] GrassTransparencyTrigger grassTrigger;
-    List<GrassField> grassList = new List<GrassField>();
+    List<GrassTransparencySensor> grassList = new List<GrassTransparencySensor>();
 
     private void OnValidate()
     {
@@ -16,9 +16,16 @@ public class NetworkPlayerGrassHider : NetworkBehaviour
 
     private void Awake()
     {
-        this.grassTrigger.OnEnter += AddGrass;
-        this.grassTrigger.OnExit += RemoveGrass;
         SetActive(false);
+    }
+
+    private void Start()
+    {
+        if (isLocalPlayer)
+        {
+            this.grassTrigger.OnEnter += AddGrass;
+            this.grassTrigger.OnExit += RemoveGrass;
+        }
     }
 
     public void SetActive(bool state) => this.grassTrigger.SetActive(state);
@@ -34,14 +41,14 @@ public class NetworkPlayerGrassHider : NetworkBehaviour
         while (i --> 0) RemoveGrass(this.grassList[i]);
     }
 
-    void AddGrass(GrassField grass)
+    void AddGrass(GrassTransparencySensor grass)
     {
         if (this.grassList.Contains(grass)) return;
         this.grassList.Add(grass);
         grass.SetVisibility(false);
     }
 
-    void RemoveGrass(GrassField grass)
+    void RemoveGrass(GrassTransparencySensor grass)
     {
         if (grass == null) return;
         this.grassList.Remove(grass);

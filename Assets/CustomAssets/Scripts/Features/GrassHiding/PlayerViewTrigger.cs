@@ -3,4 +3,4 @@ using System.Collections.Generic;
 using UnityEngine;
 using MyTools.Triggers;
 
-public class PlayerVisibilityTrigger : GameObjectComponentTrigger<PlayerVisibilitySensor> { }
+public class PlayerViewTrigger : GameObjectComponentTrigger<NetworkPlayerView> { }

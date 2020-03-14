@@ -20,7 +20,7 @@ public class NetworkPlayerView : NetworkBehaviour
     int rightHash = Animator.StringToHash("right");
     int torsoLayerIndex;
 
-    public bool IsVisible => isVisible && !isFounded;
+    public bool IsVisible => this.isVisible && !this.isFounded;
 
     private void OnValidate()
     {
@@ -52,22 +52,23 @@ public class NetworkPlayerView : NetworkBehaviour
     [Command] public void CmdSetAim(bool state, bool forced) => RpcSetAim(state, forced);
     [ClientRpc] void RpcSetAim(bool state, bool forced)
     {
-        torsoTween?.Kill();
+        this.torsoTween?.Kill();
         if (forced)
-            animator.SetLayerWeight(torsoLayerIndex, state ? 1f : 0f);
+            this.animator.SetLayerWeight(torsoLayerIndex, state ? 1f : 0f);
         else
         {
-            torsoTween = DOVirtual.Float(
-                animator.GetLayerWeight(torsoLayerIndex),
+            this.torsoTween = DOVirtual.Float(
+                this.animator.GetLayerWeight(this.torsoLayerIndex),
                 state ? 1f : 0f,
                 0.25f,
-                value => animator.SetLayerWeight(torsoLayerIndex, value));
+                value => this.animator.SetLayerWeight(torsoLayerIndex, value))
+                .OnComplete(() => this.torsoTween = null);
         }
     }
 
     private void FixedUpdate()
     {
-        SetGlobalMove(motor.NormalizedVelocity.ToV2_xz());
+        SetGlobalMove(this.motor.NormalizedVelocity.ToV2_xz());
     }
 
     void SetGlobalMove(Vector2 globalDir)
@@ -77,8 +78,8 @@ public class NetworkPlayerView : NetworkBehaviour
     }
     void SetLocalMove(Vector2 localDir)
     {
-        animator.SetFloat(rightHash, localDir.x);
-        animator.SetFloat(forwardHash, localDir.y);
+        this.animator.SetFloat(this.rightHash, localDir.x);
+        this.animator.SetFloat(this.forwardHash, localDir.y);
     }
 
     public void Refresh()

@@ -6,7 +6,7 @@ using MyTools.Extensions.GameObjects;
 
 public class NetworkPlayerXRayFinder : NetworkBehaviour
 {
-    [SerializeField] PlayerVisibilityTrigger playerTrigger;
+    [SerializeField] PlayerViewTrigger playerTrigger;
     List<NetworkPlayerView> playerList = new List<NetworkPlayerView>();
 
     private void OnValidate()
@@ -16,9 +16,16 @@ public class NetworkPlayerXRayFinder : NetworkBehaviour
 
     private void Awake()
     {
-        this.playerTrigger.OnEnter += AddPlayer;
-        this.playerTrigger.OnExit += RemovePlayer;
         SetActive(false);
+    }
+
+    private void Start()
+    {
+        if (isLocalPlayer)
+        {
+            this.playerTrigger.OnEnter += AddPlayer;
+            this.playerTrigger.OnExit += RemovePlayer;
+        }
     }
 
     public void SetActive(bool state) => this.playerTrigger.SetActive(state);
