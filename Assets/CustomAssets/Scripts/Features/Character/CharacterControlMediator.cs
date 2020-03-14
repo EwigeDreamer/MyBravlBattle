@@ -18,7 +18,6 @@ public class CharacterControlMediator : MonoValidate
         userControl.OnMove += dir => PlayerController.I.LocalPlayer.Motor.Move(dir);
         userControl.OnDirectionalShoot += dir =>
         {
-            Debug.LogWarning($"DirectionalShoot {dir}");
             PlayerController.I.LocalPlayer.Combat.CmdShoot(dir);
             PlayerController.I.LocalPlayer.View.CmdSetAim(false, false);
             PlayerController.I.LocalPlayer.Motor.SetAimRotation(false);
@@ -31,11 +30,12 @@ public class CharacterControlMediator : MonoValidate
         };
         userControl.OnShoot += () =>
         {
-            Debug.LogWarning($"Shoot");
+            Debug.LogWarning($"Try Shoot");
             var player = PlayerController.I.LocalPlayer;
             var closest = PlayerController.I.GetClosest(player);
             if (closest == null) return;
             var dir = (closest.Motor.Position - player.Motor.Position).ToV2_xz().normalized;
+            Debug.LogWarning($"Shoot {dir}");
             PlayerController.I.LocalPlayer.View.CmdSetAim(true, true);
             PlayerController.I.LocalPlayer.Motor.SetAimRotation(dir);
             PlayerController.I.LocalPlayer.Combat.CmdShoot(dir);
