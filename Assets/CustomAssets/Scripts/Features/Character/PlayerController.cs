@@ -26,8 +26,8 @@ public class PlayerController : MonoSingleton<PlayerController>
     {
         base.Awake();
 
-        //this.manager.OnClientStarted += client => client.RegisterHandler(MsgType.Highest + 1, ReceiveRefreshMessage);
-        //this.manager.OnOtherCientReady += conn => SendRefreshMessage(conn, this.refreshMessage);
+        this.manager.OnClientStarted += client => client.RegisterHandler(MsgType.Highest + 2, ReceiveRefreshMessage);
+        this.manager.OnOtherCientReady += conn => SendRefreshMessage(conn, this.refreshMessage);
     }
 
     public void Register(NetworkPlayer player) => allPlayers.Add(player);
