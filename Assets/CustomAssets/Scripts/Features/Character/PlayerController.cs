@@ -74,8 +74,9 @@ public class PlayerController : MonoSingleton<PlayerController>
 
     public void ReceiveRefreshMessage(NetworkMessage netMsg)
     {
+        if (this.localPlayer == null) return;
         var msg = netMsg.ReadMessage<PlayerRefreshMessage>();
         if (msg == null) return;
-        this.localPlayer?.CmdRefresh();
+        this.localPlayer.CmdRefresh();
     }
 }

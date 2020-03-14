@@ -58,6 +58,12 @@ public class NetworkPlayer : NetworkBehaviour
         PlayerController.I.Unregister(this);
     }
 
+    private void OnDestroy()
+    {
+        PlayerController.I.UnregisterLocal(this);
+        PlayerController.I.Unregister(this);
+    }
+
 
     [Command]
     public void CmdRefresh() => RpcRefresh();
