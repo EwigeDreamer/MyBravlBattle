@@ -9,6 +9,8 @@ public class PlayerRefreshMessage : MessageBase { }
 
 public class PlayerController : MonoSingleton<PlayerController>
 {
+    const short msgType = MsgType.Highest + 2;
+
     [SerializeField] CustomNetworkManager manager;
     PlayerRefreshMessage refreshMessage = new PlayerRefreshMessage();
     List<NetworkPlayer> allPlayers = new List<NetworkPlayer>();
@@ -26,7 +28,7 @@ public class PlayerController : MonoSingleton<PlayerController>
     {
         base.Awake();
 
-        this.manager.OnClientStarted += client => client.RegisterHandler(MsgType.Highest + 2, ReceiveRefreshMessage);
+        this.manager.OnClientStarted += client => client.RegisterHandler(msgType, ReceiveRefreshMessage);
         this.manager.OnOtherCientReady += conn => SendRefreshMessage(conn, this.refreshMessage);
     }
 
@@ -67,7 +69,7 @@ public class PlayerController : MonoSingleton<PlayerController>
     public void SendRefreshMessage(NetworkConnection conn, PlayerRefreshMessage msg)
     {
         if (!NetworkServer.active) return;
-        NetworkServer.SendToClient(conn.connectionId, MsgType.Highest + 1, msg);
+        NetworkServer.SendToClient(conn.connectionId, msgType, msg);
     }
 
     public void ReceiveRefreshMessage(NetworkMessage netMsg)

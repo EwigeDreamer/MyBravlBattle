@@ -31,6 +31,8 @@ public class MapPreset : MessageBase
 
 public class MapController : MonoSingleton<MapController>
 {
+    const short msgType = MsgType.Highest + 1;
+
     public event System.Action OnMapBuilded = delegate { };
 
     [SerializeField] CustomNetworkManager manager;
@@ -62,7 +64,7 @@ public class MapController : MonoSingleton<MapController>
         manager.OnServerStarted += BuildMap;
         manager.OnClientStopped += DestroyMap;
 
-        manager.OnClientStarted += client => client.RegisterHandler(MsgType.Highest + 1, ReceiveMapPreset);
+        manager.OnClientStarted += client => client.RegisterHandler(msgType, ReceiveMapPreset);
         manager.OnOtherCientReady += conn => SendMapPreset(conn, this.presets[this.presetIndex]);
 
         ReadPresets();
@@ -124,7 +126,7 @@ public class MapController : MonoSingleton<MapController>
     public void SendMapPreset(NetworkConnection conn, MapPreset preset)
     {
         if (!NetworkServer.active) return;
-        NetworkServer.SendToClient(conn.connectionId, MsgType.Highest + 1, preset);
+        NetworkServer.SendToClient(conn.connectionId, msgType, preset);
     }
 
     public void ReceiveMapPreset(NetworkMessage netMsg)
