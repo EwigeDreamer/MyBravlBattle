@@ -12,6 +12,7 @@ public class NetworkPlayer : NetworkBehaviour
     [SerializeField] NetworkPlayerMotor motor;
     [SerializeField] NetworkPlayerCombat combat;
     [SerializeField] new NetworkPlayerCamera camera;
+    [SerializeField] NetworkPlayerGrassHider grassHider;
 
 
     public NetworkPlayerView View => this.view;
@@ -25,6 +26,7 @@ public class NetworkPlayer : NetworkBehaviour
         gameObject.ValidateGetComponent(ref this.motor);
         gameObject.ValidateGetComponent(ref this.combat);
         gameObject.ValidateGetComponent(ref this.camera);
+        gameObject.ValidateGetComponent(ref this.grassHider);
     }
 
     private void Awake()
@@ -49,6 +51,7 @@ public class NetworkPlayer : NetworkBehaviour
         this.camera.SetActiveCamera(true);
         PlayerController.I.RegisterLocal(this);
         this.combat.CmdSetWeapon(WeaponKind.Pistol);
+        this.grassHider.SetActive(true);
     }
 
     public override void OnNetworkDestroy()

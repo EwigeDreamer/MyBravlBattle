@@ -19,5 +19,7 @@ namespace MyTools.Triggers.Base
 
         protected virtual void EnterEvent(Collider col) { }
         protected virtual void ExitEvent(Collider col) { }
+
+        public void SetActive(bool state) => gameObject.SetActive(state);
     }
 }

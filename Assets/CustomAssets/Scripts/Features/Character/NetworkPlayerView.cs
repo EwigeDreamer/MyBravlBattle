@@ -14,12 +14,13 @@ public class NetworkPlayerView : NetworkBehaviour
 
     Tween torsoTween = null;
     [SyncVar] bool isVisible = true;
+    bool isFounded = false;
 
     int forwardHash = Animator.StringToHash("forward");
     int rightHash = Animator.StringToHash("right");
     int torsoLayerIndex;
 
-    public bool IsVisible => isVisible;
+    public bool IsVisible => isVisible && !isFounded;
 
     private void OnValidate()
     {
@@ -29,7 +30,7 @@ public class NetworkPlayerView : NetworkBehaviour
 
     private void Awake()
     {
-        torsoLayerIndex = animator.GetLayerIndex("Torso");
+        this.torsoLayerIndex = this.animator.GetLayerIndex("Torso");
     }
 
     [ContextMenu("Get renderers")]
@@ -38,8 +39,14 @@ public class NetworkPlayerView : NetworkBehaviour
     [Command] public void CmdSetVisible(bool state) => RpcSetVisible(state);
     [ClientRpc] void RpcSetVisible(bool state)
     {
-        foreach (var r in this.renderers) r.enabled = state;
         this.isVisible = state;
+        foreach (var r in this.renderers) r.enabled = IsVisible;
+    }
+
+    public void SetFounded(bool state)
+    {
+        this.isFounded = state;
+        foreach (var r in this.renderers) r.enabled = IsVisible;
     }
 
     [Command] public void CmdSetAim(bool state, bool forced) => RpcSetAim(state, forced);
