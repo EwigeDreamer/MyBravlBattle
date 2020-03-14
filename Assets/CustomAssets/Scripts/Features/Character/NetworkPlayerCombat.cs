@@ -14,12 +14,13 @@ public class NetworkPlayerCombat : NetworkBehaviour
     public event Action<WeaponKind> OnSetWeapon = delegate { };
 
     [SyncVar]
-    WeaponKind currentKind = WeaponKind.Unknown;
+    WeaponKind currentKind = WeaponKind.Pistol;
 
     Weapon weapon = null;
 
     public void Refresh()
     {
+        if (this.currentKind == WeaponKind.Unknown) return;
         CmdSetWeapon(currentKind);
     }
 

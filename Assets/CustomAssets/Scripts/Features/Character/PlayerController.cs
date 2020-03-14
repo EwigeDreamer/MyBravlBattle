@@ -2,10 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 using MyTools.Singleton;
+using UnityEngine.Networking;
+
+[System.Serializable]
+public class PlayerRefreshMessage : MessageBase { }
 
 public class PlayerController : MonoSingleton<PlayerController>
 {
     [SerializeField] CustomNetworkManager manager;
+    PlayerRefreshMessage refreshMessage = new PlayerRefreshMessage();
+    List<NetworkPlayer> allPlayers = new List<NetworkPlayer>();
+    NetworkPlayer localPlayer = null;
+
+    public NetworkPlayer LocalPlayer => localPlayer;
 
     protected override void OnValidate()
     {
@@ -16,39 +25,26 @@ public class PlayerController : MonoSingleton<PlayerController>
     protected override void Awake()
     {
         base.Awake();
-        this.manager.OnOtherCientReady += _ => RefreshPlayers();
+
+        this.manager.OnClientStarted += client => client.RegisterHandler(MsgType.Highest + 1, ReceiveRefreshMessage);
+        this.manager.OnOtherCientReady += conn => SendRefreshMessage(conn, this.refreshMessage);
     }
-
-    List<NetworkPlayer> allPlayers = new List<NetworkPlayer>();
-
-    NetworkPlayer localPlayer = null;
-    public NetworkPlayer LocalPlayer => localPlayer;
 
     public void Register(NetworkPlayer player) => allPlayers.Add(player);
     public void Unregister(NetworkPlayer player) => allPlayers.Remove(player);
 
     public void RegisterLocal(NetworkPlayer player)
     {
-        if (localPlayer == player) return;
-        if (localPlayer != null) UnregisterLocal(localPlayer);
-        localPlayer = player;
+        if (this.localPlayer == player) return;
+        if (this.localPlayer != null) UnregisterLocal(this.localPlayer);
+        this.localPlayer = player;
     }
 
     public void UnregisterLocal(NetworkPlayer player)
     {
-        if (localPlayer == null) return;
-        if (localPlayer != player) return;
-        localPlayer = null;
-    }
-
-    void RefreshPlayers()
-    {
-        int i = this.allPlayers.Count;
-        while (i --> 0)
-        {
-            if (this.allPlayers[i] == null) { this.allPlayers.RemoveAt(i); continue; }
-            this.allPlayers[i].CmdRefresh();
-        }
+        if (this.localPlayer == null) return;
+        if (this.localPlayer != player) return;
+        this.localPlayer = null;
     }
 
     public NetworkPlayer GetClosest(NetworkPlayer player)
@@ -66,5 +62,18 @@ public class PlayerController : MonoSingleton<PlayerController>
             closest = pl;
         }
         return closest;
+    }
+
+    public void SendRefreshMessage(NetworkConnection conn, PlayerRefreshMessage msg)
+    {
+        if (!NetworkServer.active) return;
+        NetworkServer.SendToClient(conn.connectionId, MsgType.Highest + 1, msg);
+    }
+
+    public void ReceiveRefreshMessage(NetworkMessage netMsg)
+    {
+        var msg = netMsg.ReadMessage<PlayerRefreshMessage>();
+        if (msg == null) return;
+        this.localPlayer?.CmdRefresh();
     }
 }
