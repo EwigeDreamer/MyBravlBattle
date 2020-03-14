@@ -13,7 +13,7 @@ public class NetworkPlayerView : NetworkBehaviour
     [SerializeField] NetworkPlayerMotor motor;
 
     Tween torsoTween = null;
-    bool isVisible = true;
+    [SyncVar] bool isVisible = true;
 
     int forwardHash = Animator.StringToHash("forward");
     int rightHash = Animator.StringToHash("right");
@@ -35,20 +35,15 @@ public class NetworkPlayerView : NetworkBehaviour
     [ContextMenu("Get renderers")]
     void GetRenderers() => this.renderers = gameObject.GetComponentsInChildren<Renderer>();
 
-    [Command]
-    public void CmdSetVisible(bool state) => RpcSetVisible(state);
-
-    [ClientRpc]
-    void RpcSetVisible(bool state)
+    [Command] public void CmdSetVisible(bool state) => RpcSetVisible(state);
+    [ClientRpc] void RpcSetVisible(bool state)
     {
         foreach (var r in this.renderers) r.enabled = state;
         this.isVisible = state;
     }
 
-    [Command]
-    public void CmdSetAim(bool state, bool forced) => RpcSetAim(state, forced);
-    [ClientRpc]
-    void RpcSetAim(bool state, bool forced)
+    [Command] public void CmdSetAim(bool state, bool forced) => RpcSetAim(state, forced);
+    [ClientRpc] void RpcSetAim(bool state, bool forced)
     {
         torsoTween?.Kill();
         if (forced)
@@ -81,6 +76,6 @@ public class NetworkPlayerView : NetworkBehaviour
 
     public void Refresh()
     {
-
+        CmdSetVisible(IsVisible);
     }
 }

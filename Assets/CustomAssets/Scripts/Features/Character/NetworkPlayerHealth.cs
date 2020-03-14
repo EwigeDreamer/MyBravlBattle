@@ -15,8 +15,8 @@ public class NetworkPlayerHealth : NetworkBehaviour
 
     [SerializeField] [SyncVar] IntInfo hp = new IntInfo { Min = 0, Max = 100, Value = 100 };
 
-    [Command]
-    public void CmdSetDamage(int damage)
+    [Command] public void CmdSetDamage(int damage) => RpcSetDamage(damage);
+    [ClientRpc] void RpcSetDamage(int damage)
     {
         if (hp.IsMin) return;
         damage = Math.Min(hp.Value, damage);
@@ -25,8 +25,8 @@ public class NetworkPlayerHealth : NetworkBehaviour
         if (hp.IsZero) OnDead();
     }
 
-    [Command]
-    public void CmdSetHeal(int heal)
+    [Command] public void CmdSetHeal(int heal) => RpcSetHeal(heal);
+    [ClientRpc] public void RpcSetHeal(int heal)
     {
         if (hp.IsMax) return;
         heal = Math.Min(hp.Max - hp.Value, heal);
@@ -34,8 +34,8 @@ public class NetworkPlayerHealth : NetworkBehaviour
         OnHeal(heal);
     }
 
-    [Command]
-    public void CmdResetHealth()
+    [Command] public void CmdResetHealth() => RpcResetHealth();
+    [ClientRpc] public void RpcResetHealth()
     {
         if (hp.IsMax) return;
         hp.Value = hp.Max;

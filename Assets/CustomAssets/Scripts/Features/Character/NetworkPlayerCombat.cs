@@ -13,8 +13,7 @@ public class NetworkPlayerCombat : NetworkBehaviour
 
     public event Action<WeaponKind> OnSetWeapon = delegate { };
 
-    [SyncVar]
-    WeaponKind currentKind = WeaponKind.Unknown;
+    [SyncVar] WeaponKind currentKind = WeaponKind.Unknown;
 
     Weapon weapon = null;
 
@@ -24,11 +23,8 @@ public class NetworkPlayerCombat : NetworkBehaviour
         CmdSetWeapon(currentKind);
     }
 
-    [Command]
-    public void CmdSetWeapon(WeaponKind kind) => RpcSetWeapon(kind);
-
-    [ClientRpc]
-    void RpcSetWeapon(WeaponKind kind)
+    [Command] public void CmdSetWeapon(WeaponKind kind) => RpcSetWeapon(kind);
+    [ClientRpc] void RpcSetWeapon(WeaponKind kind)
     {
         if (this.weapon != null && this.weapon.Info.kind == kind) return;
         this.weapon?.Dispose();
@@ -44,8 +40,7 @@ public class NetworkPlayerCombat : NetworkBehaviour
         OnSetWeapon(kind);
     }
 
-    [Command]
-    public void CmdShoot(Vector2 dir)
+    [Command] public void CmdShoot(Vector2 dir)
     {
         this.weapon?.Shoot(dir.ToV3_x0y());
     }

@@ -1844,6 +1844,7 @@ GameObject:
   - component: {fileID: 4359592731066087968}
   - component: {fileID: 716418250434942014}
   - component: {fileID: 4044662359953428747}
+  - component: {fileID: 114463258017342276}
   m_Layer: 31
   m_Name: NetworkPlayer
   m_TagString: Untagged
@@ -2135,6 +2136,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &114463258017342276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6852493571419472651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb75daeed0542cc47ab6f54d458d2385, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7595911921716708709
 GameObject:
   m_ObjectHideFlags: 0
