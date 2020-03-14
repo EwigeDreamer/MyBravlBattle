@@ -15,7 +15,8 @@ public class JoinPopup : PopupBase
     protected override void OnInit()
     {
         base.OnInit();
-        field.text = CustomNetworkManager.I.networkAddress;
+        if (CustomNetworkManager.I.networkAddress == "localhost") field.text = "";
+        else field.text = CustomNetworkManager.I.networkAddress;
         field.onValueChanged.AddListener(ip => CustomNetworkManager.I.networkAddress = ip);
         joinBtn.onClick.AddListener(() => { CustomNetworkManager.I.StartClient(); Hide(null); });
         cancelBtn.onClick.AddListener(() => Hide(null));
