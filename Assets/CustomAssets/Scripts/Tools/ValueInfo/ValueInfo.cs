@@ -158,9 +158,9 @@ namespace MyTools.ValueInfo
                 EditorGUI.LabelField(l1, label);
                 f.GetRowsNonAlloc(LineSpacing, out var f1, out var f2);
                 f1.GetColumnsNonAlloc(LineSpacing, out var f11, out var f12, out var f13);
-                var minProp = property.FindPropertyRelative("m_Min");
-                var maxProp = property.FindPropertyRelative("m_Max");
-                var valueProp = property.FindPropertyRelative("m_Value");
+                var minProp = property.FindPropertyRelative("min");
+                var maxProp = property.FindPropertyRelative("max");
+                var valueProp = property.FindPropertyRelative("value");
 
                 float labWidthTmp = EditorGUIUtility.labelWidth;
 
@@ -207,9 +207,9 @@ namespace MyTools.ValueInfo
                 EditorGUI.LabelField(l1, label);
                 f.GetRowsNonAlloc(LineSpacing, out var f1, out var f2);
                 f1.GetColumnsNonAlloc(LineSpacing, out var f11, out var f12, out var f13);
-                var minProp = property.FindPropertyRelative("m_Min");
-                var maxProp = property.FindPropertyRelative("m_Max");
-                var valueProp = property.FindPropertyRelative("m_Value");
+                var minProp = property.FindPropertyRelative("min");
+                var maxProp = property.FindPropertyRelative("max");
+                var valueProp = property.FindPropertyRelative("value");
 
                 float labWidthTmp = EditorGUIUtility.labelWidth;
 

@@ -1835,16 +1835,17 @@ GameObject:
   m_Component:
   - component: {fileID: 4591277754158408562}
   - component: {fileID: 3014961901794891402}
+  - component: {fileID: 4359592731066087968}
   - component: {fileID: 3105087443282543351}
   - component: {fileID: 2604893656049848191}
   - component: {fileID: 1404988328554235071}
   - component: {fileID: 5385634746262720155}
+  - component: {fileID: 4294704337178487838}
   - component: {fileID: 1602543067227078258}
+  - component: {fileID: 114463258017342276}
   - component: {fileID: 1965488571106824410}
-  - component: {fileID: 4359592731066087968}
   - component: {fileID: 716418250434942014}
   - component: {fileID: 4044662359953428747}
-  - component: {fileID: 114463258017342276}
   m_Layer: 31
   m_Name: NetworkPlayer
   m_TagString: Untagged
@@ -1901,6 +1902,28 @@ MonoBehaviour:
     i15: 0
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 1
+--- !u!114 &4359592731066087968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6852493571419472651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 3
+  m_SendInterval: 0.09090909
+  m_SyncRotationAxis: 2
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_VelocityThreshold: 0.0001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 20
+  m_InterpolateMovement: 1
 --- !u!114 &3105087443282543351
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1974,6 +1997,22 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 3221225472
   audio: {fileID: 4044662359953428747}
+--- !u!114 &4294704337178487838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6852493571419472651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 919aeea59b6e0b14abdb4adc988eaad2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hp:
+    min: 0
+    max: 100
+    value: 100
 --- !u!114 &1602543067227078258
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1987,6 +2026,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camera: {fileID: 969117599189500217}
+--- !u!114 &114463258017342276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6852493571419472651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb75daeed0542cc47ab6f54d458d2385, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!54 &1965488571106824410
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2003,28 +2054,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &4359592731066087968
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6852493571419472651}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_TransformSyncMode: 3
-  m_SendInterval: 0.09090909
-  m_SyncRotationAxis: 2
-  m_RotationSyncCompression: 0
-  m_SyncSpin: 0
-  m_MovementTheshold: 0.001
-  m_VelocityThreshold: 0.0001
-  m_SnapThreshold: 5
-  m_InterpolateRotation: 20
-  m_InterpolateMovement: 1
 --- !u!136 &716418250434942014
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2136,18 +2165,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &114463258017342276
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6852493571419472651}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb75daeed0542cc47ab6f54d458d2385, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &7595911921716708709
 GameObject:
   m_ObjectHideFlags: 0
