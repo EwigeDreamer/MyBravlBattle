@@ -17,20 +17,20 @@ public class UserControlScript : MonoValidate
     protected override void OnValidate()
     {
         base.OnValidate();
-        ValidateFind(ref gameUI);
+        ValidateFind(ref this.gameUI);
     }
 
     private void Awake()
     {
-        gameUI.OnMenuPressed += () => PopupManager.OpenPopup<GameMenuPopup>();
-        gameUI.CombatSensor.OnClick += () => OnShoot();
-        gameUI.CombatSensor.OnRelease += () => OnDirectionalShoot(gameUI.CombatJoystick.Direction);
+        this.gameUI.OnMenuPressed += () => PopupManager.OpenPopup<GameMenuPopup>();
+        this.gameUI.CombatSensor.OnClick += () => OnShoot();
+        this.gameUI.CombatSensor.OnRelease += () => OnDirectionalShoot(this.gameUI.CombatSensor.LastDir);
     }
 
     private void FixedUpdate()
     {
-        var move = gameUI.MovementJoystick;
-        var aim = gameUI.CombatJoystick;
+        var move = this.gameUI.MovementJoystick;
+        var aim = this.gameUI.CombatJoystick;
         if (!move.Horizontal.IsVerySmall() || !move.Vertical.IsVerySmall()) OnMove(move.Direction);
         if (!aim.Horizontal.IsVerySmall() || !aim.Vertical.IsVerySmall()) OnDirectionalAim(aim.Direction);
     }

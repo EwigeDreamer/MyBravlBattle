@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using MyTools.Helpers;
 using MyTools.Singleton;
+using UnityEngine.Networking;
 
     public struct ProjectileInfo
     {
@@ -42,21 +43,23 @@ public class ProjectileController : MonoSingleton<ProjectileController>
     {
         var pKind = WeaponStaticData.WeaponProjectileBindData[wInfo.kind];
         var proj = Instantiate(projectiles.ProjectilePrefabDict[pKind], pos, Quaternion.LookRotation(dir));
+        NetworkServer.Spawn(proj.gameObject);
         Subscribe(proj);
-        proj.Init(wInfo, pos, dir);
+        proj.Init(wInfo, pKind, pos, dir);
         OnShoot(proj.Info, new PointInfo { point = pos, direction = dir, normal = dir });
     }
 
     void Subscribe(Projectile proj)
     {
         proj.OnHit += OnHitEvent;
-        proj.OnFinish += Unsubscribe;
+        proj.OnFinish += DestroyProjectile;
     }
 
-    private void Unsubscribe(Projectile proj)
+    private void DestroyProjectile(Projectile proj)
     {
         proj.OnHit -= OnHitEvent;
-        proj.OnFinish -= Unsubscribe;
+        proj.OnFinish -= DestroyProjectile;
+        NetworkServer.Destroy(proj.gameObject);
     }
 
     private void OnHitEvent(GameObject obj, ProjectileInfo info, PointInfo hit) => OnHit(obj, info, hit);

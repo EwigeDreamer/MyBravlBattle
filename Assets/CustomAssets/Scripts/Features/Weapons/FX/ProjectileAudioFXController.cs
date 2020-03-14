@@ -71,9 +71,13 @@ public class ProjectileAudioFXController : MonoValidate
             MyLogger.ObjectErrorFormat<ProjectileAudioFXController>("don't contain \"{0}\" kind!", proj.kind);
             return;
         }
-        proj.weapon.audio.PlayOneShot(clips.shoot);
-        proj.instance.Audio.clip = clips.flight;
-        proj.instance.Audio.Play();
+        if (clips.shoot != null)
+            proj.weapon.audio.PlayOneShot(clips.shoot);
+        if (clips.flight != null)
+        {
+            proj.instance.Audio.clip = clips.flight;
+            proj.instance.Audio.Play();
+        }
     }
     private void OnHitEvent(GameObject obj, ProjectileInfo proj, PointInfo hit)
     {
@@ -83,7 +87,8 @@ public class ProjectileAudioFXController : MonoValidate
             MyLogger.ObjectErrorFormat<ProjectileAudioFXController>("don't contain \"{0}\" kind!", proj.kind);
             return;
         }
-        proj.instance.Audio?.Stop();
+        proj.instance.Audio.Stop();
+        proj.instance.Audio.clip = null;
         var sound = m_Factory.GetObject();
         sound.PlayOneShoot(hit.point, clips.hit);
     }

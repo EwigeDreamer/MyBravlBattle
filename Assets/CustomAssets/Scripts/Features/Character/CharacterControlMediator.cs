@@ -18,17 +18,20 @@ public class CharacterControlMediator : MonoValidate
         userControl.OnMove += dir => PlayerController.I.LocalPlayer.Motor.Move(dir);
         userControl.OnDirectionalShoot += dir =>
         {
+            Debug.LogWarning($"DirectionalShoot {dir}");
             PlayerController.I.LocalPlayer.Combat.CmdShoot(dir);
             PlayerController.I.LocalPlayer.View.CmdSetAim(false, false);
             PlayerController.I.LocalPlayer.Motor.SetAimRotation(false);
         };
         userControl.OnDirectionalAim += dir =>
         {
+            Debug.LogWarning($"DirectionalAim {dir}");
             PlayerController.I.LocalPlayer.View.CmdSetAim(true, false);
             PlayerController.I.LocalPlayer.Motor.SetAimRotation(dir);
         };
         userControl.OnShoot += () =>
         {
+            Debug.LogWarning($"Shoot");
             var player = PlayerController.I.LocalPlayer;
             var closest = PlayerController.I.GetClosest(player);
             if (closest == null) return;

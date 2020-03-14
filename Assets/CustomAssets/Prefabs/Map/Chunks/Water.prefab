@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 7938757280852796346}
   - component: {fileID: 1335464717253196899}
   - component: {fileID: 4530571382210211321}
-  m_Layer: 30
+  m_Layer: 29
   m_Name: Water
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -167,6 +167,10 @@ PrefabInstance:
     - target: {fileID: 1997625836, guid: b158e8c38c6c99d4d97aaa82d5ad8d3c, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1997625836, guid: b158e8c38c6c99d4d97aaa82d5ad8d3c, type: 3}
+      propertyPath: m_Layer
+      value: 29
       objectReference: {fileID: 0}
     - target: {fileID: 1997625838, guid: b158e8c38c6c99d4d97aaa82d5ad8d3c, type: 3}
       propertyPath: m_Mesh
@@ -329,6 +333,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Water
+      objectReference: {fileID: 0}
+    - target: {fileID: 3481846557032645501, guid: b158e8c38c6c99d4d97aaa82d5ad8d3c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 29
       objectReference: {fileID: 0}
     - target: {fileID: 4540960393534009691, guid: b158e8c38c6c99d4d97aaa82d5ad8d3c,
         type: 3}

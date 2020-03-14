@@ -10,14 +10,17 @@ public abstract class Projectile : NetworkBehaviour
     public event Action<Projectile> OnFinish = delegate { };
 
     [SerializeField] new AudioSource audio;
-    ProjectileInfo info;
+    ProjectileInfo info = default;
+
     public ProjectileInfo Info => info;
     public AudioSource Audio => audio;
 
 
-    public void Init(WeaponInfo weapon, Vector3 position, Vector3 direction)
+    public void Init(WeaponInfo weapon, ProjectileKind kind, Vector3 position, Vector3 direction)
     {
-        info.weapon = weapon;
+        this.info.weapon = weapon;
+        this.info.instance = this;
+        this.info.kind = kind;
         transform.position = position;
         transform.rotation = Quaternion.LookRotation(direction);
         RpcGo();
@@ -34,10 +37,7 @@ public abstract class Projectile : NetworkBehaviour
         OnHit(obj, info, hit);
     }
 
-    protected void Finish()
-    {
-        OnFinish(this);
-    }
+    protected void Finish() => OnFinish(this);
 
     [ClientRpc]
     protected abstract void RpcGo();
