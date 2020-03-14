@@ -20,7 +20,7 @@ public class NetworkPlayerView : NetworkBehaviour
     int rightHash = Animator.StringToHash("right");
     int torsoLayerIndex;
 
-    public bool IsVisible => this.isVisible && this.isFounded;
+    public bool IsVisible => this.isVisible || this.isFounded;
 
     private void OnValidate()
     {
