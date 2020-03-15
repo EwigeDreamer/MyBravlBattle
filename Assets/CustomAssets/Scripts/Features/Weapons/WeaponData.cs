@@ -38,7 +38,7 @@ public static class WeaponStaticData
     public static RODictPKIE ProjectileEffectBindData { get; } = new RODictPKIE(new DictPKIE
         {
             { PK.PistolBullet, new List<IE> {
-                new DamageImpactEffect(5),
+                new DamageImpactEffect(20),
             }.AsReadOnly() },
 
             { PK.RifleBullet, new List<IE> {
