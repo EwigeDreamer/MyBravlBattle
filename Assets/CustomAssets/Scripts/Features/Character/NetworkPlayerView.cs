@@ -18,9 +18,11 @@ public class NetworkPlayerView : NetworkBehaviour
     Tween torsoTween = null;
     bool isVisible = true;
     bool isFounded = false;
+    bool isDead = false;
 
     int forwardHash = Animator.StringToHash("forward");
     int rightHash = Animator.StringToHash("right");
+    int deadHash = Animator.StringToHash("dead");
     int torsoLayerIndex;
 
     public bool IsVisible => this.isVisible || this.isFounded || isLocalPlayer;
@@ -53,9 +55,19 @@ public class NetworkPlayerView : NetworkBehaviour
         OnChangeVisible(IsVisible);
     }
 
+    [Command] public void CmdDead() => RpcDead();
+    [ClientRpc] void RpcDead()
+    {
+        this.isDead = true;
+        this.torsoTween?.Kill();
+        this.animator.SetLayerWeight(torsoLayerIndex, 0f);
+        this.animator.SetTrigger(deadHash);
+    }
+
     [Command] public void CmdSetAim(bool state, bool forced) => RpcSetAim(state, forced);
     [ClientRpc] void RpcSetAim(bool state, bool forced)
     {
+        if (this.isDead) return;
         this.torsoTween?.Kill();
         if (forced)
             this.animator.SetLayerWeight(torsoLayerIndex, state ? 1f : 0f);

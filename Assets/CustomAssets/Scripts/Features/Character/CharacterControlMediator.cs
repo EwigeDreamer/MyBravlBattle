@@ -3,33 +3,47 @@ using System.Collections.Generic;
 using UnityEngine;
 using MyTools.Helpers;
 using MyTools.Extensions.Vectors;
+using MyTools.Singleton;
 
-public class CharacterControlMediator : MonoValidate
+public class CharacterControlMediator : MonoSingleton<CharacterControlMediator>
 {
     [SerializeField] UserControlScript userControl;
+
+    bool isActive = true;
+    public bool IsActive => this.isActive;
+    public void SetActive(bool state) => this.isActive = state;
+
     protected override void OnValidate()
     {
         base.OnValidate();
-        ValidateFind(ref userControl);
+        ValidateFind(ref this.userControl);
     }
 
-    private void Awake()
+    protected override void Awake()
     {
-        userControl.OnMove += dir => PlayerController.I.LocalPlayer.Motor.Move(dir);
-        userControl.OnDirectionalShoot += dir =>
+        base.Awake();
+        this.userControl.OnMove += dir =>
         {
+            if (!isActive) return;
+            PlayerController.I.LocalPlayer.Motor.Move(dir);
+        };
+        this.userControl.OnDirectionalShoot += dir =>
+        {
+            if (!isActive) return;
             Debug.LogWarning($"DirectionalShoot {dir}");
             PlayerController.I.LocalPlayer.Combat.CmdShoot(dir);
             PlayerController.I.LocalPlayer.View.CmdSetAim(false, false);
             PlayerController.I.LocalPlayer.Motor.SetAimRotation(false);
         };
-        userControl.OnDirectionalAim += dir =>
+        this.userControl.OnDirectionalAim += dir =>
         {
+            if (!isActive) return;
             PlayerController.I.LocalPlayer.View.CmdSetAim(true, false);
             PlayerController.I.LocalPlayer.Motor.SetAimRotation(dir);
         };
-        userControl.OnShoot += () =>
+        this.userControl.OnShoot += () =>
         {
+            if (!isActive) return;
             Debug.LogWarning($"Try Shoot");
             var player = PlayerController.I.LocalPlayer;
             var closest = PlayerController.I.GetClosest(player);

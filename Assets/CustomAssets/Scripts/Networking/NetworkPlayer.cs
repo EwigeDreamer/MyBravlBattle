@@ -37,6 +37,12 @@ public class NetworkPlayer : NetworkBehaviour
     {
         transform.SetParent(CustomNetworkManager.I.transform);
         this.camera.SetActiveCamera(false);
+        this.health.OnDead += () =>
+        {
+            if (!isLocalPlayer) return;
+            this.view.CmdDead();
+            if (CharacterControlMediator.I != null) CharacterControlMediator.I.SetActive(false);
+        };
     }
 
     private void Start()
@@ -47,6 +53,7 @@ public class NetworkPlayer : NetworkBehaviour
         var serverAddress = connToServer != null ? $" [server: {connToServer.address}]" : "";
         name = $"{typeof(NetworkPlayer)}{clientAddress}{serverAddress}";
         PlayerController.I.Register(this);
+        if (CharacterControlMediator.I != null) CharacterControlMediator.I.SetActive(true);
     }
 
     public override void OnStartLocalPlayer()
