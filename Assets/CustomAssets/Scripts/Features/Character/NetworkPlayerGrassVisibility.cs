@@ -23,12 +23,9 @@ public class NetworkPlayerGrassVisibility : NetworkBehaviour
 
     private void Start()
     {
-        if (isLocalPlayer)
-        {
-            this.grassTrigger.OnEnter += AddGrass;
-            this.grassTrigger.OnExit += RemoveGrass;
-            this.grassTrigger.SetActive(true);
-        }
+        this.grassTrigger.OnEnter += AddGrass;
+        this.grassTrigger.OnExit += RemoveGrass;
+        this.grassTrigger.SetActive(true);
     }
 
     private void OnDestroy()
