@@ -19,6 +19,8 @@ public class NetworkPlayerCombat : NetworkBehaviour
 
     Weapon weapon = null;
 
+    public WeaponKind CurrentWeapon => currentKind;
+
     private void OnValidate()
     {
         gameObject.ValidateGetComponent(ref this.view);

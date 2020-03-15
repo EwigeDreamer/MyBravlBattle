@@ -14,6 +14,7 @@ public class PlayerController : MonoSingleton<PlayerController>
 
     public event Action<NetworkPlayer> OnRegister = delegate { };
     public event Action<NetworkPlayer> OnUnregister = delegate { };
+    public event Action<WeaponKind> OnChangeWeapon = delegate { };
 
     [SerializeField] CustomNetworkManager manager;
     PlayerRefreshMessage refreshMessage = new PlayerRefreshMessage();
@@ -52,6 +53,8 @@ public class PlayerController : MonoSingleton<PlayerController>
         if (this.localPlayer == player) return;
         if (this.localPlayer != null) UnregisterLocal(this.localPlayer);
         this.localPlayer = player;
+        player.Combat.OnSetWeapon -= OnWeapoChangeEvent;
+        player.Combat.OnSetWeapon += OnWeapoChangeEvent;
     }
 
     public void UnregisterLocal(NetworkPlayer player)
@@ -59,7 +62,10 @@ public class PlayerController : MonoSingleton<PlayerController>
         if (this.localPlayer == null) return;
         if (this.localPlayer != player) return;
         this.localPlayer = null;
+        player.Combat.OnSetWeapon -= OnWeapoChangeEvent;
     }
+
+    void OnWeapoChangeEvent(WeaponKind kind) => OnChangeWeapon(kind);
 
     public NetworkPlayer GetClosest(NetworkPlayer player)
     {

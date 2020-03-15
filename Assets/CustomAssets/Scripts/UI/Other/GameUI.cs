@@ -13,11 +13,17 @@ public class GameUI : UIBase
 {
     public event Action OnMenuPressed = delegate { };
 
+
+
     [SerializeField] Button menuBtn;
     [SerializeField] Joystick movement;
     [SerializeField] Joystick combat;
     [SerializeField] CombatJoystickSensor combatSensor;
     [SerializeField] TMP_Text killCountLabel;
+
+    [SerializeField] Button pistolBtn;
+    [SerializeField] Button rifleBtn;
+    [SerializeField] Button shotgunBtn;
 
     public Joystick MovementJoystick => movement;
     public Joystick CombatJoystick => combat;

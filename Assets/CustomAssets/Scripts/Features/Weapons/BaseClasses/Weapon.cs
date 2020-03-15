@@ -33,7 +33,7 @@ public class Weapon : IDisposable
     public void Dispose()
     {
         WeaponController.I.Unsubscribe(this);
-        Object.Destroy(this.model);
+        Object.Destroy(this.model.gameObject);
         this.model = null;
     }
 
