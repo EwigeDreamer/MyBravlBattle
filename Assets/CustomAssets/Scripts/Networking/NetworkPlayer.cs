@@ -40,9 +40,13 @@ public class NetworkPlayer : NetworkBehaviour
         this.camera.SetActiveCamera(false);
         this.health.OnDead += () =>
         {
-            if (!isLocalPlayer) return;
-            this.view.CmdDead();
-            if (CharacterControlMediator.I != null) CharacterControlMediator.I.SetActive(false);
+            if (isLocalPlayer)
+            {
+                if (CharacterControlMediator.I != null) CharacterControlMediator.I.SetActive(false);
+                this.camera.SetActiveCamera(false);
+            }
+            if (isServer)
+                this.view.CmdDead();
             motor.SetEnabledCollider(false);
             motor.SetRigidbodyKinematic(true);
         };
