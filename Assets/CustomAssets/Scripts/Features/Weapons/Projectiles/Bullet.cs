@@ -8,7 +8,7 @@ public class Bullet : Projectile
 {
     [SerializeField] float speed = 100f;
     [SerializeField] float maxDist = 100f;
-    [SyncVar] bool isActive = false;
+    bool isActive = false;
     Vector3 lastPos = default;
     Vector3 firstPos = default;
 

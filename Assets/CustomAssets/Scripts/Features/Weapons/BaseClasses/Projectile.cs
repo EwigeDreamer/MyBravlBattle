@@ -35,9 +35,13 @@ public abstract class Projectile : NetworkBehaviour
         else
             obj = col.gameObject;
         OnHit(obj, info, hit);
+        RpcStop();
     }
 
-    protected void Finish() => OnFinish(this);
+    protected void Finish()
+    {
+        OnFinish(this);
+    }
 
     [ClientRpc]
     protected abstract void RpcGo();
