@@ -31,6 +31,7 @@ public class NetworkPlayerHealth : NetworkBehaviour
         var newHp = this.hp;
         newHp.Value -= damage;
         RpcSetNewHpValue(newHp);
+        Debug.LogError($"SET DAMAGE! damage: {damage}, isDead: {newHp.IsZero}");
         if (newHp.IsZero) OnDeadByKiller(killer, this.player);
     }
 
