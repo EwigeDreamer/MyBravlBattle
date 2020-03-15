@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using MyTools.Helpers;
+using UnityEngine.Networking;
 
 public class Bullet : Projectile
 {
     [SerializeField] float speed = 100f;
     [SerializeField] float maxDist = 100f;
-    bool isActive = false;
+    [SyncVar] bool isActive = false;
     Vector3 lastPos = default;
     Vector3 firstPos = default;
 

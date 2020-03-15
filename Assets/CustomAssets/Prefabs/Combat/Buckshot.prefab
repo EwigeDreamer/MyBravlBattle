@@ -81,6 +81,7 @@ MonoBehaviour:
   audio: {fileID: 9121571889756553204}
   bulletPrefab: {fileID: 189235691418394627, guid: 2e2d309a98b1afa4e97df97d721c3631,
     type: 3}
+  subKind: 3
   bulletCount: 5
   scatterAngle: 10
 --- !u!82 &9121571889756553204
