@@ -44,6 +44,7 @@ public class MatshController : MonoSingleton<MatshController>
 
     void CheckKill(GameObject killer, NetworkPlayer killed)
     {
+        Debug.LogWarning($"{killed.name} was killed by {killer.name}!");
         var player = killer.GetComponent<NetworkPlayer>();
         if (player == null) return;
         SendKillMessage(player.connectionToClient);

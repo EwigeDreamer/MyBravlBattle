@@ -63,6 +63,7 @@ public class CustomNetworkManager : NetworkManager
 
     public void Respawn(NetworkPlayer player)
     {
+        Debug.LogWarning($"Respawn {player.name}!");
         if (!NetworkServer.active) return;
         var conn = player.connectionToClient;
         NetworkServer.Destroy(player.gameObject);

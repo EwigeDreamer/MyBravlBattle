@@ -15,6 +15,7 @@ public class NetworkPlayer : NetworkBehaviour
     [SerializeField] NetworkPlayerGrassXRay grassHider;
     [SerializeField] NetworkPlayerStatusBar statusBar;
     [SerializeField] NetworkPlayerHealth health;
+    [SerializeField] Collider collider;
 
 
     public NetworkPlayerView View => this.view;
@@ -32,6 +33,7 @@ public class NetworkPlayer : NetworkBehaviour
         gameObject.ValidateGetComponent(ref this.grassHider);
         gameObject.ValidateGetComponent(ref this.health);
         gameObject.ValidateGetComponent(ref this.statusBar);
+        gameObject.ValidateGetComponent(ref this.collider);
     }
 
     private void Awake()
@@ -43,6 +45,7 @@ public class NetworkPlayer : NetworkBehaviour
             if (!isLocalPlayer) return;
             this.view.CmdDead();
             if (CharacterControlMediator.I != null) CharacterControlMediator.I.SetActive(false);
+            collider.enabled = false;
         };
     }
 
