@@ -78,7 +78,7 @@ GameObject:
   - component: {fileID: 6274020409639192374}
   - component: {fileID: 8386016306646000526}
   - component: {fileID: 571542946085290356}
-  m_Layer: 31
+  m_Layer: 27
   m_Name: XRayFinderSensor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 1949738795631195355}
   - component: {fileID: 216804656028313876}
   - component: {fileID: 7711305803614336690}
-  m_Layer: 31
+  m_Layer: 27
   m_Name: GrassXRaySensor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1950,7 +1950,7 @@ GameObject:
   - component: {fileID: 1530238237007000012}
   - component: {fileID: 5162613958549066611}
   - component: {fileID: 1296043750307438798}
-  m_Layer: 31
+  m_Layer: 27
   m_Name: VisibilitySensor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
