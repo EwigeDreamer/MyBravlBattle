@@ -34,11 +34,13 @@ public class MatshController : MonoSingleton<MatshController>
 
     public void Subscribe(NetworkPlayer player)
     {
+        Debug.LogWarning($"MatshController: subscribe: {player.name}!");
         player.Health.OnDeadByKiller -= CheckKill;
         player.Health.OnDeadByKiller += CheckKill;
     }
     public void Unsubscribe(NetworkPlayer player)
     {
+        Debug.LogWarning($"MatshController: unsubscribe: {player.name}!");
         player.Health.OnDeadByKiller -= CheckKill;
     }
 

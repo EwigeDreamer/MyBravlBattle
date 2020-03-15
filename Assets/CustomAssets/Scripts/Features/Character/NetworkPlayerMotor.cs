@@ -10,15 +10,21 @@ public class NetworkPlayerMotor : NetworkBehaviour
 {
     [SerializeField] Rigidbody rb;
     [SerializeField] float speed = 10f;
+    [SerializeField] Collider collider;
 
     bool withAim = false;
 
     public Vector3 NormalizedVelocity => rb.velocity / speed;
     public Vector3 Position => transform.position;
+    public Rigidbody Rb => this.rb;
+
+    public void SetEnabledCollider(bool State) => this.collider.enabled = State;
+    public void SetRigidbodyKinematic(bool state) => this.rb.isKinematic = state;
 
     private void OnValidate()
     {
         gameObject.ValidateGetComponent(ref this.rb);
+        gameObject.ValidateGetComponent(ref this.collider);
     }
 
     public void Move(Vector2 dir)
