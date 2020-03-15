@@ -78,7 +78,7 @@ public class ProjectileAudioFXController : MonoSingleton<ProjectileAudioFXContro
         if (clips.shoot != null)
         {
             var sound = factory.GetObject();
-            sound.PlayOneShoot(point, clips.shoot);
+            sound.PlayOneShoot(point, clips.shoot, 0);
         }
     }
     void OnHit(ProjectileKind kind, Vector3 point)
@@ -91,7 +91,7 @@ public class ProjectileAudioFXController : MonoSingleton<ProjectileAudioFXContro
         if (clips.hit != null)
         {
             var sound = factory.GetObject();
-            sound.PlayOneShoot(point, clips.hit);
+            sound.PlayOneShoot(point, clips.hit, 100);
         }
     }
 

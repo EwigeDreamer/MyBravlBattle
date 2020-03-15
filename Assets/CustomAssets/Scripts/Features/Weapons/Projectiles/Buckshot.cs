@@ -20,6 +20,7 @@ public class Buckshot : Projectile
             var dir = transform.forward;
             for (int i = 0; i < this.bulletCount; ++i)
             {
+                Debug.LogError($"AAAAAAAAAAAAAAAAAAAAAAAAAAAAA {Info.weapon.mask}");
                 var randomDir = dir + Random.insideUnitSphere * Mathf.Tan(this.scatterAngle * Mathf.Deg2Rad);
                 var proj = Instantiate(this.bulletPrefab, pos, Quaternion.LookRotation(randomDir));
                 ProjectileController.I.RegisterAlienProjectile(proj, Info.kind, Info.weapon, pos, randomDir);

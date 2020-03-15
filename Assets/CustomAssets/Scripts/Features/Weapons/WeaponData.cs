@@ -50,7 +50,7 @@ public static class WeaponStaticData
             }.AsReadOnly() },
 
             { PK.ShotgunSubBullet, new List<IE> {
-                new DamageImpactEffect(2),
+                new DamageImpactEffect(4),
             }.AsReadOnly() },
         });
 }
