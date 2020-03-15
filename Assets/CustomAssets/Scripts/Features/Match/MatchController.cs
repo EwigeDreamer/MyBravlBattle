@@ -17,6 +17,7 @@ public class MatchController : MonoSingleton<MatchController>
 
     PlayerRefreshMessage killMessage = new PlayerRefreshMessage();
 
+    [SerializeField] CustomNetworkManager manager;
     [SerializeField] PlayerController playerController;
     [SerializeField] float waitTime = 3f;
 
@@ -24,6 +25,7 @@ public class MatchController : MonoSingleton<MatchController>
     {
         base.OnValidate();
         ValidateFind(ref this.playerController);
+        ValidateFind(ref this.manager);
     }
 
     protected override void Awake()
@@ -31,6 +33,8 @@ public class MatchController : MonoSingleton<MatchController>
         base.Awake();
         this.playerController.OnRegister += Subscribe;
         this.playerController.OnUnregister += Unsubscribe;
+
+        manager.OnClientStarted += client => client.RegisterHandler(msgType, ReceiveKillMessage);
     }
 
     public void Subscribe(NetworkPlayer player)
