@@ -24,7 +24,7 @@ public class WeaponController : MonoSingleton<WeaponController>
 
     public LayerMask HitMask => this.hitMask;
 
-    public GameObject GetWeaponModel(WeaponKind kind)
+    public WeaponModel GetWeaponModel(WeaponKind kind)
     {
         return Instantiate(models.WeaponModelDict[kind]);
     }

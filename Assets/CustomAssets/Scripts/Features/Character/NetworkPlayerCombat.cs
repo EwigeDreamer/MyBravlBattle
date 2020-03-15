@@ -4,9 +4,11 @@ using UnityEngine;
 using UnityEngine.Networking;
 using MyTools.Extensions.Vectors;
 using System;
+using MyTools.Extensions.GameObjects;
 
 public class NetworkPlayerCombat : NetworkBehaviour
 {
+    [SerializeField] NetworkPlayerView view;
     [SerializeField] Transform weaponPoint;
     [SerializeField] LayerMask hitMask;
     [SerializeField] AudioSource audio;
@@ -17,10 +19,21 @@ public class NetworkPlayerCombat : NetworkBehaviour
 
     Weapon weapon = null;
 
+    private void OnValidate()
+    {
+        gameObject.ValidateGetComponent(ref this.view);
+    }
+
+    private void Awake()
+    {
+        this.view.OnChangeVisible += state => weapon?.Model.SetVisible(state);
+    }
+
     public void Refresh()
     {
         if (this.currentKind == WeaponKind.Unknown) return;
         CmdSetWeapon(currentKind);
+        weapon?.Model.SetVisible(this.view.IsVisible);
     }
 
     [Command] public void CmdSetWeapon(WeaponKind kind) => RpcSetWeapon(kind);

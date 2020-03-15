@@ -8,11 +8,12 @@ public class Weapon : IDisposable
 {
     Transform hand;
     Transform point;
-    GameObject model;
+    WeaponModel model;
     WeaponInfo info;
-    public Transform Hand => hand;
-    public Transform Point => point;
-    public WeaponInfo Info => info;
+    public Transform Hand => this.hand;
+    public Transform Point => this.point;
+    public WeaponInfo Info => this.info;
+    public WeaponModel Model => this.model;
 
     public event Action<WeaponInfo, Vector3, Vector3> OnShoot = delegate { };
 
@@ -23,9 +24,9 @@ public class Weapon : IDisposable
         this.point = point;
         this.info = info;
         this.model = WeaponController.I.GetWeaponModel(info.kind);
-        this.model.transform.SetParent(hand);
-        this.model.transform.localPosition = Vector3.zero;
-        this.model.transform.localRotation = Quaternion.identity;
+        this.model.TR.SetParent(hand);
+        this.model.TR.localPosition = Vector3.zero;
+        this.model.TR.localRotation = Quaternion.identity;
         if (info.isServer) WeaponController.I.Subscribe(this);
     }
 
