@@ -39,8 +39,7 @@ public class Weapon : IDisposable
 
     public void Shoot(Vector3 dir)
     {
-        var info = this.info;
-        OnShoot(info, this.point.position, dir);
+        OnShoot(this.info, this.point.position, dir);
     }
 }
 

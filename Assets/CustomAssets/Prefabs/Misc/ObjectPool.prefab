@@ -56,3 +56,43 @@ MonoBehaviour:
     m_Objs: []
     m_CashedInEditor: 0
     m_PoolCount: 0
+  - m_PoolCtrl: {fileID: 7796058754178485383}
+    m_Key: muzzle_pistol
+    m_Container: {fileID: 0}
+    m_Reference: {fileID: 1226542081236672841, guid: d56032860e4ad8c43b03b5856124a8d2,
+      type: 3}
+    m_Count: 10
+    m_IfPoolEmpty: 0
+    m_Objs: []
+    m_CashedInEditor: 0
+    m_PoolCount: 0
+  - m_PoolCtrl: {fileID: 7796058754178485383}
+    m_Key: muzzle_rifle
+    m_Container: {fileID: 0}
+    m_Reference: {fileID: 1226542081236672841, guid: 9dd9b5b23f0ad6c43848f9593a268ffa,
+      type: 3}
+    m_Count: 10
+    m_IfPoolEmpty: 0
+    m_Objs: []
+    m_CashedInEditor: 0
+    m_PoolCount: 0
+  - m_PoolCtrl: {fileID: 7796058754178485383}
+    m_Key: muzzle_shotgun
+    m_Container: {fileID: 0}
+    m_Reference: {fileID: 1226542081236672841, guid: 1bd83cbb2febdad4fb8a0b7f10c7a31c,
+      type: 3}
+    m_Count: 10
+    m_IfPoolEmpty: 0
+    m_Objs: []
+    m_CashedInEditor: 0
+    m_PoolCount: 0
+  - m_PoolCtrl: {fileID: 7796058754178485383}
+    m_Key: bullet_impact
+    m_Container: {fileID: 0}
+    m_Reference: {fileID: 1226542081236672841, guid: deb836465e3de5e4398068b436f26d25,
+      type: 3}
+    m_Count: 10
+    m_IfPoolEmpty: 0
+    m_Objs: []
+    m_CashedInEditor: 0
+    m_PoolCount: 0

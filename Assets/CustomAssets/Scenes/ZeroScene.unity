@@ -313,6 +313,36 @@ PrefabInstance:
       propertyPath: manager
       value: 
       objectReference: {fileID: 1867074863}
+    - target: {fileID: 6091246988846219513, guid: 2589726c99445c8458d5e7a70d1c8bcf,
+        type: 3}
+      propertyPath: infoList.Array.data[0].shoot
+      value: muzzle_pistol
+      objectReference: {fileID: 0}
+    - target: {fileID: 6091246988846219513, guid: 2589726c99445c8458d5e7a70d1c8bcf,
+        type: 3}
+      propertyPath: infoList.Array.data[1].shoot
+      value: muzzle_rifle
+      objectReference: {fileID: 0}
+    - target: {fileID: 6091246988846219513, guid: 2589726c99445c8458d5e7a70d1c8bcf,
+        type: 3}
+      propertyPath: infoList.Array.data[2].shoot
+      value: muzzle_shotgun
+      objectReference: {fileID: 0}
+    - target: {fileID: 6091246988846219513, guid: 2589726c99445c8458d5e7a70d1c8bcf,
+        type: 3}
+      propertyPath: infoList.Array.data[0].impact
+      value: bullet_impact
+      objectReference: {fileID: 0}
+    - target: {fileID: 6091246988846219513, guid: 2589726c99445c8458d5e7a70d1c8bcf,
+        type: 3}
+      propertyPath: infoList.Array.data[1].impact
+      value: bullet_impact
+      objectReference: {fileID: 0}
+    - target: {fileID: 6091246988846219513, guid: 2589726c99445c8458d5e7a70d1c8bcf,
+        type: 3}
+      propertyPath: infoList.Array.data[2].impact
+      value: bullet_impact
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2589726c99445c8458d5e7a70d1c8bcf, type: 3}
 --- !u!1001 &1867074861
@@ -801,12 +831,12 @@ PrefabInstance:
     - target: {fileID: 772369911233625414, guid: 157dae2ec9facde43947d1273ccf94dd,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 25
+      value: 5359
       objectReference: {fileID: 0}
     - target: {fileID: 772369911233625414, guid: 157dae2ec9facde43947d1273ccf94dd,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -25
+      value: 5317
       objectReference: {fileID: 0}
     - target: {fileID: 772369911233625414, guid: 157dae2ec9facde43947d1273ccf94dd,
         type: 3}

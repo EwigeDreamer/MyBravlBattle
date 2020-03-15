@@ -8,4 +8,4 @@ public interface IProjectileFactory : IAbstractFactory<ProjectileKind, Projectil
 public interface IWeaponFactory : IAbstractFactory<WeaponKind, Weapon> { }
 
 public interface IAudioPointFactory : IFactory<AudioPoint> { }
-public interface IVisualEffectPointFactory : IFactory<ParticlesPoint> { }
+public interface IVisualEffectPointFactory : IAbstractFactory<string, ParticlesFX> { }

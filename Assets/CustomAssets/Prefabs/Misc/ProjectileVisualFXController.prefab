@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6091246988846219512}
   - component: {fileID: 6091246988846219513}
+  - component: {fileID: 4539783722091721210}
   m_Layer: 0
   m_Name: ProjectileVisualFXController
   m_TagString: Untagged
@@ -57,3 +58,15 @@ MonoBehaviour:
   - kind: 2
     shoot: 
     impact: 
+--- !u!114 &4539783722091721210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6091246988846219511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7152dd286bf9d240b7378f33537f767, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

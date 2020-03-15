@@ -26,6 +26,7 @@ public class ProjectileVisualFXController : MonoSingleton<ProjectileVisualFXCont
 
     [SerializeField, OneLine(Header = LineHeader.Short)]
     ProjectileEffectInfo[] infoList;
+    IVisualEffectPointFactory factory;
 
     Dictionary<ProjectileKind, ProjectileEffectInfo> dict = new Dictionary<ProjectileKind, ProjectileEffectInfo>();
 
@@ -40,6 +41,7 @@ public class ProjectileVisualFXController : MonoSingleton<ProjectileVisualFXCont
     protected override void Awake()
     {
         base.Awake();
+        ValidateGetComponent(ref this.factory);
         this.dict = new Dictionary<ProjectileKind, ProjectileEffectInfo>();
         foreach (var item in this.infoList) this.dict[item.kind] = item;
         this.manager.OnClientStarted += client => client.RegisterHandler(msgType, ReceiveFxEvent);
@@ -51,11 +53,19 @@ public class ProjectileVisualFXController : MonoSingleton<ProjectileVisualFXCont
     {
         if (!this.dict.TryGetValue(kind, out var info)) return;
         Debug.LogWarning($"SHOOT EFFECT! kind: {kind}, point: {point.point}");
+
+        var effect = factory.GetObject(info.shoot);
+        effect.TR.position = point.point;
+        effect.TR.rotation = Quaternion.LookRotation(point.direction);
     }
     void OnHit(ProjectileKind kind, PointInfo point)
     {
         if (!this.dict.TryGetValue(kind, out var info)) return;
         Debug.LogWarning($"IMPACT EFFECT! kind: {kind}, point: {point.point}");
+
+        var effect = factory.GetObject(info.impact);
+        effect.TR.position = point.point;
+        effect.TR.rotation = Quaternion.LookRotation(point.normal);
     }
 
     public void BroadcastFxEvent(ProjectileEventType eventType, ProjectileKind kind, PointInfo point)
