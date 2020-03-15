@@ -7,6 +7,7 @@ using MyTools.Extensions.Common;
 using UnityEngine.UI;
 using System;
 using MyTools.Helpers;
+using TMPro;
 
 public class GameUI : UIBase
 {
@@ -16,6 +17,7 @@ public class GameUI : UIBase
     [SerializeField] Joystick movement;
     [SerializeField] Joystick combat;
     [SerializeField] CombatJoystickSensor combatSensor;
+    [SerializeField] TMP_Text killCountLabel;
 
     public Joystick MovementJoystick => movement;
     public Joystick CombatJoystick => combat;
@@ -25,4 +27,6 @@ public class GameUI : UIBase
     {
         menuBtn.onClick.AddListener(() => OnMenuPressed());
     }
+
+    public void SetKillCount(int count) => killCountLabel.text = count.ToString();
 }
