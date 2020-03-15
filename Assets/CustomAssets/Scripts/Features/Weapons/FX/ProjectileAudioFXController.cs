@@ -147,6 +147,6 @@ public class ProjectileAudioFXController : MonoSingleton<ProjectileAudioFXContro
             EditorGUI.indentLevel = tmpInd;
         }
     }
-}
 #endif
+}
 
