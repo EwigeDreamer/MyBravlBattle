@@ -23,7 +23,7 @@ public class NetworkPlayerGrassVisibility : NetworkBehaviour
 
     private void Start()
     {
-        if (isServer)
+        if (isLocalPlayer)
         {
             this.grassTrigger.OnEnter += AddGrass;
             this.grassTrigger.OnExit += RemoveGrass;
@@ -46,13 +46,13 @@ public class NetworkPlayerGrassVisibility : NetworkBehaviour
     {
         if (this.grassList.Contains(player)) return;
         this.grassList.Add(player);
-        this.view.CmdSetVisible(this.grassList.Count < 1);
+        this.view.SetVisible(this.grassList.Count < 1);
     }
 
     void RemoveGrass(PlayerVisibilitySensor player)
     {
         if (player == null) return;
         this.grassList.Remove(player);
-        this.view.CmdSetVisible(this.grassList.Count < 1);
+        this.view.SetVisible(this.grassList.Count < 1);
     }
 }
