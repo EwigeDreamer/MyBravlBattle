@@ -169,6 +169,11 @@ PrefabInstance:
       propertyPath: projectileCtrl
       value: 
       objectReference: {fileID: 6421604020904292435}
+    - target: {fileID: 1038400899637619237, guid: 92c782368cfe20845ba6ac6572931be5,
+        type: 3}
+      propertyPath: manager
+      value: 
+      objectReference: {fileID: 1867074863}
     - target: {fileID: 1038400899637619239, guid: 92c782368cfe20845ba6ac6572931be5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -303,6 +308,11 @@ PrefabInstance:
       propertyPath: projectileCtrl
       value: 
       objectReference: {fileID: 6421604020904292435}
+    - target: {fileID: 6091246988846219513, guid: 2589726c99445c8458d5e7a70d1c8bcf,
+        type: 3}
+      propertyPath: manager
+      value: 
+      objectReference: {fileID: 1867074863}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2589726c99445c8458d5e7a70d1c8bcf, type: 3}
 --- !u!1001 &1867074861
