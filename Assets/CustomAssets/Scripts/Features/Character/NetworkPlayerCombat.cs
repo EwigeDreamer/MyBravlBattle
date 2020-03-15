@@ -52,6 +52,7 @@ public class NetworkPlayerCombat : NetworkBehaviour
             isServer = this.isServer
         };
         this.weapon = new Weapon(weaponPoint, weaponPoint, info);
+        this.weapon.Model.SetVisible(this.view.IsVisible);
         OnSetWeapon(kind);
     }
 
