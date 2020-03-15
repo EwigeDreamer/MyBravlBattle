@@ -43,13 +43,9 @@ namespace MyTools.Pooling
             public SerializedString(SerializedProperty property) { serProp = property; }
         }
 
-        public override float GetPropertyHeight(SerializedProperty serProp, GUIContent label)
-        {
-            return LineHeight;
-        }
-
         public override void OnGUI(Rect rect, SerializedProperty serProp, GUIContent label)
         {
+            var hasLabel = !string.IsNullOrWhiteSpace(label.text);
             if (serProp.propertyType != SerializedPropertyType.String)
             {
                 EditorGUI.LabelField(EditorGUI.IndentedRect(rect), "Use PoolKey attribute with string");
@@ -61,7 +57,14 @@ namespace MyTools.Pooling
             int indentLevel = EditorGUI.indentLevel;
             EditorGUI.indentLevel = 0;
             Rect label1, field1;
-            GetRectsPair(rect, indentLevel, out label1, out field1);
+            if (hasLabel)
+                GetRectsPair(rect, indentLevel, out label1, out field1);
+            else
+            {
+                label1 = rect;
+                label1.width = 0f;
+                field1 = rect;
+            }
 
             //if (m_IPoolKeysList.Count < 1)
             //    EditorGUI.LabelField(EditorGUI.IndentedRect(rect), "There is no PoolKeys");
@@ -85,23 +88,48 @@ namespace MyTools.Pooling
                 keyList.Add(curKey);
                 index = keyList.Count - 1;
             }
-            if (m_IPoolKeysList.Count > 0)
-                EditorGUI.LabelField(label1, label);
+            if (hasLabel)
+            {
+                if (m_IPoolKeysList.Count > 0)
+                    EditorGUI.LabelField(label1, label);
+                else
+                {
+                    GUIStyle warningStyle = new GUIStyle(GUI.skin.label);
+                    warningStyle.fontStyle = FontStyle.Bold;
+                    warningStyle.normal.textColor = Color.red;
+                    EditorGUI.LabelField(label1, "No pools in scene!", warningStyle);
+                }
+                int newIndex = EditorGUI.Popup(field1, index, keyList.ToArray());
+                if (newIndex != index)
+                {
+                    if (newIndex == 0)
+                        serString.String = string.Empty;
+                    else
+                        serString.String = keyList[newIndex];
+                }
+            }
             else
             {
-                GUIStyle warningStyle = new GUIStyle(GUI.skin.label);
-                warningStyle.fontStyle = FontStyle.Bold;
-                warningStyle.normal.textColor = Color.red;
-                EditorGUI.LabelField(label1, "No pools in scene!", warningStyle);
-            }
-            int newIndex = EditorGUI.Popup(field1, index, keyList.ToArray());
-            if (newIndex != index)
-            {
-                if (newIndex == 0)
-                    serString.String = string.Empty;
+                if (m_IPoolKeysList.Count > 0)
+                {
+                    int newIndex = EditorGUI.Popup(field1, index, keyList.ToArray());
+                    if (newIndex != index)
+                    {
+                        if (newIndex == 0)
+                            serString.String = string.Empty;
+                        else
+                            serString.String = keyList[newIndex];
+                    }
+                }
                 else
-                    serString.String = keyList[newIndex];
+                {
+                    GUIStyle warningStyle = new GUIStyle(GUI.skin.label);
+                    warningStyle.fontStyle = FontStyle.Bold;
+                    warningStyle.normal.textColor = Color.red;
+                    EditorGUI.LabelField(rect, "No pools in scene!", warningStyle);
+                }
             }
+
             EditorGUI.indentLevel = indentLevel;
         }
         void GetRectsPair(Rect source, int indentLevel, out Rect label, out Rect field)

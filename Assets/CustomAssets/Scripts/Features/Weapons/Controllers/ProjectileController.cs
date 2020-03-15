@@ -5,6 +5,7 @@ using System;
 using MyTools.Helpers;
 using MyTools.Singleton;
 using UnityEngine.Networking;
+using DG.Tweening;
 
     public struct ProjectileInfo
     {
@@ -55,11 +56,24 @@ public class ProjectileController : MonoSingleton<ProjectileController>
         proj.OnFinish += DestroyProjectile;
     }
 
+    public void RegisterAlienProjectile(Projectile proj, ProjectileKind kind, WeaponInfo wInfo, Vector3 pos, Vector3 dir)
+    {
+        if (!NetworkServer.active) return;
+        if (proj == null) return;
+        NetworkServer.Spawn(proj.gameObject);
+        Subscribe(proj);
+        proj.Init(wInfo, kind, pos, dir);
+        OnShoot(proj.Info, new PointInfo { point = pos, direction = dir, normal = dir });
+    }
+
     private void DestroyProjectile(Projectile proj)
     {
-        proj.OnHit -= OnHitEvent;
-        proj.OnFinish -= DestroyProjectile;
-        NetworkServer.Destroy(proj.gameObject);
+        DOVirtual.DelayedCall(1f, () =>
+        {
+            proj.OnHit -= OnHitEvent;
+            proj.OnFinish -= DestroyProjectile;
+            NetworkServer.Destroy(proj.gameObject);
+        });
     }
 
     private void OnHitEvent(GameObject obj, ProjectileInfo info, PointInfo hit) => OnHit(obj, info, hit);

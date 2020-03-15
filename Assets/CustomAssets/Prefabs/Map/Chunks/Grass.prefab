@@ -1284,6 +1284,22 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 1997625839, guid: b158e8c38c6c99d4d97aaa82d5ad8d3c, type: 3}
+      propertyPath: m_SelectedFaces.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1997625839, guid: b158e8c38c6c99d4d97aaa82d5ad8d3c, type: 3}
+      propertyPath: m_SelectedEdges.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1997625839, guid: b158e8c38c6c99d4d97aaa82d5ad8d3c, type: 3}
+      propertyPath: m_SelectedVertices.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1997625840, guid: b158e8c38c6c99d4d97aaa82d5ad8d3c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 49c3c02661a83fd42b33859cfbf9a17d, type: 2}
     - target: {fileID: 1997625841, guid: b158e8c38c6c99d4d97aaa82d5ad8d3c, type: 3}
       propertyPath: m_Mesh
       value: 

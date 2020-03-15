@@ -238,87 +238,135 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1997625839, guid: b158e8c38c6c99d4d97aaa82d5ad8d3c, type: 3}
       propertyPath: m_Textures0.Array.data[2].y
-      value: -1
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1997625839, guid: b158e8c38c6c99d4d97aaa82d5ad8d3c, type: 3}
       propertyPath: m_Textures0.Array.data[3].y
-      value: -1
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1997625839, guid: b158e8c38c6c99d4d97aaa82d5ad8d3c, type: 3}
       propertyPath: m_Textures0.Array.data[6].y
-      value: -1
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1997625839, guid: b158e8c38c6c99d4d97aaa82d5ad8d3c, type: 3}
       propertyPath: m_Textures0.Array.data[7].y
-      value: -1
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1997625839, guid: b158e8c38c6c99d4d97aaa82d5ad8d3c, type: 3}
       propertyPath: m_Textures0.Array.data[10].y
-      value: -1
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1997625839, guid: b158e8c38c6c99d4d97aaa82d5ad8d3c, type: 3}
       propertyPath: m_Textures0.Array.data[11].y
-      value: -1
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1997625839, guid: b158e8c38c6c99d4d97aaa82d5ad8d3c, type: 3}
       propertyPath: m_Textures0.Array.data[14].y
-      value: -1
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1997625839, guid: b158e8c38c6c99d4d97aaa82d5ad8d3c, type: 3}
       propertyPath: m_Textures0.Array.data[15].y
-      value: -1
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1997625839, guid: b158e8c38c6c99d4d97aaa82d5ad8d3c, type: 3}
       propertyPath: m_SelectedFaces.Array.data[0]
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1997625839, guid: b158e8c38c6c99d4d97aaa82d5ad8d3c, type: 3}
       propertyPath: m_SelectedEdges.Array.data[0].a
-      value: 16
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 1997625839, guid: b158e8c38c6c99d4d97aaa82d5ad8d3c, type: 3}
       propertyPath: m_SelectedEdges.Array.data[0].b
-      value: 17
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 1997625839, guid: b158e8c38c6c99d4d97aaa82d5ad8d3c, type: 3}
       propertyPath: m_SelectedEdges.Array.data[1].a
-      value: 18
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 1997625839, guid: b158e8c38c6c99d4d97aaa82d5ad8d3c, type: 3}
       propertyPath: m_SelectedEdges.Array.data[1].b
-      value: 16
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 1997625839, guid: b158e8c38c6c99d4d97aaa82d5ad8d3c, type: 3}
       propertyPath: m_SelectedEdges.Array.data[2].a
-      value: 17
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 1997625839, guid: b158e8c38c6c99d4d97aaa82d5ad8d3c, type: 3}
       propertyPath: m_SelectedEdges.Array.data[2].b
-      value: 19
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 1997625839, guid: b158e8c38c6c99d4d97aaa82d5ad8d3c, type: 3}
       propertyPath: m_SelectedEdges.Array.data[3].a
-      value: 19
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 1997625839, guid: b158e8c38c6c99d4d97aaa82d5ad8d3c, type: 3}
       propertyPath: m_SelectedEdges.Array.data[3].b
-      value: 18
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 1997625839, guid: b158e8c38c6c99d4d97aaa82d5ad8d3c, type: 3}
       propertyPath: m_SelectedVertices.Array.data[0]
-      value: 16
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 1997625839, guid: b158e8c38c6c99d4d97aaa82d5ad8d3c, type: 3}
       propertyPath: m_SelectedVertices.Array.data[1]
-      value: 17
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 1997625839, guid: b158e8c38c6c99d4d97aaa82d5ad8d3c, type: 3}
       propertyPath: m_SelectedVertices.Array.data[2]
-      value: 18
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 1997625839, guid: b158e8c38c6c99d4d97aaa82d5ad8d3c, type: 3}
       propertyPath: m_SelectedVertices.Array.data[3]
-      value: 19
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1997625839, guid: b158e8c38c6c99d4d97aaa82d5ad8d3c, type: 3}
+      propertyPath: m_Faces.Array.data[0].m_Uv.m_Offset.y
+      value: -2.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1997625839, guid: b158e8c38c6c99d4d97aaa82d5ad8d3c, type: 3}
+      propertyPath: m_Textures0.Array.data[0].y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1997625839, guid: b158e8c38c6c99d4d97aaa82d5ad8d3c, type: 3}
+      propertyPath: m_Textures0.Array.data[1].y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1997625839, guid: b158e8c38c6c99d4d97aaa82d5ad8d3c, type: 3}
+      propertyPath: m_Textures0.Array.data[4].y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1997625839, guid: b158e8c38c6c99d4d97aaa82d5ad8d3c, type: 3}
+      propertyPath: m_Textures0.Array.data[5].y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1997625839, guid: b158e8c38c6c99d4d97aaa82d5ad8d3c, type: 3}
+      propertyPath: m_Textures0.Array.data[8].y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1997625839, guid: b158e8c38c6c99d4d97aaa82d5ad8d3c, type: 3}
+      propertyPath: m_Textures0.Array.data[9].y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1997625839, guid: b158e8c38c6c99d4d97aaa82d5ad8d3c, type: 3}
+      propertyPath: m_Textures0.Array.data[12].y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1997625839, guid: b158e8c38c6c99d4d97aaa82d5ad8d3c, type: 3}
+      propertyPath: m_Textures0.Array.data[13].y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1997625839, guid: b158e8c38c6c99d4d97aaa82d5ad8d3c, type: 3}
+      propertyPath: m_Faces.Array.data[1].m_Uv.m_Offset.y
+      value: -2.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1997625839, guid: b158e8c38c6c99d4d97aaa82d5ad8d3c, type: 3}
+      propertyPath: m_Faces.Array.data[2].m_Uv.m_Offset.y
+      value: -2.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1997625839, guid: b158e8c38c6c99d4d97aaa82d5ad8d3c, type: 3}
+      propertyPath: m_Faces.Array.data[3].m_Uv.m_Offset.y
+      value: -2.25
       objectReference: {fileID: 0}
     - target: {fileID: 1997625841, guid: b158e8c38c6c99d4d97aaa82d5ad8d3c, type: 3}
       propertyPath: m_Mesh

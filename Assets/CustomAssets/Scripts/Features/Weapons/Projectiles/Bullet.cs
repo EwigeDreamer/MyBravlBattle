@@ -13,8 +13,8 @@ public class Bullet : Projectile
 
     protected override void RpcGo()
     {
-        lastPos = firstPos = transform.position;
-        isActive = true;
+        this.lastPos = this.firstPos = transform.position;
+        this.isActive = true;
     }
 
     protected override void RpcStop()

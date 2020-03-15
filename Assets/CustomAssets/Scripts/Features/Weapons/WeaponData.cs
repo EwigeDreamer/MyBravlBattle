@@ -24,6 +24,7 @@ public enum ProjectileKind
     PistolBullet,
     RifleBullet,
     ShotgunBullet,
+    ShotgunSubBullet,
 }
 public static class WeaponStaticData
 {
@@ -38,15 +39,18 @@ public static class WeaponStaticData
     public static RODictPKIE ProjectileEffectBindData { get; } = new RODictPKIE(new DictPKIE
         {
             { PK.PistolBullet, new List<IE> {
-                new DamageImpactEffect(20),
+                new DamageImpactEffect(10),
             }.AsReadOnly() },
 
             { PK.RifleBullet, new List<IE> {
-                new DamageImpactEffect(25),
+                new DamageImpactEffect(20),
             }.AsReadOnly() },
 
             { PK.ShotgunBullet, new List<IE> {
-                new DamageImpactEffect(20),
+            }.AsReadOnly() },
+
+            { PK.ShotgunSubBullet, new List<IE> {
+                new DamageImpactEffect(2),
             }.AsReadOnly() },
         });
 }

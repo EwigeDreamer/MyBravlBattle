@@ -73,7 +73,7 @@ public class ProjectileAudioFXController : MonoValidate
         }
         if (clips.shoot != null)
             proj.weapon.audio.PlayOneShot(clips.shoot);
-        if (clips.flight != null)
+        if (clips.flight != null && proj.instance.Audio != null)
         {
             proj.instance.Audio.clip = clips.flight;
             proj.instance.Audio.Play();
