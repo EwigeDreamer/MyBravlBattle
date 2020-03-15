@@ -14,12 +14,14 @@ public class NetworkPlayer : NetworkBehaviour
     [SerializeField] new NetworkPlayerCamera camera;
     [SerializeField] NetworkPlayerGrassXRay grassHider;
     [SerializeField] NetworkPlayerStatusBar statusBar;
+    [SerializeField] NetworkPlayerHealth health;
 
 
     public NetworkPlayerView View => this.view;
     public NetworkPlayerMotor Motor => this.motor;
     public NetworkPlayerCombat Combat => this.combat;
     public NetworkPlayerCamera Camera => this.camera;
+    public NetworkPlayerHealth Health => this.health;
 
     private void OnValidate()
     {
@@ -28,6 +30,7 @@ public class NetworkPlayer : NetworkBehaviour
         gameObject.ValidateGetComponent(ref this.combat);
         gameObject.ValidateGetComponent(ref this.camera);
         gameObject.ValidateGetComponent(ref this.grassHider);
+        gameObject.ValidateGetComponent(ref this.health);
     }
 
     private void Awake()

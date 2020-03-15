@@ -13,7 +13,7 @@ public class DamageImpactEffect : ImpactEffect
     {
         var health = go.GetComponent<NetworkPlayerHealth>();
         if (health == null) return;
-        health.CmdSetDamage(this.damage);
+        health.SetDamage(this.damage, proj.weapon.owner);
     }
 }
 

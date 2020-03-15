@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using MyTools.Singleton;
 using UnityEngine.Networking;
+using System;
 
 [System.Serializable]
 public class PlayerRefreshMessage : MessageBase { }
@@ -10,6 +11,9 @@ public class PlayerRefreshMessage : MessageBase { }
 public class PlayerController : MonoSingleton<PlayerController>
 {
     const short msgType = MsgType.Highest + 2;
+
+    public event Action<NetworkPlayer> OnRegister = delegate { };
+    public event Action<NetworkPlayer> OnUnregister = delegate { };
 
     [SerializeField] CustomNetworkManager manager;
     PlayerRefreshMessage refreshMessage = new PlayerRefreshMessage();
@@ -32,8 +36,16 @@ public class PlayerController : MonoSingleton<PlayerController>
         this.manager.OnOtherCientReady += conn => SendRefreshMessage(conn, this.refreshMessage);
     }
 
-    public void Register(NetworkPlayer player) => allPlayers.Add(player);
-    public void Unregister(NetworkPlayer player) => allPlayers.Remove(player);
+    public void Register(NetworkPlayer player)
+    {
+        allPlayers.Add(player);
+        OnRegister(player);
+    }
+    public void Unregister(NetworkPlayer player)
+    {
+        allPlayers.Remove(player);
+        OnUnregister(player);
+    }
 
     public void RegisterLocal(NetworkPlayer player)
     {

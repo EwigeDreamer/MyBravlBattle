@@ -5,6 +5,7 @@ using UnityEngine.Networking;
 using MyTools.Extensions.GameObjects;
 using DG.Tweening;
 using MyTools.Extensions.Vectors;
+using MyTools.ValueInfo;
 
 public class NetworkPlayerStatusBar : NetworkBehaviour
 {
@@ -25,8 +26,8 @@ public class NetworkPlayerStatusBar : NetworkBehaviour
     private void Awake()
     {
         this.view.OnChangeVisible += state => this.bar.SetActive(state);
-        this.health.OnDamage += _ => RefreshHp();
-        this.health.OnHeal += _ => RefreshHp();
+        this.health.OnDamage += (_, hp) => RefreshHp(hp);
+        this.health.OnHeal += (_, hp) => RefreshHp(hp);
         this.health.OnReset += () => RefreshHp();
     }
 
@@ -39,6 +40,10 @@ public class NetworkPlayerStatusBar : NetworkBehaviour
     void RefreshHp()
     {
         var hp = this.health.Hp;
+        RefreshHp(hp);
+    }
+    void RefreshHp(IntInfo hp)
+    {
         this.bar.SetHpValue(hp.Normalize);
     }
 

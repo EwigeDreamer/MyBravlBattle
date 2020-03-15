@@ -61,6 +61,16 @@ public class CustomNetworkManager : NetworkManager
         }
     }
 
+    public void Respawn(NetworkPlayer player)
+    {
+        if (!NetworkServer.active) return;
+        var conn = player.connectionToClient;
+        NetworkServer.Destroy(player.gameObject);
+        var point = MapController.I.GetRandomSpawnPoint();
+        var newPlayer = Instantiate(playerPrefab, point, Quaternion.identity);
+        NetworkServer.ReplacePlayerForConnection(conn, newPlayer, 0);
+    }
+
     public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId)
     { AddPlayer(conn, playerControllerId); }
     public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId, NetworkReader extraMessageReader)
