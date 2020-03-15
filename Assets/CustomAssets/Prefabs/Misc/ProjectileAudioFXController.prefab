@@ -46,6 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_OverrideSingleton: 1
   m_MakeDontDestroy: 1
+  manager: {fileID: 0}
   projectileCtrl: {fileID: 0}
   projectileClips:
   - kind: 0
@@ -61,11 +62,6 @@ MonoBehaviour:
   - kind: 2
     clips:
       shoot: {fileID: 8300000, guid: 1e0a0add99a2a6b458c3d1e70abeb304, type: 3}
-      flight: {fileID: 0}
-      hit: {fileID: 0}
-  - kind: 3
-    clips:
-      shoot: {fileID: 0}
       flight: {fileID: 0}
       hit: {fileID: 8300000, guid: d0de7e464d381f74c87602a6430c205f, type: 3}
 --- !u!114 &1038400899637619238

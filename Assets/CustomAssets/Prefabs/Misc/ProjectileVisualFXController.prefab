@@ -43,6 +43,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78b1914b5ae8b0d4b95c849fa94e9118, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_OverrideSingleton: 1
+  m_MakeDontDestroy: 1
+  manager: {fileID: 0}
   projectileCtrl: {fileID: 0}
   infoList:
   - kind: 0
@@ -52,8 +55,5 @@ MonoBehaviour:
     shoot: 
     impact: 
   - kind: 2
-    shoot: 
-    impact: 
-  - kind: 3
     shoot: 
     impact: 
