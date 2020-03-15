@@ -26,8 +26,9 @@ public class MatchController : MonoSingleton<MatchController>
         ValidateFind(ref this.playerController);
     }
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         this.playerController.OnRegister += Subscribe;
         this.playerController.OnUnregister += Unsubscribe;
     }
