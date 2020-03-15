@@ -13,33 +13,36 @@ public class NetworkPlayerHealth : NetworkBehaviour
     public event Action OnReset = delegate { };
 
 
-    [SerializeField] [SyncVar] IntInfo hp = new IntInfo { Min = 0, Max = 100, Value = 100 };
+    [SerializeField] IntInfo hp = new IntInfo { Min = 0, Max = 100, Value = 100 };
 
     public IntInfo Hp => hp;
 
+
     [Command] public void CmdSetDamage(int damage)
     {
-        if (hp.IsMin) return;
-        damage = Math.Min(hp.Value, damage);
-        hp -= damage;
-        RpcSetDamage(damage, hp.IsZero);
-    }
-    [ClientRpc] void RpcSetDamage(int damage, bool dead)
-    {
-        OnDamage(damage);
-        if (dead) OnDead();
+        if (this.hp.IsMin) return;
+        var newHp = this.hp;
+        newHp.Value -= damage;
+        RpcSetNewHpValue(newHp);
     }
 
     [Command] public void CmdSetHeal(int heal)
     {
-        if (hp.IsMax) return;
-        heal = Math.Min(hp.Max - hp.Value, heal);
-        hp += heal;
-        RpcSetHeal(heal);
+        if (this.hp.IsMax) return;
+        var newHp = this.hp;
+        newHp.Value += heal;
+        RpcSetNewHpValue(newHp);
     }
-    [ClientRpc] public void RpcSetHeal(int heal)
+
+    [ClientRpc]
+    void RpcSetNewHpValue(IntInfo hp)
     {
-        OnHeal(heal);
+        int diff = hp.value - this.hp.value;
+        if (diff == 0) return;
+        this.hp = hp;
+        if (diff > 0) OnHeal(diff);
+        if (diff < 0) OnDamage(-diff);
+        if (hp.IsZero) OnDead();
     }
 
     [Command] public void CmdResetHealth() => RpcResetHealth();
