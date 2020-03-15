@@ -1166,7 +1166,7 @@ GameObject:
   - component: {fileID: 2147719707633250153}
   - component: {fileID: 1581788092247750179}
   - component: {fileID: 5197438376504611424}
-  m_Layer: 30
+  m_Layer: 28
   m_Name: TransparencySensor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1227,7 +1227,7 @@ GameObject:
   - component: {fileID: 9051078890754019877}
   - component: {fileID: 4026075275266225926}
   - component: {fileID: 2243607724233860013}
-  m_Layer: 30
+  m_Layer: 28
   m_Name: PlayerVisibilitySensor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
