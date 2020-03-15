@@ -24,8 +24,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 211687833585092709}
-  m_LocalRotation: {x: -0.25482658, y: -0.0000000067578245, z: 0.00000009133125, w: -0.9669868}
-  m_LocalPosition: {x: 0, y: 10, z: -15}
+  m_LocalRotation: {x: 0.38268343, y: -0, z: -0, w: 0.92387956}
+  m_LocalPosition: {x: 0, y: 15, z: -15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4973867047127037162}
@@ -54,7 +54,7 @@ MonoBehaviour:
   m_Follow: {fileID: 4591277754158408562}
   m_Lens:
     FieldOfView: 40
-    OrthographicSize: 10
+    OrthographicSize: 7.5
     NearClipPlane: 0.1
     FarClipPlane: 5000
     Dutch: 0
@@ -2351,6 +2351,8 @@ MonoBehaviour:
   combat: {fileID: 5385634746262720155}
   camera: {fileID: 1602543067227078258}
   grassHider: {fileID: 2049907700423952648}
+  statusBar: {fileID: 221469983646583485}
+  health: {fileID: 4294704337178487838}
 --- !u!114 &2604893656049848191
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2391,6 +2393,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 1965488571106824410}
   speed: 5
+  collider: {fileID: 716418250434942014}
 --- !u!114 &5385634746262720155
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2403,6 +2406,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 665947f7f5236e34f864cd4066d1da5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  view: {fileID: 2604893656049848191}
   weaponPoint: {fileID: 5497406277178365730}
   hitMask:
     serializedVersion: 2
@@ -2420,6 +2424,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 919aeea59b6e0b14abdb4adc988eaad2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 3105087443282543351}
   hp:
     min: 0
     max: 100
@@ -2492,6 +2497,8 @@ MonoBehaviour:
   bar: {fileID: 8569361510381832688}
   health: {fileID: 4294704337178487838}
   view: {fileID: 2604893656049848191}
+  myColor: {r: 0, g: 1, b: 0, a: 1}
+  enemyColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!114 &114463258017342276
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2641,8 +2648,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4973867047127037162}
   - component: {fileID: 3538038747266017109}
-  - component: {fileID: 4386607250336223007}
   - component: {fileID: 8146958523658272679}
+  - component: {fileID: 7842646157250308624}
   m_Layer: 0
   m_Name: cm
   m_TagString: Untagged
@@ -2676,33 +2683,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &4386607250336223007
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7595911921716708709}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4044717213e31446939f7bd49c896ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_TrackedObjectOffset: {x: 0, y: 0, z: 0}
-  m_LookaheadTime: 0
-  m_LookaheadSmoothing: 10
-  m_LookaheadIgnoreY: 0
-  m_HorizontalDamping: 0.5
-  m_VerticalDamping: 0.5
-  m_ScreenX: 0.5
-  m_ScreenY: 0.6
-  m_DeadZoneWidth: 0
-  m_DeadZoneHeight: 0
-  m_SoftZoneWidth: 0.8
-  m_SoftZoneHeight: 0.8
-  m_BiasX: 0
-  m_BiasY: 0
-  m_CenterOnActivate: 1
 --- !u!114 &8146958523658272679
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2716,12 +2696,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 4
-  m_FollowOffset: {x: 0, y: 10, z: -15}
-  m_XDamping: 1
-  m_YDamping: 1
-  m_ZDamping: 1
+  m_FollowOffset: {x: 0, y: 15, z: -15}
+  m_XDamping: 0
+  m_YDamping: 0
+  m_ZDamping: 0
   m_AngularDampingMode: 0
   m_PitchDamping: 0
   m_YawDamping: 0
   m_RollDamping: 0
   m_AngularDamping: 0
+--- !u!114 &7842646157250308624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7595911921716708709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e8b78ac948f05a46a6d8339a503172b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

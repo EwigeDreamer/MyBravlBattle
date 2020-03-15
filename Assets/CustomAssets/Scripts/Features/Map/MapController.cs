@@ -103,14 +103,16 @@ public class MapController : MonoSingleton<MapController>
         DestroyMap();
         var chunks = this.chunkData.Chunks;
         var chunkSize = this.chunkData.ChunkSize;
-        var mapOffset = new Vector2((preset.rows - 1) * chunkSize.y / -2f, (preset.columns - 1) * chunkSize.x / -2f).ToV3_x0y();
+        var mapOffset = new Vector2((preset.columns - 1) * chunkSize.x / -2f, (preset.rows - 1) * chunkSize.y / -2f).ToV3_x0y();
         for (int i = 0; i < preset.rows; ++i)
             for (int j = 0; j < preset.columns; ++j)
             {
-                var pos = new Vector2(j * chunkSize.x, (preset.rows - i) * chunkSize.y).ToV3_x0y() + mapOffset;
+                var pos = new Vector2(j * chunkSize.x, (preset.rows - i - 1f) * chunkSize.y).ToV3_x0y() + mapOffset;
                 if (chunks.TryGetValue(preset[i, j], out var chunkPrefab))
                 {
-                    var chunk = Instantiate(chunks[preset[i, j]], pos, Quaternion.identity, transform);
+                    var chunk = Instantiate(chunks[preset[i, j]], transform);
+                    chunk.TR.localPosition = pos;
+                    chunk.TR.localRotation = Quaternion.identity;
                     this.mapCchunks.Add(chunk);
                     chunk.Init();
                 }
