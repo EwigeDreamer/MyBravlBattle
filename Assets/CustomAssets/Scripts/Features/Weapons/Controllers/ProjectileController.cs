@@ -7,18 +7,20 @@ using MyTools.Singleton;
 using UnityEngine.Networking;
 using DG.Tweening;
 
-    public struct ProjectileInfo
-    {
-        public Projectile instance;
-        public WeaponInfo weapon;
-        public ProjectileKind kind;
-    }
-    public struct PointInfo
-    {
-        public Vector3 point;
-        public Vector3 direction;
-        public Vector3 normal;
-    }
+public enum ProjectileEventType { Shoot, Hit }
+
+public struct ProjectileInfo
+{
+    public Projectile instance;
+    public WeaponInfo weapon;
+    public ProjectileKind kind;
+}
+public struct PointInfo
+{
+    public Vector3 point;
+    public Vector3 direction;
+    public Vector3 normal;
+}
 
 public class ProjectileController : MonoSingleton<ProjectileController>
 {

@@ -5,9 +5,23 @@ using MyTools.Helpers;
 using OneLine;
 using MyTools.Pooling;
 using System.Collections.ObjectModel;
+using MyTools.Singleton;
+using UnityEngine.Networking;
 
-public class ProjectileVisualFXController : MonoValidate
+
+[System.Serializable]
+public class ProjectileVisualFXMessage : MessageBase
 {
+    public ProjectileEventType eventType;
+    public ProjectileKind kind;
+    public PointInfo point;
+}
+
+public class ProjectileVisualFXController : MonoSingleton<ProjectileVisualFXController>
+{
+    const short msgType = MsgType.Highest + 4;
+
+    [SerializeField] CustomNetworkManager manager;
     [SerializeField] ProjectileController projectileCtrl;
 
     [SerializeField, OneLine(Header = LineHeader.Short)]
@@ -15,32 +29,50 @@ public class ProjectileVisualFXController : MonoValidate
 
     Dictionary<ProjectileKind, ProjectileEffectInfo> dict = new Dictionary<ProjectileKind, ProjectileEffectInfo>();
 
-
+    ProjectileVisualFXMessage msg = new ProjectileVisualFXMessage();
 
     protected override void OnValidate()
     {
         base.OnValidate();
         ValidateFind(ref this.projectileCtrl);
+        ValidateFind(ref this.manager);
     }
-    void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         this.dict = new Dictionary<ProjectileKind, ProjectileEffectInfo>();
         foreach (var item in this.infoList) this.dict[item.kind] = item;
-        projectileCtrl.OnShoot += OnShootEvent;
-        projectileCtrl.OnHit += OnHitEvent;
+        this.manager.OnClientStarted += client => client.RegisterHandler(msgType, ReceiveFxEvent);
+        this.projectileCtrl.OnShoot += (proj, point) => BroadcastFxEvent(ProjectileEventType.Shoot, proj.kind, point);
+        this.projectileCtrl.OnHit += (_, proj, point) => BroadcastFxEvent(ProjectileEventType.Hit, proj.kind, point);
     }
 
-    private void OnShootEvent(ProjectileInfo proj, PointInfo point)
+    void OnShoot(ProjectileKind kind, PointInfo point)
     {
-        var kind = proj.kind;
         if (!this.dict.TryGetValue(kind, out var info)) return;
-        Debug.LogWarning("SHOOT EFFECT!");
+        Debug.LogWarning($"SHOOT EFFECT! kind: {kind}, point: {point.point}");
     }
-    private void OnHitEvent(GameObject obj, ProjectileInfo proj, PointInfo hit)
+    void OnHit(ProjectileKind kind, PointInfo point)
     {
-        var kind = proj.kind;
         if (!this.dict.TryGetValue(kind, out var info)) return;
-        Debug.LogWarning("IMPACT EFFECT!");
+        Debug.LogWarning($"IMPACT EFFECT! kind: {kind}, point: {point.point}");
+    }
+
+    public void BroadcastFxEvent(ProjectileEventType eventType, ProjectileKind kind, PointInfo point)
+    {
+        if (!NetworkServer.active) return;
+        this.msg.eventType = eventType;
+        this.msg.kind = kind;
+        this.msg.point = point;
+        foreach (var conn in NetworkServer.connections)
+            NetworkServer.SendToClient(conn.connectionId, msgType, this.msg);
+    }
+    public void ReceiveFxEvent(NetworkMessage netMsg)
+    {
+        var msg = netMsg.ReadMessage<ProjectileVisualFXMessage>();
+        if (msg == null) return;
+        if (msg.eventType == ProjectileEventType.Shoot) OnShoot(msg.kind, msg.point);
+        if (msg.eventType == ProjectileEventType.Hit) OnHit(msg.kind, msg.point);
     }
 
 

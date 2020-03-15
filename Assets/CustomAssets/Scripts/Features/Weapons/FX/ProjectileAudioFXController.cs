@@ -3,12 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using MyTools.Extensions.Rects;
 using MyTools.Helpers;
+using MyTools.Singleton;
+using UnityEngine.Networking;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
 
-public class ProjectileAudioFXController : MonoValidate
+[System.Serializable]
+public class ProjectileAudioFXMessage : MessageBase
 {
+    public ProjectileEventType eventType;
+    public ProjectileKind kind;
+    public Vector3 point;
+}
+
+public class ProjectileAudioFXController : MonoSingleton<ProjectileAudioFXController>
+{
+    const short msgType = MsgType.Highest + 5;
+
     [System.Serializable]
     public struct ProjectileAudioClips
     {
@@ -24,92 +36,84 @@ public class ProjectileAudioFXController : MonoValidate
     }
 
 #pragma warning disable 649
-    [SerializeField] ProjectileController m_ProjectileCtrl;
-    [SerializeField] ProjectileAudioClipsInfo[] m_ProjectileClips;
-    Dictionary<ProjectileKind, ProjectileAudioClips> m_ClipsDictionary;
-    IAudioPointFactory m_Factory;
+    [SerializeField] CustomNetworkManager manager;
+    [SerializeField] ProjectileController projectileCtrl;
+    [SerializeField] ProjectileAudioClipsInfo[] projectileClips;
+    Dictionary<ProjectileKind, ProjectileAudioClips> clipsDictionary;
+    IAudioPointFactory factory;
 #pragma warning restore 649
+
+    ProjectileAudioFXMessage msg = new ProjectileAudioFXMessage();
 
     protected override void OnValidate()
     {
         base.OnValidate();
-        ValidateFind(ref m_ProjectileCtrl);
+        ValidateFind(ref this.projectileCtrl);
+        ValidateFind(ref this.manager);
     }
 
-    void Awake()
+    protected override void Awake()
     {
-        if (!ValidateGetComponent(ref m_ProjectileCtrl))
-        {
-            MyLogger.NotFoundObjectError<ProjectileAudioFXController, ProjectileController>();
-            return;
-        }
-        if (!ValidateGetComponent(ref m_Factory))
-        {
-            MyLogger.NotFoundObjectError<ProjectileAudioFXController, IAudioPointFactory>();
-            return;
-        }
-        Init();
-    }
-
-    void Init()
-    {
-        var clips = m_ProjectileClips;
+        base.Awake();
+        ValidateGetComponent(ref this.factory);
+        var clips = this.projectileClips;
         var count = clips.Length;
         var dict = new Dictionary<ProjectileKind, ProjectileAudioClips>(count);
         for (int i = 0; i < count; ++i)
             dict[clips[i].kind] = clips[i].clips;
-        m_ClipsDictionary = dict;
-        m_ProjectileCtrl.OnShoot += OnShootEvent;
-        m_ProjectileCtrl.OnHit += OnHitEvent;
+        this.clipsDictionary = dict;
+        manager.OnClientStarted += client => client.RegisterHandler(msgType, ReceiveFxEvent);
+        this.projectileCtrl.OnShoot += (proj, point) => BroadcastFxEvent(ProjectileEventType.Shoot, proj.kind, point.point);
+        this.projectileCtrl.OnHit += (_, proj, point) => BroadcastFxEvent(ProjectileEventType.Hit, proj.kind, point.point);
     }
 
 
-    private void OnShootEvent(ProjectileInfo proj, PointInfo point)
+    void OnShoot(ProjectileKind kind, Vector3 point)
     {
-        if (!m_ClipsDictionary.TryGetValue(proj.kind, out var clips))
+        if (!this.clipsDictionary.TryGetValue(kind, out var clips))
         {
-            MyLogger.ObjectErrorFormat<ProjectileAudioFXController>("don't contain \"{0}\" kind!", proj.kind);
+            Debug.LogError($"{typeof(ProjectileAudioFXController).Name}: don't contain \"{kind}\" kind!", gameObject);
             return;
         }
         if (clips.shoot != null)
-            proj.weapon.audio.PlayOneShot(clips.shoot);
-        if (clips.flight != null && proj.instance.Audio != null)
         {
-            proj.instance.Audio.clip = clips.flight;
-            proj.instance.Audio.Play();
+            var sound = factory.GetObject();
+            sound.PlayOneShoot(point, clips.shoot);
         }
     }
-    private void OnHitEvent(GameObject obj, ProjectileInfo proj, PointInfo hit)
+    void OnHit(ProjectileKind kind, Vector3 point)
     {
-        if (m_Factory == null) return;
-        if (!m_ClipsDictionary.TryGetValue(proj.kind, out var clips))
+        if (!this.clipsDictionary.TryGetValue(kind, out var clips))
         {
-            MyLogger.ObjectErrorFormat<ProjectileAudioFXController>("don't contain \"{0}\" kind!", proj.kind);
+            Debug.LogError($"{typeof(ProjectileAudioFXController).Name}: don't contain \"{kind}\" kind!", gameObject);
             return;
         }
-        proj.instance.Audio.Stop();
-        proj.instance.Audio.clip = null;
-        var sound = m_Factory.GetObject();
-        sound.PlayOneShoot(hit.point, clips.hit);
+        if (clips.hit != null)
+        {
+            var sound = factory.GetObject();
+            sound.PlayOneShoot(point, clips.hit);
+        }
+    }
+
+    public void BroadcastFxEvent(ProjectileEventType eventType, ProjectileKind kind, Vector3 point)
+    {
+        if (!NetworkServer.active) return;
+        this.msg.eventType = eventType;
+        this.msg.kind = kind;
+        this.msg.point = point;
+        foreach (var conn in NetworkServer.connections)
+            NetworkServer.SendToClient(conn.connectionId, msgType, this.msg);
+    }
+    public void ReceiveFxEvent(NetworkMessage netMsg)
+    {
+        var msg = netMsg.ReadMessage<ProjectileAudioFXMessage>();
+        if (msg == null) return;
+        if (msg.eventType == ProjectileEventType.Shoot) OnShoot(msg.kind, msg.point);
+        if (msg.eventType == ProjectileEventType.Hit) OnHit(msg.kind, msg.point);
     }
 
 
 #if UNITY_EDITOR
-    [CustomEditor(typeof(ProjectileAudioFXController))]
-    public class ProjectilePooledFactoryEditor : Editor
-    {
-        public override void OnInspectorGUI()
-        {
-            EditorGUI.BeginDisabledGroup(true);
-            EditorGUILayout.ObjectField("Script", MonoScript.FromMonoBehaviour((ProjectileAudioFXController)target), typeof(ProjectileAudioFXController), false);
-            EditorGUI.EndDisabledGroup();
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("m_ProjectileCtrl"));
-            EditorGUI.BeginDisabledGroup(Application.isPlaying);
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("m_ProjectileClips"), true);
-            EditorGUI.EndDisabledGroup();
-            serializedObject.ApplyModifiedProperties();
-        }
-    }
     [CustomPropertyDrawer(typeof(ProjectileAudioFXController.ProjectileAudioClipsInfo))]
     public class ProjectileAudioClipsInfoDrawer : PropertyDrawer
     {

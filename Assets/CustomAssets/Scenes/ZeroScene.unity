@@ -157,63 +157,154 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   forDontDestroy: []
   forDestroy: []
---- !u!1 &1721103847
-GameObject:
+--- !u!1001 &865294273
+PrefabInstance:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1721103848}
-  - component: {fileID: 1721103849}
-  m_Layer: 0
-  m_Name: ProjectileVisualFXController
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1721103848
-Transform:
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1038400899637619237, guid: 92c782368cfe20845ba6ac6572931be5,
+        type: 3}
+      propertyPath: projectileCtrl
+      value: 
+      objectReference: {fileID: 6421604020904292435}
+    - target: {fileID: 1038400899637619239, guid: 92c782368cfe20845ba6ac6572931be5,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1038400899637619239, guid: 92c782368cfe20845ba6ac6572931be5,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1038400899637619239, guid: 92c782368cfe20845ba6ac6572931be5,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1038400899637619239, guid: 92c782368cfe20845ba6ac6572931be5,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1038400899637619239, guid: 92c782368cfe20845ba6ac6572931be5,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1038400899637619239, guid: 92c782368cfe20845ba6ac6572931be5,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1038400899637619239, guid: 92c782368cfe20845ba6ac6572931be5,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1038400899637619239, guid: 92c782368cfe20845ba6ac6572931be5,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1038400899637619239, guid: 92c782368cfe20845ba6ac6572931be5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1038400899637619239, guid: 92c782368cfe20845ba6ac6572931be5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1038400899637619239, guid: 92c782368cfe20845ba6ac6572931be5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1038400899637619240, guid: 92c782368cfe20845ba6ac6572931be5,
+        type: 3}
+      propertyPath: m_Name
+      value: ProjectileAudioFXController
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 92c782368cfe20845ba6ac6572931be5, type: 3}
+--- !u!1001 &1110809196
+PrefabInstance:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1721103847}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 6421604020904292436}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1721103849
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1721103847}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78b1914b5ae8b0d4b95c849fa94e9118, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  projectileCtrl: {fileID: 6421604020904292435}
-  infoList:
-  - kind: 0
-    shoot: 
-    impact: 
-  - kind: 1
-    shoot: 
-    impact: 
-  - kind: 2
-    shoot: 
-    impact: 
-  - kind: 3
-    shoot: 
-    impact: 
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6091246988846219511, guid: 2589726c99445c8458d5e7a70d1c8bcf,
+        type: 3}
+      propertyPath: m_Name
+      value: ProjectileVisualFXController
+      objectReference: {fileID: 0}
+    - target: {fileID: 6091246988846219512, guid: 2589726c99445c8458d5e7a70d1c8bcf,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6091246988846219512, guid: 2589726c99445c8458d5e7a70d1c8bcf,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6091246988846219512, guid: 2589726c99445c8458d5e7a70d1c8bcf,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6091246988846219512, guid: 2589726c99445c8458d5e7a70d1c8bcf,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6091246988846219512, guid: 2589726c99445c8458d5e7a70d1c8bcf,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6091246988846219512, guid: 2589726c99445c8458d5e7a70d1c8bcf,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6091246988846219512, guid: 2589726c99445c8458d5e7a70d1c8bcf,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6091246988846219512, guid: 2589726c99445c8458d5e7a70d1c8bcf,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 6091246988846219512, guid: 2589726c99445c8458d5e7a70d1c8bcf,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6091246988846219512, guid: 2589726c99445c8458d5e7a70d1c8bcf,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6091246988846219512, guid: 2589726c99445c8458d5e7a70d1c8bcf,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6091246988846219513, guid: 2589726c99445c8458d5e7a70d1c8bcf,
+        type: 3}
+      propertyPath: projectileCtrl
+      value: 
+      objectReference: {fileID: 6421604020904292435}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2589726c99445c8458d5e7a70d1c8bcf, type: 3}
 --- !u!1001 &1867074861
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -321,85 +412,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5984c6eebf44e8b47831cd5957c56f05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &2122415335
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2122415336}
-  - component: {fileID: 2122415338}
-  - component: {fileID: 2122415337}
-  m_Layer: 0
-  m_Name: ProjectileAudioFXController
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2122415336
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2122415335}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 6421604020904292436}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2122415337
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2122415335}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1e01424431c8f04da4e77833fa253d0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_AudioEffectPointKey: audio_point
---- !u!114 &2122415338
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2122415335}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed9a5a6c6720fb848bfdaad0594b0559, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ProjectileCtrl: {fileID: 6421604020904292435}
-  m_ProjectileClips:
-  - kind: 0
-    clips:
-      shoot: {fileID: 0}
-      flight: {fileID: 0}
-      hit: {fileID: 0}
-  - kind: 1
-    clips:
-      shoot: {fileID: 0}
-      flight: {fileID: 0}
-      hit: {fileID: 0}
-  - kind: 2
-    clips:
-      shoot: {fileID: 0}
-      flight: {fileID: 0}
-      hit: {fileID: 0}
-  - kind: 3
-    clips:
-      shoot: {fileID: 0}
-      flight: {fileID: 0}
-      hit: {fileID: 0}
 --- !u!1001 &2137718046
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -413,7 +425,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 22400762, guid: 67117722a812a2e46ab8cb8eafbf5f5e, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.000030517578
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 22426080, guid: 67117722a812a2e46ab8cb8eafbf5f5e, type: 3}
       propertyPath: m_AnchorMax.x
@@ -950,7 +962,7 @@ PrefabInstance:
     - target: {fileID: 3769444957434538263, guid: 6958db036b6f0d84f99c17431e365405,
         type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 3769444957434538263, guid: 6958db036b6f0d84f99c17431e365405,
         type: 3}
@@ -1237,7 +1249,7 @@ PrefabInstance:
     - target: {fileID: 5411119308938966707, guid: 198c452635806744486694ca2a171ea6,
         type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 5411119308938966707, guid: 198c452635806744486694ca2a171ea6,
         type: 3}
@@ -1263,6 +1275,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5472529946392568850, guid: 63edbb8eba27d5d429ceb819bb153ab6,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5472529946392568850, guid: 63edbb8eba27d5d429ceb819bb153ab6,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5472529946392568850, guid: 63edbb8eba27d5d429ceb819bb153ab6,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5472529946392568850, guid: 63edbb8eba27d5d429ceb819bb153ab6,
         type: 3}
       propertyPath: m_LocalRotation.x
@@ -1308,9 +1335,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: CombatControllers
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 1805131431279040937, guid: 63edbb8eba27d5d429ceb819bb153ab6, type: 3}
-    - {fileID: 2728255375253911922, guid: 63edbb8eba27d5d429ceb819bb153ab6, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 63edbb8eba27d5d429ceb819bb153ab6, type: 3}
 --- !u!114 &6421604020904292435 stripped
 MonoBehaviour:
@@ -1324,12 +1349,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d67830ae4282df4b8b781a32b34f202, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &6421604020904292436 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5472529946392568850, guid: 63edbb8eba27d5d429ceb819bb153ab6,
-    type: 3}
-  m_PrefabInstance: {fileID: 6421604020904292434}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8573638903163426947
 PrefabInstance:
   m_ObjectHideFlags: 0
