@@ -9,7 +9,7 @@ using DG.Tweening;
 [System.Serializable]
 public class PlayerKillMessage : MessageBase { }
 
-public class MatshController : MonoSingleton<MatshController>
+public class MatchController : MonoSingleton<MatchController>
 {
     const short msgType = MsgType.Highest + 3;
 
