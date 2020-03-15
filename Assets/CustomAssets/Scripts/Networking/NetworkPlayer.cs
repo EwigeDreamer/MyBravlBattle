@@ -31,6 +31,7 @@ public class NetworkPlayer : NetworkBehaviour
         gameObject.ValidateGetComponent(ref this.camera);
         gameObject.ValidateGetComponent(ref this.grassHider);
         gameObject.ValidateGetComponent(ref this.health);
+        gameObject.ValidateGetComponent(ref this.statusBar);
     }
 
     private void Awake()
