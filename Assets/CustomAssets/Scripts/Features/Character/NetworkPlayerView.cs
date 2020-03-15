@@ -5,9 +5,12 @@ using UnityEngine.Networking;
 using MyTools.Extensions.GameObjects;
 using DG.Tweening;
 using MyTools.Extensions.Vectors;
+using System;
 
 public class NetworkPlayerView : NetworkBehaviour
 {
+    public event Action<bool> OnChangeVisible = delegate { };
+
     [SerializeField] Renderer[] renderers;
     [SerializeField] Animator animator;
     [SerializeField] NetworkPlayerMotor motor;
@@ -40,12 +43,14 @@ public class NetworkPlayerView : NetworkBehaviour
     {
         this.isVisible = state;
         foreach (var r in this.renderers) r.enabled = IsVisible;
+        OnChangeVisible(IsVisible);
     }
 
     public void SetFounded(bool state)
     {
         this.isFounded = state;
         foreach (var r in this.renderers) r.enabled = IsVisible;
+        OnChangeVisible(IsVisible);
     }
 
     [Command] public void CmdSetAim(bool state, bool forced) => RpcSetAim(state, forced);

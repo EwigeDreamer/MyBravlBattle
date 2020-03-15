@@ -13,6 +13,7 @@ public class NetworkPlayer : NetworkBehaviour
     [SerializeField] NetworkPlayerCombat combat;
     [SerializeField] new NetworkPlayerCamera camera;
     [SerializeField] NetworkPlayerGrassXRay grassHider;
+    [SerializeField] NetworkPlayerStatusBar statusBar;
 
 
     public NetworkPlayerView View => this.view;
@@ -76,5 +77,6 @@ public class NetworkPlayer : NetworkBehaviour
         motor.Refresh();
         combat.Refresh();
         camera.Refresh();
+        statusBar.Refresh();
     }
 }
